@@ -1,346 +1,373 @@
+// Package main provides Guide2Go, a tool to generate XMLTV files from Schedules Direct JSON API.
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
-	"log"
-	"net/http"
 	"os"
-	"strconv"
+	"path/filepath"
 	"sync"
+	"time"
+
+	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
 )
 
-// Cache : Cache file
+const (
+	defaultCacheExpiration = 24 * time.Hour
+	maxCacheSize          = 100 * 1024 * 1024 // 100MB
+)
+
+// Cache represents the global cache instance
 var Cache cache
 var ImageError bool = false
 
-// Init : Inti cache
+// cache represents the application's cache system
+type cache struct {
+	Channel  map[string]G2GCache   `json:"Channel"`
+	Program  map[string]G2GCache   `json:"Program"`
+	Metadata map[string]G2GCache   `json:"Metadata"`
+	Schedule map[string][]G2GCache `json:"Schedule"`
+
+	stats struct {
+		Hits   int64 `json:"hits"`
+		Misses int64 `json:"misses"`
+		Size   int64 `json:"size"`
+	}
+
+	expiration time.Time `json:"expiration"`
+	sync.RWMutex
+}
+
+// Init initializes the cache with default values
 func (c *cache) Init() {
+	c.Lock()
+	defer c.Unlock()
 
 	if c.Schedule == nil {
 		c.Schedule = make(map[string][]G2GCache)
 	}
-
-	c.Channel = make(map[string]G2GCache)
-
+	if c.Channel == nil {
+		c.Channel = make(map[string]G2GCache)
+	}
 	if c.Program == nil {
 		c.Program = make(map[string]G2GCache)
 	}
-
 	if c.Metadata == nil {
 		c.Metadata = make(map[string]G2GCache)
 	}
 
+	c.expiration = time.Now().Add(defaultCacheExpiration)
 }
 
-func (c *cache) Remove() {
+// Remove removes the cache file and reinitializes the cache
+func (c *cache) Remove() error {
+	c.Lock()
+	defer c.Unlock()
 
-	if len(Config.Files.Cache) != 0 {
-
-		showInfo("G2G", fmt.Sprintf("%s [%s]", getMsg(0301), Config.Files.Cache))
-		os.RemoveAll(Config.Files.Cache)
-
-		c.Init()
-
+	if len(Config.Files.Cache) == 0 {
+		return errors.New("cache file path not configured")
 	}
 
+	logger.WithField("path", Config.Files.Cache).Info("Removing cache file")
+	if err := os.RemoveAll(Config.Files.Cache); err != nil {
+		return errors.Wrap(err, "failed to remove cache file")
+	}
+
+	c.Init()
+	return nil
 }
 
-func (c *cache) AddStations(data *[]byte, lineup string) {
-
+// AddStations adds station data to the cache
+func (c *cache) AddStations(ctx context.Context, data *[]byte, lineup string) error {
 	c.Lock()
 	defer c.Unlock()
 
 	var g2gCache G2GCache
 	var sdData SDStation
 
-	err := json.Unmarshal(*data, &sdData)
-	if err != nil {
-		ShowErr(err)
-		return
+	if err := json.Unmarshal(*data, &sdData); err != nil {
+		return errors.Wrap(err, "failed to unmarshal station data")
 	}
 
-	var channelIDs = Config.GetChannelList(lineup)
+	channelIDs := Config.GetChannelList(lineup)
+	added := 0
 
 	for _, sd := range sdData.Stations {
-
 		if ContainsString(channelIDs, sd.StationID) != -1 {
-
-			g2gCache.StationID = sd.StationID
-			g2gCache.Name = sd.Name
-			g2gCache.Callsign = sd.Callsign
-			g2gCache.Affiliate = sd.Affiliate
-			g2gCache.BroadcastLanguage = sd.BroadcastLanguage
-			g2gCache.Logo = sd.Logo
+			g2gCache = G2GCache{
+				StationID:         sd.StationID,
+				Name:             sd.Name,
+				Callsign:         sd.Callsign,
+				Affiliate:        sd.Affiliate,
+				BroadcastLanguage: sd.BroadcastLanguage,
+				Logo:             sd.Logo,
+			}
 
 			c.Channel[sd.StationID] = g2gCache
-
+			added++
 		}
-
 	}
 
+	logger.WithFields(logrus.Fields{
+		"lineup": lineup,
+		"added":  added,
+	}).Debug("Added stations to cache")
+
+	return nil
 }
 
-func (c *cache) AddSchedule(data *[]byte) {
-
+// AddSchedule adds schedule data to the cache
+func (c *cache) AddSchedule(ctx context.Context, data *[]byte) error {
 	c.Lock()
 	defer c.Unlock()
 
 	var g2gCache G2GCache
 	var sdData []SDSchedule
 
-	err := json.Unmarshal(*data, &sdData)
-	if err != nil {
-		ShowErr(err)
-		return
+	if err := json.Unmarshal(*data, &sdData); err != nil {
+		return errors.Wrap(err, "failed to unmarshal schedule data")
 	}
 
+	added := 0
 	for _, sd := range sdData {
-
 		if _, ok := c.Schedule[sd.StationID]; !ok {
 			c.Schedule[sd.StationID] = []G2GCache{}
 		}
 
 		for _, p := range sd.Programs {
-
-			g2gCache.AirDateTime = p.AirDateTime
-			g2gCache.AudioProperties = p.AudioProperties
-			g2gCache.Duration = p.Duration
-			g2gCache.LiveTapeDelay = p.LiveTapeDelay
-			g2gCache.New = p.New
-			g2gCache.Md5 = p.Md5
-			g2gCache.ProgramID = p.ProgramID
-			g2gCache.Ratings = p.Ratings
-			g2gCache.VideoProperties = p.VideoProperties
+			g2gCache = G2GCache{
+				AirDateTime:     p.AirDateTime,
+				AudioProperties: p.AudioProperties,
+				Duration:        p.Duration,
+				LiveTapeDelay:   p.LiveTapeDelay,
+				New:             p.New,
+				Md5:             p.Md5,
+				ProgramID:       p.ProgramID,
+				Ratings:         p.Ratings,
+				VideoProperties: p.VideoProperties,
+			}
 
 			c.Schedule[sd.StationID] = append(c.Schedule[sd.StationID], g2gCache)
-
+			added++
 		}
-
 	}
 
+	logger.WithField("added", added).Debug("Added schedule data to cache")
+	return nil
 }
 
-func (c *cache) AddProgram(gzip *[]byte, wg *sync.WaitGroup) {
+// AddProgram adds program data to the cache
+func (c *cache) AddProgram(ctx context.Context, gzip *[]byte, wg *sync.WaitGroup) error {
+	defer wg.Done()
 
 	c.Lock()
-
-	defer func() {
-		c.Unlock()
-		wg.Done()
-	}()
+	defer c.Unlock()
 
 	b, err := gUnzip(*gzip)
 	if err != nil {
-		ShowErr(err)
-		return
+		return errors.Wrap(err, "failed to decompress program data")
 	}
 
 	var g2gCache G2GCache
 	var sdData []SDProgram
 
-	err = json.Unmarshal(b, &sdData)
-	if err != nil {
-		ShowErr(err)
-		return
+	if err := json.Unmarshal(b, &sdData); err != nil {
+		return errors.Wrap(err, "failed to unmarshal program data")
 	}
 
+	added := 0
 	for _, sd := range sdData {
-
-		g2gCache.Descriptions = sd.Descriptions
-		g2gCache.EpisodeTitle150 = sd.EpisodeTitle150
-		g2gCache.Genres = sd.Genres
-
-		g2gCache.HasEpisodeArtwork = sd.HasEpisodeArtwork
-		g2gCache.HasImageArtwork = sd.HasImageArtwork
-		g2gCache.HasSeriesArtwork = sd.HasSeriesArtwork
-		g2gCache.Metadata = sd.Metadata
-		g2gCache.OriginalAirDate = sd.OriginalAirDate
-		g2gCache.ResourceID = sd.ResourceID
-		g2gCache.ShowType = sd.ShowType
-		g2gCache.Titles = sd.Titles
-		g2gCache.ContentRating = sd.ContentRating
-		g2gCache.Cast = sd.Cast
-		g2gCache.Crew = sd.Crew
+		g2gCache = G2GCache{
+			Descriptions:      sd.Descriptions,
+			EpisodeTitle150:   sd.EpisodeTitle150,
+			Genres:            sd.Genres,
+			HasEpisodeArtwork: sd.HasEpisodeArtwork,
+			HasImageArtwork:   sd.HasImageArtwork,
+			HasSeriesArtwork:  sd.HasSeriesArtwork,
+			Metadata:          sd.Metadata,
+			OriginalAirDate:   sd.OriginalAirDate,
+			ResourceID:        sd.ResourceID,
+			ShowType:          sd.ShowType,
+			Titles:            sd.Titles,
+			ContentRating:     sd.ContentRating,
+			Cast:              sd.Cast,
+			Crew:              sd.Crew,
+		}
 
 		c.Program[sd.ProgramID] = g2gCache
-
+		added++
 	}
 
+	logger.WithField("added", added).Debug("Added program data to cache")
+	return nil
 }
 
-func (c *cache) AddMetadata(gzip *[]byte, wg *sync.WaitGroup) {
-
-	c.Lock()
-	defer func() {
-		c.Unlock()
-		wg.Done()
-	}()
-
-	b, err := gUnzip(*gzip)
-	if err != nil {
-		ShowErr(err)
-		return
-	}
-
-	var tmp = make([]interface{}, 0)
-
-	var g2gCache G2GCache
-
-	err = json.Unmarshal(b, &tmp)
-	if err != nil {
-		ShowErr(err)
-		return
-	}
-
-	for _, t := range tmp {
-
-		var sdData SDMetadata
-
-		jsonByte, _ := json.Marshal(t)
-		err = json.Unmarshal(jsonByte, &sdData)
-		if err != nil {
-
-			var sdError SDError
-			err = json.Unmarshal(jsonByte, &sdError)
-			if err == nil {
-
-				if Config.Options.SDDownloadErrors {
-					err = fmt.Errorf("%s [SD API Error Code: %d] Program ID: %s", sdError.Data.Message, sdError.Data.Code, sdError.ProgramID)
-					ShowErr(err)
-				}
-
-			}
-
-		} else {
-
-			g2gCache.Data = sdData.Data
-			c.Metadata[sdData.ProgramID] = g2gCache
-
-		}
-
-	}
-}
-
-func (c *cache) GetAllProgramIDs() (programIDs []string) {
-
-	for _, channel := range c.Schedule {
-
-		for _, schedule := range channel {
-
-			if ContainsString(programIDs, schedule.ProgramID) == -1 {
-				programIDs = append(programIDs, schedule.ProgramID)
-			}
-
-		}
-
-	}
-
-	return
-}
-
-func (c *cache) GetRequiredProgramIDs() (programIDs []string) {
-
-	var allProgramIDs = c.GetAllProgramIDs()
-
-	for _, id := range allProgramIDs {
-
-		if _, ok := c.Program[id]; !ok {
-
-			if ContainsString(programIDs, id) == -1 {
-				programIDs = append(programIDs, id)
-			}
-
-		}
-
-	}
-
-	return
-}
-
-func (c *cache) GetRequiredMetaIDs() (metaIDs []string) {
-
-	for id := range c.Program {
-
-		if len(id) > 10 {
-
-			if _, ok := c.Metadata[id[:10]]; !ok {
-				metaIDs = append(metaIDs, id[:10])
-			}
-
-		}
-	}
-
-	return
-}
-
-func (c *cache) Open() (err error) {
-
-	data, err := ioutil.ReadFile(Config.Files.Cache)
-
-	if err != nil {
-		c.Init()
-		c.Save()
-		return nil
-	}
-
-	// Open config file and convert Yaml to Struct (config)
-	err = json.Unmarshal(data, &c)
-	if err != nil {
-		return
-	}
-
-	return
-}
-
-func (c *cache) Save() (err error) {
+// AddMetadata adds metadata to the cache
+func (c *cache) AddMetadata(ctx context.Context, gzip *[]byte, wg *sync.WaitGroup) error {
+	defer wg.Done()
 
 	c.Lock()
 	defer c.Unlock()
 
-	data, err := json.MarshalIndent(&c, "", "  ")
+	b, err := gUnzip(*gzip)
 	if err != nil {
-		return err
+		return errors.Wrap(err, "failed to decompress metadata")
 	}
 
-	err = ioutil.WriteFile(Config.Files.Cache, data, 0644)
-	if err != nil {
-		return
+	var tmp = make([]interface{}, 0)
+	if err := json.Unmarshal(b, &tmp); err != nil {
+		return errors.Wrap(err, "failed to unmarshal metadata")
 	}
 
-	return
-}
+	added := 0
+	for _, t := range tmp {
+		var sdData SDMetadata
+		jsonByte, _ := json.Marshal(t)
 
-func (c *cache) CleanUp() {
-
-	var count int
-	showInfo("G2G", fmt.Sprintf("Clean up Cache [%s]", Config.Files.Cache))
-
-	var programIDs = c.GetAllProgramIDs()
-
-	for id := range c.Program {
-
-		if ContainsString(programIDs, id) == -1 {
-
-			count++
-			delete(c.Program, id)
-			delete(c.Metadata, id[0:10])
-
+		if err := json.Unmarshal(jsonByte, &sdData); err != nil {
+			var sdError SDError
+			if err := json.Unmarshal(jsonByte, &sdError); err == nil && Config.Options.SDDownloadErrors {
+				logger.WithFields(logrus.Fields{
+					"code":      sdError.Data.Code,
+					"message":   sdError.Data.Message,
+					"programID": sdError.ProgramID,
+				}).Error("SD API error")
+			}
+			continue
 		}
 
+		c.Metadata[sdData.ProgramID] = G2GCache{Data: sdData.Data}
+		added++
 	}
 
-	c.Channel = make(map[string]G2GCache)
-	c.Schedule = make(map[string][]G2GCache)
+	logger.WithField("added", added).Debug("Added metadata to cache")
+	return nil
+}
 
-	showInfo("G2G", fmt.Sprintf("Deleted Program Informations: %d", count))
+// Open loads the cache from disk
+func (c *cache) Open() error {
+	c.Lock()
+	defer c.Unlock()
 
-	err := c.Save()
+	if len(Config.Files.Cache) == 0 {
+		return errors.New("cache file path not configured")
+	}
+
+	data, err := os.ReadFile(Config.Files.Cache)
 	if err != nil {
-		ShowErr(err)
-		return
+		if os.IsNotExist(err) {
+			c.Init()
+			return nil
+		}
+		return errors.Wrap(err, "failed to read cache file")
+	}
+
+	if err := json.Unmarshal(data, c); err != nil {
+		return errors.Wrap(err, "failed to unmarshal cache data")
+	}
+
+	// Check cache expiration
+	if time.Now().After(c.expiration) {
+		logger.Info("Cache expired, reinitializing")
+		c.Init()
+		return nil
+	}
+
+	return nil
+}
+
+// Save persists the cache to disk
+func (c *cache) Save() error {
+	c.Lock()
+	defer c.Unlock()
+
+	if len(Config.Files.Cache) == 0 {
+		return errors.New("cache file path not configured")
+	}
+
+	// Create cache directory if it doesn't exist
+	dir := filepath.Dir(Config.Files.Cache)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return errors.Wrap(err, "failed to create cache directory")
+	}
+
+	// Marshal cache data
+	data, err := json.MarshalIndent(c, "", "  ")
+	if err != nil {
+		return errors.Wrap(err, "failed to marshal cache data")
+	}
+
+	// Write to temporary file first
+	tmpFile := Config.Files.Cache + ".tmp"
+	if err := os.WriteFile(tmpFile, data, 0644); err != nil {
+		return errors.Wrap(err, "failed to write temporary cache file")
+	}
+
+	// Rename temporary file to actual file
+	if err := os.Rename(tmpFile, Config.Files.Cache); err != nil {
+		os.Remove(tmpFile) // Clean up temp file
+		return errors.Wrap(err, "failed to rename temporary cache file")
+	}
+
+	return nil
+}
+
+// CleanUp removes expired entries from the cache
+func (c *cache) CleanUp() {
+	c.Lock()
+	defer c.Unlock()
+
+	now := time.Now()
+	expired := 0
+
+	// Clean up schedules
+	for stationID, schedules := range c.Schedule {
+		var validSchedules []G2GCache
+		for _, schedule := range schedules {
+			if schedule.AirDateTime.After(now) {
+				validSchedules = append(validSchedules, schedule)
+			} else {
+				expired++
+			}
+		}
+		if len(validSchedules) == 0 {
+			delete(c.Schedule, stationID)
+		} else {
+			c.Schedule[stationID] = validSchedules
+		}
+	}
+
+	// Clean up programs
+	for programID, program := range c.Program {
+		if program.OriginalAirDate != "" {
+			airDate, err := time.Parse("2006-01-02", program.OriginalAirDate)
+			if err == nil && airDate.Before(now.AddDate(0, -1, 0)) {
+				delete(c.Program, programID)
+				expired++
+			}
+		}
+	}
+
+	logger.WithField("expired", expired).Info("Cleaned up cache")
+}
+
+// GetStats returns cache statistics
+func (c *cache) GetStats() map[string]interface{} {
+	c.RLock()
+	defer c.RUnlock()
+
+	return map[string]interface{}{
+		"hits":      c.stats.Hits,
+		"misses":    c.stats.Misses,
+		"size":      c.stats.Size,
+		"channels":  len(c.Channel),
+		"programs":  len(c.Program),
+		"metadata":  len(c.Metadata),
+		"schedule":  len(c.Schedule),
+		"expires":   c.expiration,
 	}
 }
 

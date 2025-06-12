@@ -1,15 +1,15 @@
-FROM golang:alpine3.10 as builder
+FROM golang:1.23-alpine AS builder
 
-RUN mkdir /app
-COPY *.go /app/
+RUN apk add --no-cache ca-certificates git
 WORKDIR /app
-RUN go mod init main
-RUN go get
-RUN go build -o guide2go
+COPY go.mod go.sum ./
+RUN go mod download
+COPY *.go ./
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o guide2go
 
-FROM alpine:3.10
-
-COPY --from=builder /app/guide2go /usr/local/bin/guide2go
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates tzdata
+WORKDIR /root/
+COPY --from=builder /app/guide2go .
 COPY sample-config.yaml /config/sample-config.yaml
-
-CMD [ "guide2go", "--config", "/config/sample-config.yaml" ]
+CMD ["./guide2go", "--config", "/config/sample-config.yaml"]

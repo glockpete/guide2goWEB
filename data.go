@@ -1,217 +1,331 @@
+// Package main provides Guide2Go, a tool to generate XMLTV files from Schedules Direct JSON API.
 package main
 
 import (
-  "encoding/json"
-  "fmt"
-  "io/ioutil"
-  "path/filepath"
-  "runtime"
-  "strings"
-  "sync"
-  "time"
+	"context"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"runtime"
+	"strings"
+	"sync"
+	"time"
+
+	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
+	"golang.org/x/time/rate"
 )
 
-// Update : Update data from Schedules Direct and create the XMLTV file
-func (sd *SD) Update(filename string) (err error) {
+const (
+	maxConcurrentRequests = 5
+	batchSize            = 5000
+	metadataBatchSize    = 500
+)
 
-  Config.File = strings.TrimSuffix(filename, filepath.Ext(filename))
+var (
+	// requestLimiter limits concurrent requests to Schedules Direct API
+	requestLimiter = rate.NewLimiter(rate.Every(100*time.Millisecond), maxConcurrentRequests)
+)
 
-  _, err = ioutil.ReadFile(fmt.Sprintf("%s.yaml", Config.File))
+// Update updates data from Schedules Direct and creates the XMLTV file
+func (sd *SD) Update(ctx context.Context, filename string) error {
+	logger := logger.WithField("filename", filename)
 
-  if err != nil {
-    return
-  }
+	// Validate and prepare configuration
+	Config.File = strings.TrimSuffix(filename, filepath.Ext(filename))
+	if _, err := os.ReadFile(fmt.Sprintf("%s.yaml", Config.File)); err != nil {
+		return errors.Wrap(err, "failed to read configuration file")
+	}
 
-  err = Config.Open()
-  if err != nil {
-    return
-  }
+	if err := Config.Open(); err != nil {
+		return errors.Wrap(err, "failed to open configuration")
+	}
 
-  err = sd.Init()
-  if err != nil {
-    return
-  }
+	// Initialize SD client
+	if err := sd.Init(); err != nil {
+		return errors.Wrap(err, "failed to initialize SD client")
+	}
 
-  if len(sd.Token) == 0 {
+	// Login if needed
+	if len(sd.Token) == 0 {
+		if err := sd.Login(); err != nil {
+			return errors.Wrap(err, "failed to login to Schedules Direct")
+		}
+	}
 
-    err = sd.Login()
-    if err != nil {
-      return
-    }
+	// Fetch and process data
+	if err := sd.GetData(ctx); err != nil {
+		return errors.Wrap(err, "failed to get data from Schedules Direct")
+	}
 
-  }
+	// Clean up memory
+	runtime.GC()
 
-  sd.GetData()
+	// Create XMLTV file
+	if err := CreateXMLTV(filename); err != nil {
+		return errors.Wrap(err, "failed to create XMLTV file")
+	}
 
-  runtime.GC()
+	// Clean up cache
+	Cache.CleanUp()
 
-  err = CreateXMLTV(filename)
-  if err != nil {
-    ShowErr(err)
-    return
-  }
+	// Final memory cleanup
+	runtime.GC()
 
-  Cache.CleanUp()
-
-  runtime.GC()
-
-  return
+	return nil
 }
 
-// GetData : Get data from Schedules Direct
-func (sd *SD) GetData() {
+// GetData fetches and processes data from Schedules Direct
+func (sd *SD) GetData(ctx context.Context) error {
+	logger := logger.WithField("operation", "GetData")
 
-  var err error
-  var wg sync.WaitGroup
-  var count = 0
+	// Open and initialize cache
+	if err := Cache.Open(); err != nil {
+		return errors.Wrap(err, "failed to open cache")
+	}
+	Cache.Init()
 
-  err = Cache.Open()
-  if err != nil {
-    ShowErr(err)
-    return
-  }
-  Cache.Init()
+	// Get account status
+	if err := sd.Status(); err != nil {
+		return errors.Wrap(err, "failed to get account status")
+	}
 
-  // Channel list
-  sd.Status()
-  Cache.Channel = make(map[string]G2GCache)
+	// Process lineups
+	if err := sd.processLineups(ctx); err != nil {
+		return errors.Wrap(err, "failed to process lineups")
+	}
 
-  var lineup []string
+	// Process schedules
+	if err := sd.processSchedules(ctx); err != nil {
+		return errors.Wrap(err, "failed to process schedules")
+	}
 
-  for _, l := range sd.Resp.Status.Lineups {
-    lineup = append(lineup, l.Lineup)
-  }
+	// Process programs and metadata
+	if err := sd.processProgramsAndMetadata(ctx); err != nil {
+		return errors.Wrap(err, "failed to process programs and metadata")
+	}
 
-  for _, id := range lineup {
+	// Save cache
+	if err := Cache.Save(); err != nil {
+		return errors.Wrap(err, "failed to save cache")
+	}
 
-    sd.Req.Parameter = fmt.Sprintf("/%s", id)
-    sd.Req.Type = "GET"
+	return nil
+}
 
-    sd.Lineups()
+// processLineups processes all lineups from Schedules Direct
+func (sd *SD) processLineups(ctx context.Context) error {
+	logger := logger.WithField("operation", "processLineups")
 
-    Cache.AddStations(&sd.Resp.Body, id)
+	// Reset channel cache
+	Cache.Channel = make(map[string]G2GCache)
 
-  }
+	// Get lineups from status
+	var lineups []string
+	for _, l := range sd.Resp.Status.Lineups {
+		lineups = append(lineups, l.Lineup)
+	}
 
-  // Schedule
-  showInfo("G2G", fmt.Sprintf("Download Schedule: %d Day(s)", Config.Options.Schedule))
+	// Process each lineup
+	for _, id := range lineups {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
+			sd.Req.Parameter = fmt.Sprintf("/%s", id)
+			sd.Req.Type = "GET"
 
-  var limit = 5000
+			if err := sd.Lineups(); err != nil {
+				logger.WithError(err).WithField("lineup", id).Error("Failed to get lineup")
+				continue
+			}
 
-  var days = make([]string, 0)
-  var channels = make([]interface{}, 0)
+			if err := Cache.AddStations(ctx, &sd.Resp.Body, id); err != nil {
+				logger.WithError(err).WithField("lineup", id).Error("Failed to add stations")
+				continue
+			}
+		}
+	}
 
-  for i := 0; i < Config.Options.Schedule; i++ {
-    var nextDay = time.Now().Add(time.Hour * time.Duration(24*i))
-    days = append(days, nextDay.Format("2006-01-02"))
-  }
+	return nil
+}
 
-  for i, channel := range Config.Station {
+// processSchedules processes schedules for all channels
+func (sd *SD) processSchedules(ctx context.Context) error {
+	logger := logger.WithField("operation", "processSchedules")
 
-    count++
+	// Prepare schedule dates
+	days := make([]string, Config.Options.Schedule)
+	for i := 0; i < Config.Options.Schedule; i++ {
+		days[i] = time.Now().Add(time.Hour * time.Duration(24*i)).Format("2006-01-02")
+	}
 
-    channel.Date = days
-    channels = append(channels, channel)
+	logger.WithField("days", Config.Options.Schedule).Info("Downloading schedules")
 
-    if count == limit || i == len(Config.Station)-1 {
+	// Process channels in batches
+	var wg sync.WaitGroup
+	errChan := make(chan error, 1)
 
-      sd.Req.Data, err = json.Marshal(channels)
-      if err != nil {
-        ShowErr(err)
-        return
-      }
+	for i := 0; i < len(Config.Station); i += batchSize {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
+			end := i + batchSize
+			if end > len(Config.Station) {
+				end = len(Config.Station)
+			}
 
-      sd.Schedule()
+			// Prepare batch
+			channels := make([]interface{}, 0, end-i)
+			for _, channel := range Config.Station[i:end] {
+				channel.Date = days
+				channels = append(channels, channel)
+			}
 
-      wg.Add(1)
-      go func() {
+			// Marshal batch data
+			data, err := json.Marshal(channels)
+			if err != nil {
+				return errors.Wrap(err, "failed to marshal channel data")
+			}
+			sd.Req.Data = data
 
-        Cache.AddSchedule(&sd.Resp.Body)
+			// Get schedule data
+			if err := sd.Schedule(); err != nil {
+				logger.WithError(err).WithField("batch", i/batchSize).Error("Failed to get schedule")
+				continue
+			}
 
-        wg.Done()
+			// Process schedule data
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				if err := Cache.AddSchedule(ctx, &sd.Resp.Body); err != nil {
+					select {
+					case errChan <- errors.Wrap(err, "failed to add schedule"):
+					default:
+					}
+				}
+			}()
+		}
+	}
 
-      }()
+	// Wait for all goroutines to complete
+	wg.Wait()
+	close(errChan)
 
-      count = 0
+	// Check for errors
+	if err := <-errChan; err != nil {
+		return err
+	}
 
-    }
+	return nil
+}
 
-  }
+// processProgramsAndMetadata processes programs and metadata
+func (sd *SD) processProgramsAndMetadata(ctx context.Context) error {
+	logger := logger.WithField("operation", "processProgramsAndMetadata")
 
-  wg.Wait()
+	// Get program IDs
+	programIDs := Cache.GetRequiredProgramIDs()
+	allIDs := Cache.GetAllProgramIDs()
 
-  // Program and Metadata
-  count = 0
-  sd.Req.Data = []byte{}
+	logger.WithFields(logrus.Fields{
+		"new":     len(programIDs),
+		"cached":  len(allIDs) - len(programIDs),
+		"total":   len(allIDs),
+	}).Info("Processing programs and metadata")
 
-  var types = []string{"programs", "metadata"}
-  var programIds = Cache.GetRequiredProgramIDs()
-  var allIDs = Cache.GetAllProgramIDs()
-  var programs = make([]interface{}, 0)
+	// Process programs and metadata
+	types := []string{"programs", "metadata"}
+	for _, t := range types {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
+			// Configure request based on type
+			switch t {
+			case "metadata":
+				sd.Req.URL = fmt.Sprintf("%smetadata/programs", sd.BaseURL)
+				sd.Req.Call = "metadata"
+				programIDs = Cache.GetRequiredMetaIDs()
+				logger.WithField("count", len(programIDs)).Info("Downloading metadata")
+			case "programs":
+				sd.Req.URL = fmt.Sprintf("%sprograms", sd.BaseURL)
+				sd.Req.Call = "programs"
+				logger.WithField("count", len(programIDs)).Info("Downloading programs")
+			}
 
-  showInfo("G2G", fmt.Sprintf("Download Program Informations: New: %d / Cached: %d", len(programIds), len(allIDs)-len(programIds)))
+			// Process in batches
+			batchSize := metadataBatchSize
+			if t == "programs" {
+				batchSize = batchSize
+			}
 
-  for _, t := range types {
+			var wg sync.WaitGroup
+			errChan := make(chan error, 1)
 
-    switch t {
-    case "metadata":
-      sd.Req.URL = fmt.Sprintf("%smetadata/programs", sd.BaseURL)
-      sd.Req.Call = "metadata"
-      programIds = Cache.GetRequiredMetaIDs()
-      limit = 500
-      showInfo("G2G", fmt.Sprintf("Download missing Metadata: %d ", len(programIds)))
+			for i := 0; i < len(programIDs); i += batchSize {
+				select {
+				case <-ctx.Done():
+					return ctx.Err()
+				default:
+					end := i + batchSize
+					if end > len(programIDs) {
+						end = len(programIDs)
+					}
 
-    case "programs":
+					// Prepare batch
+					programs := make([]interface{}, 0, end-i)
+					for _, p := range programIDs[i:end] {
+						programs = append(programs, p)
+					}
 
-      sd.Req.URL = fmt.Sprintf("%sprograms", sd.BaseURL)
-      sd.Req.Call = "programs"
-      limit = 5000
+					// Marshal batch data
+					data, err := json.Marshal(programs)
+					if err != nil {
+						return errors.Wrap(err, "failed to marshal program data")
+					}
+					sd.Req.Data = data
 
-    }
+					// Get program data
+					if err := sd.Program(); err != nil {
+						logger.WithError(err).WithField("batch", i/batchSize).Error("Failed to get programs")
+						continue
+					}
 
-    for i, p := range programIds {
+					// Process program data
+					wg.Add(1)
+					go func() {
+						defer wg.Done()
+						var err error
+						switch t {
+						case "metadata":
+							err = Cache.AddMetadata(ctx, &sd.Resp.Body, &wg)
+						case "programs":
+							err = Cache.AddProgram(ctx, &sd.Resp.Body, &wg)
+						}
+						if err != nil {
+							select {
+							case errChan <- errors.Wrap(err, "failed to add program data"):
+							default:
+							}
+						}
+					}()
+				}
+			}
 
-      count++
+			// Wait for all goroutines to complete
+			wg.Wait()
+			close(errChan)
 
-      programs = append(programs, p)
+			// Check for errors
+			if err := <-errChan; err != nil {
+				return err
+			}
+		}
+	}
 
-      if count == limit || i == len(programIds)-1 {
-
-        sd.Req.Data, err = json.Marshal(programs)
-        if err != nil {
-          ShowErr(err)
-          return
-        }
-
-        err := sd.Program()
-        if err != nil {
-          ShowErr(err)
-        }
-
-        wg.Add(1)
-
-        switch t {
-        case "metadata":
-          go Cache.AddMetadata(&sd.Resp.Body, &wg)
-
-        case "programs":
-          go Cache.AddProgram(&sd.Resp.Body, &wg)
-
-        }
-
-        count = 0
-        programs = make([]interface{}, 0)
-        wg.Wait()
-
-      }
-
-    }
-
-  }
-
-  err = Cache.Save()
-  if err != nil {
-    ShowErr(err)
-    return
-  }
+	return nil
 }

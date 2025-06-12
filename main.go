@@ -1,32 +1,61 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
-	"log"
 	"os"
+	"os/signal"
+	"syscall"
+
+	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
 )
 
-// AppName : App name
+// AppName : Application name
 const AppName = "guide2go"
 
-// Version : Version
+// Version : Application version
 const Version = "1.2.0"
 
-// Config : Config file (struct)
+// Config : Global configuration
 var Config config
 var Config2 string
 
-func main() {
-	log.SetOutput(os.Stdout)
-	var configure = flag.String("configure", "", "= Create or modify the configuration file. [filename.yaml]")
-	var config = flag.String("config", "", "= Get data from Schedules Direct with configuration file. [filename.yaml]")
+// logger is the global logger instance
+var logger = logrus.New()
 
-	var h = flag.Bool("h", false, ": Show help")
+func init() {
+	// Configure logger
+	logger.SetFormatter(&logrus.JSONFormatter{})
+	logger.SetOutput(os.Stdout)
+	logger.SetLevel(logrus.InfoLevel)
+}
+
+func main() {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	// Handle graceful shutdown
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+	go func() {
+		<-sigChan
+		logger.Info("Received shutdown signal")
+		cancel()
+	}()
+
+	var configure = flag.String("configure", "", "Create or modify the configuration file [filename.yaml]")
+	var config = flag.String("config", "", "Get data from Schedules Direct with configuration file [filename.yaml]")
+	var h = flag.Bool("h", false, "Show help")
 
 	flag.Parse()
 	Config2 = *config
-	showInfo("G2G", fmt.Sprintf("Version: %s", Version))
+
+	logger.WithFields(logrus.Fields{
+		"version": Version,
+		"app":     AppName,
+	}).Info("Starting application")
 
 	if *h {
 		fmt.Println()
@@ -35,30 +64,27 @@ func main() {
 	}
 
 	if len(*configure) != 0 {
-		err := Configure(*configure)
-		if err != nil {
-			ShowErr(err)
+		if err := Configure(*configure); err != nil {
+			logger.WithError(err).Fatal("Failed to configure application")
 		}
 		os.Exit(0)
 	}
 
 	if len(*config) != 0 {
 		var sd SD
-		err := sd.Update(*config)
-		if err != nil {
-			ShowErr(err)
-		}
-		if Config.Options.TVShowImages || Config.Options.ProxyImages {
-			Server()
-			os.Exit(0)
+		if err := sd.Update(*config); err != nil {
+			logger.WithError(err).Fatal("Failed to update data")
 		}
 
+		if Config.Options.TVShowImages || Config.Options.ProxyImages {
+			if err := Server(ctx); err != nil {
+				logger.WithError(err).Fatal("Server error")
+			}
+		}
 	}
 }
 
-// ShowErr : Show error on screen
+// ShowErr logs an error with additional context
 func ShowErr(err error) {
-	var msg = fmt.Sprintf("[ERROR] %s", err)
-	log.Println(msg)
-
+	logger.WithError(err).Error("Application error")
 }

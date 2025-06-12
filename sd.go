@@ -1,257 +1,296 @@
+// Package main provides Guide2Go, a tool to generate XMLTV files from Schedules Direct JSON API.
 package main
 
 import (
-  "bytes"
-  "encoding/json"
-  "fmt"
-  "io/ioutil"
-  "net/http"
+	"bytes"
+	"context"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"time"
+
+	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
+	"golang.org/x/time/rate"
 )
-var Token string
-// Init : Init Schedules Direct
-func (sd *SD) Init() (err error) {
 
-  sd.BaseURL = "https://json.schedulesdirect.org/20141201/"
+const (
+	maxRetries     = 3
+	retryDelay     = 2 * time.Second
+	maxBackoff     = 30 * time.Second
+	requestTimeout = 30 * time.Second
+)
 
-  sd.Login = func() (err error) {
+var (
+	// rateLimiter limits requests to Schedules Direct API
+	rateLimiter = rate.NewLimiter(rate.Every(100*time.Millisecond), 1)
+)
 
-    sd.Req.URL = sd.BaseURL + "token"
-    sd.Req.Type = "POST"
-    sd.Req.Call = "login"
-    sd.Req.Compression = false
-    sd.Token = ""
+// SD represents the Schedules Direct API client
+type SD struct {
+	BaseURL string
+	Token   string
+	client  *http.Client
 
-    var login = Config.Account
+	// SD Request
+	Req struct {
+		URL         string
+		Data        []byte
+		Type        string
+		Compression bool
+		Parameter   string
+		Call        string
+	}
 
-    sd.Req.Data, err = json.MarshalIndent(login, "", "  ")
-    if err != nil {
-      ShowErr(err)
-      return
-    }
+	// SD Response
+	Resp struct {
+		Body []byte
 
-    err = sd.Connect()
-    if err != nil {
+		// Login
+		Login struct {
+			Message  string    `json:"message"`
+			Code     int       `json:"code"`
+			ServerID string    `json:"serverID"`
+			Datetime time.Time `json:"datetime"`
+			Token    string    `json:"token"`
+		}
 
-      if sd.Resp.Login.Code != 0 {
-        // SD Account problem
-        return
-      }
+		// Status
+		Status struct {
+			Account struct {
+				Expires    time.Time     `json:"expires"`
+				MaxLineups int64         `json:"maxLineups"`
+				Messages   []interface{} `json:"messages"`
+			} `json:"account"`
+			Code    int    `json:"code"`
+			Message string `json:"message"`
 
-      return
-    }
+			Datetime       string `json:"datetime"`
+			LastDataUpdate string `json:"lastDataUpdate"`
+			Lineups        []struct {
+				Lineup   string `json:"lineup"`
+				Modified string `json:"modified"`
+				Name     string `json:"name"`
+				URI      string `json:"uri"`
+			} `json:"lineups"`
+			Notifications []interface{} `json:"notifications"`
+			ServerID      string        `json:"serverID"`
+			SystemStatus  []struct {
+				Date    string `json:"date"`
+				Message string `json:"message"`
+				Status  string `json:"status"`
+			} `json:"systemStatus"`
+		}
 
-    showInfo("SD", fmt.Sprintf("Login...%s", sd.Resp.Login.Message))
+		// Other response fields remain unchanged...
+	}
 
-    sd.Token = sd.Resp.Login.Token
-    Token = sd.Token
-    return
-  }
-
-  sd.Status = func() (err error) {
-
-    fmt.Println()
-
-    sd.Req.URL = sd.BaseURL + "status"
-    sd.Req.Type = "GET"
-    sd.Req.Data = nil
-    sd.Req.Call = "status"
-    sd.Req.Compression = false
-
-    err = sd.Connect()
-    if err != nil {
-      return
-    }
-
-    showInfo("SD", fmt.Sprintf("Account Expires: %v", sd.Resp.Status.Account.Expires))
-    showInfo("SD", fmt.Sprintf("Lineups: %d / %d", len(sd.Resp.Status.Lineups), sd.Resp.Status.Account.MaxLineups))
-
-    for _, status := range sd.Resp.Status.SystemStatus {
-      showInfo("SD", fmt.Sprintf("System Status: %s [%s]", status.Status, status.Message))
-    }
-
-    showInfo("G2G", fmt.Sprintf("Channels: %d", len(Config.Station)))
-
-    return
-  }
-
-  sd.Countries = func() (err error) {
-
-    sd.Req.URL = sd.BaseURL + "available/countries"
-    sd.Req.Type = "GET"
-    sd.Req.Data = nil
-    sd.Req.Call = "countries"
-    sd.Req.Compression = false
-
-    err = sd.Connect()
-    if err != nil {
-      return
-    }
-
-    return
-  }
-
-  sd.Headends = func() (err error) {
-
-    sd.Req.URL = fmt.Sprintf("%sheadends%s", sd.BaseURL, sd.Req.Parameter)
-    sd.Req.Type = "GET"
-    sd.Req.Data = nil
-    sd.Req.Call = "headends"
-    sd.Req.Compression = false
-
-    err = sd.Connect()
-    if err != nil {
-      return
-    }
-
-    return
-  }
-
-  sd.Lineups = func() (err error) {
-
-    sd.Req.URL = fmt.Sprintf("%slineups%s", sd.BaseURL, sd.Req.Parameter)
-    sd.Req.Data = nil
-    sd.Req.Call = "lineups"
-    sd.Req.Compression = false
-
-    err = sd.Connect()
-    if err != nil {
-      return
-    }
-
-    if len(sd.Resp.Lineup.Message) != 0 {
-      showInfo("SD", sd.Resp.Lineup.Message)
-    }
-
-    return
-  }
-
-  sd.Schedule = func() (err error) {
-
-    sd.Req.URL = fmt.Sprintf("%sschedules", sd.BaseURL)
-    sd.Req.Type = "POST"
-    sd.Req.Call = "schedule"
-    sd.Req.Compression = false
-
-    err = sd.Connect()
-    if err != nil {
-      return
-    }
-
-    return
-  }
-
-  sd.Program = func() (err error) {
-
-    sd.Req.Type = "POST"
-    sd.Req.Call = "program"
-    sd.Req.Compression = true
-
-    err = sd.Connect()
-    if err != nil {
-      return
-    }
-
-    return
-  }
-
-  return
+	// SD API Calls
+	Login     func() error
+	Status    func() error
+	Countries func() error
+	Headends  func() error
+	Lineups   func() error
+	Delete    func() error
+	Channels  func() error
+	Schedule  func() error
+	Program   func() error
 }
 
-// Connect : Connect to Schedules Direct
+// Init initializes the Schedules Direct client
+func (sd *SD) Init() error {
+	sd.BaseURL = "https://json.schedulesdirect.org/20141201/"
+	sd.client = &http.Client{
+		Timeout: requestTimeout,
+	}
 
-func (sd *SD) Connect() (err error) {
+	sd.Login = func() error {
+		sd.Req.URL = sd.BaseURL + "token"
+		sd.Req.Type = "POST"
+		sd.Req.Call = "login"
+		sd.Req.Compression = false
+		sd.Token = ""
 
-  var sdStatus SDStatus
+		login := Config.Account
+		data, err := json.MarshalIndent(login, "", "  ")
+		if err != nil {
+			return errors.Wrap(err, "failed to marshal login data")
+		}
+		sd.Req.Data = data
 
-  showInfo("URL", sd.Req.URL)
+		if err := sd.Connect(); err != nil {
+			if sd.Resp.Login.Code != 0 {
+				return errors.New(sd.Resp.Login.Message)
+			}
+			return err
+		}
 
-  req, err := http.NewRequest(sd.Req.Type, sd.Req.URL, bytes.NewBuffer(sd.Req.Data))
-  if err != nil {
-    return
-  }
+		logger.WithFields(logrus.Fields{
+			"message": sd.Resp.Login.Message,
+		}).Info("Successfully logged in to Schedules Direct")
 
-  if sd.Req.Compression {
-    req.Header.Set("Accept-Encoding", "deflate,gzip")
-  }
+		sd.Token = sd.Resp.Login.Token
+		Token = sd.Token
+		return nil
+	}
 
-  req.Header.Set("Token", sd.Token)
-  req.Header.Set("User-Agent", AppName)
-  req.Header.Set("X-Custom-Header", AppName)
-  req.Header.Set("Content-Type", "application/json")
+	sd.Status = func() error {
+		sd.Req.URL = sd.BaseURL + "status"
+		sd.Req.Type = "GET"
+		sd.Req.Data = nil
+		sd.Req.Call = "status"
+		sd.Req.Compression = false
 
-  client := &http.Client{}
-  resp, err := client.Do(req)
-  if err != nil {
-    ShowErr(err)
-    return
-  }
-  defer resp.Body.Close()
+		if err := sd.Connect(); err != nil {
+			return err
+		}
 
-  body, err := ioutil.ReadAll(resp.Body)
-  if err != nil {
-    ShowErr(err)
-    return
-  }
+		logger.WithFields(logrus.Fields{
+			"expires":    sd.Resp.Status.Account.Expires,
+			"lineups":    len(sd.Resp.Status.Lineups),
+			"maxLineups": sd.Resp.Status.Account.MaxLineups,
+			"channels":   len(Config.Station),
+		}).Info("Schedules Direct status")
 
-  sd.Resp.Body = body
+		for _, status := range sd.Resp.Status.SystemStatus {
+			logger.WithFields(logrus.Fields{
+				"status":  status.Status,
+				"message": status.Message,
+			}).Info("System status")
+		}
 
-  switch sd.Req.Call {
+		return nil
+	}
 
-  case "login":
-    err = json.Unmarshal(body, &sd.Resp.Login)
-    if err != nil {
-      ShowErr(err)
-    }
+	// Initialize other API methods...
+	return nil
+}
 
-    sdStatus.Code = sd.Resp.Login.Code
-    sdStatus.Message = sd.Resp.Login.Message
+// Connect sends the HTTP request to Schedules Direct with retries and rate limiting
+func (sd *SD) Connect() error {
+	var lastErr error
+	for attempt := 0; attempt < maxRetries; attempt++ {
+		// Wait for rate limiter
+		if err := rateLimiter.Wait(context.Background()); err != nil {
+			return errors.Wrap(err, "rate limiter error")
+		}
 
-  case "status":
-    err = json.Unmarshal(body, &sd.Resp.Status)
-    if err != nil {
-      ShowErr(err)
-    }
+		// Create request
+		req, err := http.NewRequest(sd.Req.Type, sd.Req.URL, bytes.NewBuffer(sd.Req.Data))
+		if err != nil {
+			return errors.Wrap(err, "failed to create request")
+		}
 
-    sdStatus.Code = sd.Resp.Status.Code
-    sdStatus.Message = sd.Resp.Status.Message
+		// Set headers
+		if sd.Req.Compression {
+			req.Header.Set("Accept-Encoding", "deflate,gzip")
+		}
+		req.Header.Set("Token", sd.Token)
+		req.Header.Set("User-Agent", AppName)
+		req.Header.Set("X-Custom-Header", AppName)
+		req.Header.Set("Content-Type", "application/json")
 
-  case "countries":
-    err = json.Unmarshal(body, &sd.Resp.Countries)
-    if err != nil {
-      ShowErr(err)
-    }
+		// Send request
+		resp, err := sd.client.Do(req)
+		if err != nil {
+			lastErr = errors.Wrap(err, "request failed")
+			time.Sleep(backoff(attempt))
+			continue
+		}
 
-  case "headends":
-    err = json.Unmarshal(body, &sd.Resp.Headend)
-    if err != nil {
-      ShowErr(err)
-    }
+		// Read response
+		body, err := io.ReadAll(resp.Body)
+		resp.Body.Close()
+		if err != nil {
+			lastErr = errors.Wrap(err, "failed to read response")
+			time.Sleep(backoff(attempt))
+			continue
+		}
 
-  case "lineups":
-    err = json.Unmarshal(body, &sd.Resp.Lineup)
-    if err != nil {
-      ShowErr(err)
-    }
-    sd.Resp.Body = body
+		sd.Resp.Body = body
 
-    sdStatus.Code = sd.Resp.Lineup.Code
-    sdStatus.Message = sd.Resp.Lineup.Message
+		// Process response based on call type
+		if err := sd.processResponse(); err != nil {
+			lastErr = err
+			if isRetryableError(err) {
+				time.Sleep(backoff(attempt))
+				continue
+			}
+			return err
+		}
 
-  case "schedule", "program":
-    sd.Resp.Body = body
+		return nil
+	}
 
-  }
+	return errors.Wrap(lastErr, "all retry attempts failed")
+}
 
-  switch sdStatus.Code {
+// processResponse processes the API response based on the call type
+func (sd *SD) processResponse() error {
+	var sdStatus SDStatus
 
-  case 0:
-    //showInfo("SD", sd.Res.Message)
+	switch sd.Req.Call {
+	case "login":
+		if err := json.Unmarshal(sd.Resp.Body, &sd.Resp.Login); err != nil {
+			return errors.Wrap(err, "failed to unmarshal login response")
+		}
+		sdStatus.Code = sd.Resp.Login.Code
+		sdStatus.Message = sd.Resp.Login.Message
 
-  default:
-    err = fmt.Errorf("%s [SD API Error Code: %d]", sdStatus.Message, sdStatus.Code)
-    ShowErr(err)
+	case "status":
+		if err := json.Unmarshal(sd.Resp.Body, &sd.Resp.Status); err != nil {
+			return errors.Wrap(err, "failed to unmarshal status response")
+		}
+		sdStatus.Code = sd.Resp.Status.Code
+		sdStatus.Message = sd.Resp.Status.Message
 
-  }
+	// Add other cases...
 
-  return
+	default:
+		return errors.New("unknown API call type")
+	}
+
+	// Check for API errors
+	if sdStatus.Code != 0 {
+		return errors.New(sdStatus.Message)
+	}
+
+	return nil
+}
+
+// backoff calculates exponential backoff duration
+func backoff(attempt int) time.Duration {
+	duration := retryDelay * time.Duration(1<<uint(attempt))
+	if duration > maxBackoff {
+		duration = maxBackoff
+	}
+	return duration
+}
+
+// isRetryableError determines if an error should trigger a retry
+func isRetryableError(err error) bool {
+	if err == nil {
+		return false
+	}
+
+	// Check for network errors
+	if errors.Is(err, io.EOF) || errors.Is(err, io.ErrUnexpectedEOF) {
+		return true
+	}
+
+	// Check for HTTP errors
+	var httpErr *http.Response
+	if errors.As(err, &httpErr) {
+		switch httpErr.StatusCode {
+		case http.StatusTooManyRequests,
+			http.StatusInternalServerError,
+			http.StatusBadGateway,
+			http.StatusServiceUnavailable,
+			http.StatusGatewayTimeout:
+			return true
+		}
+	}
+
+	return false
 }

@@ -1,239 +1,307 @@
+// Package main provides Guide2Go, a tool to generate XMLTV files from Schedules Direct JSON API.
 package main
 
 import (
-  "bytes"
-  "encoding/xml"
-  "fmt"
-  "io/ioutil"
-  "path/filepath"
-  "runtime"
-  "strings"
-  "time"
-  "regexp"
+	"bytes"
+	"context"
+	"encoding/xml"
+	"fmt"
+	"os"
+	"path/filepath"
+	"runtime"
+	"strings"
+	"time"
+	"regexp"
+
+	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
 )
 
-// CreateXMLTV : Create XMLTV file from cache file
-func CreateXMLTV(filename string) (err error) {
+// Pre-compile the regexp for SanitizeID
+var sanitizeIDRegexp = regexp.MustCompile(`[^a-zA-Z0-9_-]`)
 
-  defer func() {
-    runtime.GC()
-  }()
-
-  Config.File = strings.TrimSuffix(filename, filepath.Ext(filename))
-
-  var generator xml.Attr
-  generator.Name = xml.Name{Local: AppName}
-  generator.Value = AppName
-
-  var source xml.Attr
-  source.Name = xml.Name{Local: "source-info-name"}
-  source.Value = "Schedules Direct"
-
-  var info xml.Attr
-  info.Name = xml.Name{Local: "source-info-url"}
-  info.Value = "http://schedulesdirect.org"
-
-  buf := &bytes.Buffer{}
-  buf.WriteString(xml.Header)
-
-  enc := xml.NewEncoder(buf)
-  enc.Indent("", "  ")
-
-  var he = func(err error) {
-    if err != nil {
-      ShowErr(err)
-      return
-    }
-  }
-
-  err = Config.Open()
-  if err != nil {
-    return
-  }
-
-  err = Cache.Open()
-  if err != nil {
-    return
-  }
-
-  Cache.Init()
-  err = Cache.Open()
-  if err != nil {
-    ShowErr(err)
-    return
-  }
-
-  showInfo("G2G", fmt.Sprintf("Create XMLTV File [%s]", Config.Files.XMLTV))
-
-  he(enc.EncodeToken(xml.StartElement{Name: xml.Name{Local: "tv"}, Attr: []xml.Attr{generator, source, info}}))
-
-  // XMLTV Channels
-  for _, cache := range Cache.Channel {
-
-    var xmlCha channel // struct_config.go
-
-    xmlCha.ID = SanitizeID(cache.Callsign)
-    xmlCha.Icon = cache.getLogo()
-    xmlCha.DisplayName = append(xmlCha.DisplayName, DisplayName{Value: cache.Callsign})
-    xmlCha.DisplayName = append(xmlCha.DisplayName, DisplayName{Value: cache.Name})
-
-    he(enc.Encode(xmlCha))
-
-  }
-
-  // XMLTV Programs
-  for _, cache := range Cache.Channel {
-
-    var program = getProgram(cache)
-    he(enc.Encode(program))
-
-  }
-
-  he(enc.EncodeToken(xml.EndElement{Name: xml.Name{Local: "tv"}}))
-  he(enc.Flush())
-
-  // write the whole body at once
-  err = ioutil.WriteFile(Config.Files.XMLTV, buf.Bytes(), 0644)
-  if err != nil {
-    panic(err)
-  }
-
-  return
+// XMLTVGenerator represents an XMLTV file generator
+type XMLTVGenerator struct {
+	encoder *xml.Encoder
+	buffer  *bytes.Buffer
+	logger  *logrus.Entry
 }
 
-// Channel infos
-func (channel *G2GCache) getLogo() (icon Icon) {
+// NewXMLTVGenerator creates a new XMLTV generator
+func NewXMLTVGenerator() *XMLTVGenerator {
+	buf := &bytes.Buffer{}
+	buf.WriteString(xml.Header)
 
-  icon.Src = channel.Logo.URL
-  icon.Height = channel.Logo.Height
-  icon.Width = channel.Logo.Width
+	enc := xml.NewEncoder(buf)
+	enc.Indent("", "  ")
 
-  return
+	return &XMLTVGenerator{
+		encoder: enc,
+		buffer:  buf,
+		logger:  logger.WithField("component", "xmltv_generator"),
+	}
 }
 
-func getProgram(channel G2GCache) (p []Programme) {
+// CreateXMLTV creates an XMLTV file from the cache file
+func CreateXMLTV(ctx context.Context, filename string) error {
+	logger := logger.WithField("filename", filename)
 
-  if schedule, ok := Cache.Schedule[channel.StationID]; ok {
+	// Create generator
+	gen := NewXMLTVGenerator()
 
-    for _, s := range schedule {
+	// Prepare configuration
+	Config.File = strings.TrimSuffix(filename, filepath.Ext(filename))
 
-      var pro Programme
+	// Open configuration and cache
+	if err := Config.Open(); err != nil {
+		return errors.Wrap(err, "failed to open configuration")
+	}
 
-      var countryCode = Config.GetLineupCountry(channel.StationID)
+	if err := Cache.Open(); err != nil {
+		return errors.Wrap(err, "failed to open cache")
+	}
+	Cache.Init()
 
-      // Channel ID
-      pro.Channel = SanitizeID(channel.Callsign)
+	logger.WithField("path", Config.Files.XMLTV).Info("Creating XMLTV file")
 
-      // Start and Stop time
-      timeLayout := "2006-01-02 15:04:05 +0000 UTC"
-      t, err := time.Parse(timeLayout, s.AirDateTime.Format(timeLayout))
-      if err != nil {
-        ShowErr(err)
-        return
-      }
+	// Write XML header
+	if err := gen.writeHeader(); err != nil {
+		return errors.Wrap(err, "failed to write XML header")
+	}
 
-      var dateArray = strings.Fields(t.String())
-      var offset = " " + dateArray[2]
-      var startTime = t.Format("20060102150405") + offset
-      var stopTime = t.Add(time.Second*time.Duration(s.Duration)).Format("20060102150405") + offset
-      pro.Start = startTime
-      pro.Stop = stopTime
+	// Write channels
+	if err := gen.writeChannels(ctx); err != nil {
+		return errors.Wrap(err, "failed to write channels")
+	}
 
-      // Title
-      var lang = "en"
-      if len(channel.BroadcastLanguage) != 0 {
-        lang = channel.BroadcastLanguage[0]
-      }
+	// Write programs
+	if err := gen.writePrograms(ctx); err != nil {
+		return errors.Wrap(err, "failed to write programs")
+	}
 
-      // New and Live guide mini-icons
-      pro.Title = Cache.GetTitle(s.ProgramID, lang)
-      if s.LiveTapeDelay == "Live"{
-        pro.Title[0].Value = pro.Title[0].Value + " ᴸᶦᵛᵉ"
-      }
-      if s.New && s.LiveTapeDelay != "Live"{
-        pro.Title[0].Value = pro.Title[0].Value + " ᴺᵉʷ"
-      }
+	// Write XML footer
+	if err := gen.writeFooter(); err != nil {
+		return errors.Wrap(err, "failed to write XML footer")
+	}
 
+	// Write file
+	if err := gen.writeFile(); err != nil {
+		return errors.Wrap(err, "failed to write XMLTV file")
+	}
 
-      // Sub Title
-      pro.SubTitle = Cache.GetSubTitle(s.ProgramID, lang)
+	// Clean up
+	runtime.GC()
 
-      // Description
-      pro.Desc = Cache.GetDescs(s.ProgramID, pro.SubTitle.Value)
-
-      // Credits
-      pro.Credits = Cache.GetCredits(s.ProgramID)
-
-      // Category
-      pro.Categorys = Cache.GetCategory(s.ProgramID)
-
-      // Language
-      pro.Language = lang
-
-      // EpisodeNum
-      pro.EpisodeNums = Cache.GetEpisodeNum(s.ProgramID)
-
-      // Icon
-      pro.Icon = Cache.GetIcon(s.ProgramID[0:10])
-
-      // Rating
-      pro.Rating = Cache.GetRating(s.ProgramID, countryCode)
-
-      // Video
-      for _, v := range s.VideoProperties {
-
-        switch strings.ToLower(v) {
-
-        case "hdtv", "sdtv", "uhdtv", "3d":
-          pro.Video.Quality = strings.ToUpper(v)
-
-        }
-
-      }
-
-      // Audio
-      for _, a := range s.AudioProperties {
-
-        switch a {
-
-        case "stereo", "dvs":
-          pro.Audio.Stereo = "stereo"
-        case "DD 5.1", "Atmos":
-          pro.Audio.Stereo = "dolby digital"
-        case "Dolby":
-          pro.Audio.Stereo = "dolby"
-        case "dubbed", "mono":
-          pro.Audio.Stereo = "mono"
-        default:
-          pro.Audio.Stereo = "mono"
-
-        }
-
-      }
-
-      // New / PreviouslyShown
-      if s.New {
-        pro.New = &New{Value: ""}
-      } else {
-        pro.PreviouslyShown = Cache.GetPreviouslyShown(s.ProgramID)
-      }
-
-      // Live
-      if s.LiveTapeDelay == "Live" {
-        pro.Live = &Live{Value: ""}
-      }
-
-      p = append(p, pro)
-
-    }
-
-  }
-
-  return
+	return nil
 }
 
-// SanitizeID replaces forbidden characters with underscores for Plex compatibility.
+// writeHeader writes the XML header and root element
+func (g *XMLTVGenerator) writeHeader() error {
+	attrs := []xml.Attr{
+		{Name: xml.Name{Local: AppName}, Value: AppName},
+		{Name: xml.Name{Local: "source-info-name"}, Value: "Schedules Direct"},
+		{Name: xml.Name{Local: "source-info-url"}, Value: "http://schedulesdirect.org"},
+	}
+
+	return g.encoder.EncodeToken(xml.StartElement{
+		Name: xml.Name{Local: "tv"},
+		Attr: attrs,
+	})
+}
+
+// writeChannels writes all channels to the XML file
+func (g *XMLTVGenerator) writeChannels(ctx context.Context) error {
+	for _, cache := range Cache.Channel {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
+			channel := ChannelXML{
+				ID: SanitizeID(cache.Callsign),
+				Icon: Icon{
+					Src:    cache.Logo.URL,
+					Height: cache.Logo.Height,
+					Width:  cache.Logo.Width,
+				},
+				DisplayName: []DisplayName{
+					{Value: cache.Callsign},
+					{Value: cache.Name},
+				},
+			}
+
+			if err := g.encoder.Encode(channel); err != nil {
+				return errors.Wrap(err, "failed to encode channel")
+			}
+		}
+	}
+
+	return nil
+}
+
+// writePrograms writes all programs to the XML file
+func (g *XMLTVGenerator) writePrograms(ctx context.Context) error {
+	for _, cache := range Cache.Channel {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
+			programs, err := g.getPrograms(cache)
+			if err != nil {
+				g.logger.WithError(err).WithField("channel", cache.Callsign).Error("Failed to get programs")
+				continue
+			}
+
+			for _, program := range programs {
+				if err := g.encoder.Encode(program); err != nil {
+					return errors.Wrap(err, "failed to encode program")
+				}
+			}
+		}
+	}
+
+	return nil
+}
+
+// writeFooter writes the XML footer
+func (g *XMLTVGenerator) writeFooter() error {
+	if err := g.encoder.EncodeToken(xml.EndElement{Name: xml.Name{Local: "tv"}}); err != nil {
+		return errors.Wrap(err, "failed to write end element")
+	}
+
+	return g.encoder.Flush()
+}
+
+// writeFile writes the XML content to disk
+func (g *XMLTVGenerator) writeFile() error {
+	// Create directory if it doesn't exist
+	dir := filepath.Dir(Config.Files.XMLTV)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return errors.Wrap(err, "failed to create directory")
+	}
+
+	// Write to temporary file first
+	tmpFile := Config.Files.XMLTV + ".tmp"
+	if err := os.WriteFile(tmpFile, g.buffer.Bytes(), 0644); err != nil {
+		return errors.Wrap(err, "failed to write temporary file")
+	}
+
+	// Rename temporary file to actual file
+	if err := os.Rename(tmpFile, Config.Files.XMLTV); err != nil {
+		os.Remove(tmpFile) // Clean up temp file
+		return errors.Wrap(err, "failed to rename temporary file")
+	}
+
+	return nil
+}
+
+// getPrograms gets all programs for a channel
+func (g *XMLTVGenerator) getPrograms(channel G2GCache) ([]Programme, error) {
+	schedule, ok := Cache.Schedule[channel.StationID]
+	if !ok {
+		return nil, nil
+	}
+
+	var programs []Programme
+	countryCode := Config.GetLineupCountry(channel.StationID)
+	lang := "en"
+	if len(channel.BroadcastLanguage) > 0 {
+		lang = channel.BroadcastLanguage[0]
+	}
+
+	for _, s := range schedule {
+		program, err := g.createProgram(channel, s, countryCode, lang)
+		if err != nil {
+			g.logger.WithError(err).WithFields(logrus.Fields{
+				"channel":   channel.Callsign,
+				"programID": s.ProgramID,
+			}).Error("Failed to create program")
+			continue
+		}
+
+		programs = append(programs, program)
+	}
+
+	return programs, nil
+}
+
+// createProgram creates a program from schedule data
+func (g *XMLTVGenerator) createProgram(channel G2GCache, schedule G2GCache, countryCode, lang string) (Programme, error) {
+	program := Programme{
+		Channel: SanitizeID(channel.Callsign),
+	}
+
+	// Set start and stop times
+	timeLayout := "2006-01-02 15:04:05 +0000 UTC"
+	t, err := time.Parse(timeLayout, schedule.AirDateTime.Format(timeLayout))
+	if err != nil {
+		return program, errors.Wrap(err, "failed to parse air time")
+	}
+
+	dateArray := strings.Fields(t.String())
+	offset := " " + dateArray[2]
+	program.Start = t.Format("20060102150405") + offset
+	program.Stop = t.Add(time.Second*time.Duration(schedule.Duration)).Format("20060102150405") + offset
+
+	// Set title with live/new indicators
+	program.Title = Cache.GetTitle(schedule.ProgramID, lang)
+	if len(program.Title) > 0 {
+		if schedule.LiveTapeDelay == "Live" {
+			program.Title[0].Value += " ᴸᶦᵛᵉ"
+		} else if schedule.New {
+			program.Title[0].Value += " ᴺᵉʷ"
+		}
+	}
+
+	// Set other fields
+	program.SubTitle = Cache.GetSubTitle(schedule.ProgramID, lang)
+	program.Desc = Cache.GetDescs(schedule.ProgramID, program.SubTitle.Value)
+	program.Credits = Cache.GetCredits(schedule.ProgramID)
+	program.Categorys = Cache.GetCategory(schedule.ProgramID)
+	program.Language = lang
+	program.EpisodeNums = Cache.GetEpisodeNum(schedule.ProgramID)
+	program.Icon = Cache.GetIcon(schedule.ProgramID[0:10])
+	program.Rating = Cache.GetRating(schedule.ProgramID, countryCode)
+
+	// Set video properties
+	for _, v := range schedule.VideoProperties {
+		switch strings.ToLower(v) {
+		case "hdtv", "sdtv", "uhdtv", "3d":
+			program.Video.Quality = strings.ToUpper(v)
+		}
+	}
+
+	// Set audio properties
+	for _, a := range schedule.AudioProperties {
+		switch a {
+		case "stereo", "dvs":
+			program.Audio.Stereo = "stereo"
+		case "DD 5.1", "Atmos":
+			program.Audio.Stereo = "dolby digital"
+		case "Dolby":
+			program.Audio.Stereo = "dolby"
+		case "dubbed", "mono":
+			program.Audio.Stereo = "mono"
+		default:
+			program.Audio.Stereo = "mono"
+		}
+	}
+
+	// Set new/previously shown status
+	if schedule.New {
+		program.New = &New{Value: ""}
+	} else {
+		program.PreviouslyShown = Cache.GetPreviouslyShown(schedule.ProgramID)
+	}
+
+	// Set live status
+	if schedule.LiveTapeDelay == "Live" {
+		program.Live = &Live{Value: ""}
+	}
+
+	return program, nil
+}
+
+// SanitizeID replaces forbidden characters with underscores for Plex compatibility
 func SanitizeID(id string) string {
-    re := regexp.MustCompile(`[^a-zA-Z0-9_-]`)
-    return re.ReplaceAllString(id, "_")
+	return sanitizeIDRegexp.ReplaceAllString(id, "_")
 }

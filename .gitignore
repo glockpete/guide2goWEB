@@ -9,3 +9,8 @@ dev
 a.yaml
 *.json
 *.iml
+.idea/
+*.log
+vendor/
+dist/
+.DS_Store

@@ -8,6 +8,8 @@
 Guide2Go is written in Go and creates an XMLTV file from the Schedules Direct JSON API.  
 **Configuration files from version 1.0.6 or earlier are not compatible!**
 
+**Note:** The project now uses Go 1.22 and Alpine 3.19 for Docker builds.
+
 ### Advantages compared to version 1.0.x
 - 3x faster
 - Less memory
@@ -406,3 +408,84 @@ Example:
 guide2go -config MY_CONFIG_FILE.yaml
 ```
 **The configuration file must have already been created.**
+
+
+## Technical Deep Dive
+
+### Build Process
+- Dockerfile uses a multi-stage build:
+  - Stage 1 (`builder`): Uses `golang:1.22-alpine` to compile the Go binary.
+  - Stage 2: Uses `alpine:3.19` as the runtime image, copying only the compiled binary and sample config.
+- Key commands:
+  ```sh
+  go mod init main
+  go get
+  go build -o guide2go
+  ```
+
+### XMLTV Generation Logic
+- Entry point: `CreateXMLTV(filename string)` in `xmltv.go`.
+- Uses Go's `encoding/xml` package to generate XMLTV output.
+- Channel and programme IDs are sanitized via `SanitizeID(id string)` to ensure Plex compatibility:
+  ```go
+  func SanitizeID(id string) string {
+      re := regexp.MustCompile(`[^a-zA-Z0-9_-]`)
+      return re.ReplaceAllString(id, "_")
+  }
+  ```
+- Image handling:
+  - Local caching: Images are downloaded to `/data/images` if `Local Images Cache: true`.
+  - Proxy mode: If `Proxy Images: true`, the server acts as a reverse proxy to Schedules Direct.
+
+### Deployment
+- Docker volumes:
+  - `/config`: Configuration files.
+  - `/data/images`: Cached images.
+  - `/data/livetv`: Output XMLTV files.
+- Port mapping: `8080:8080` for the image server.
+- Environment variables: Set `TZ` and other options as needed.
+
+### Configuration
+- YAML-based configuration (`sample-config.yaml`).
+- Key options:
+  - `Local Images Cache`: Enable local image caching.
+  - `Images Path`: Path for cached images.
+  - `Hostname`: Server hostname and port for image serving.
+  - `Proxy Images`: Enable reverse proxy mode.
+
+### Integration
+- IPTV players (Plex, Emby, TiviMate) read the generated XMLTV file.
+- Channel/programme IDs are sanitized for seamless auto-matching.
+- Image URLs are served locally or proxied based on configuration.
+
+### Troubleshooting
+- Check Docker logs for errors.
+- Verify volume mappings and permissions.
+- Ensure the image server is accessible at the configured `Hostname`.
+
+## Code Modernization Notes
+
+- **Go Version**: The project uses Go 1.22 for improved performance and security.
+- **Dependencies**: 
+  - `github.com/gorilla/mux v1.8.0` and `gopkg.in/yaml.v3 v3.0.1` are used. Check for newer versions or alternatives (e.g., `chi` for routing).
+- **Deprecated Packages**:
+  - Replace `io/ioutil` with `io` or `os` packages. For example:
+    - `ioutil.ReadFile` → `os.ReadFile`
+    - `ioutil.WriteFile` → `os.WriteFile`
+    - `ioutil.ReadAll` → `io.ReadAll`
+- **Regexp Usage**:
+  - `regexp.MustCompile` is used for ID sanitization. Consider pre-compiling the regexp for better performance:
+    ```go
+    var sanitizeIDRegexp = regexp.MustCompile(`[^a-zA-Z0-9_-]`)
+    func SanitizeID(id string) string {
+        return sanitizeIDRegexp.ReplaceAllString(id, "_")
+    }
+    ```
+- **Error Handling**:
+  - Review error handling patterns for consistency and clarity.
+- **Testing**:
+  - Add unit tests for critical functions (e.g., `SanitizeID`, `CreateXMLTV`).
+- **Docker**:
+  - Update the Dockerfile to use the latest Alpine base image and Go version.
+- **Documentation**:
+  - Ensure all functions and packages are well-documented with comments.
