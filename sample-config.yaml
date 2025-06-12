@@ -1,27 +1,5486 @@
 Account:
-    Username: 
-    Password: 
+    Username: petetv
+    Password: 271ede8fcde214e50adf64ff4d97c4c874020984
 Files:
     Cache: /config/cache.json
-    XMLTV: /config/xml.xml
+    XMLTV: /data/epgs/xml.xml
 Options:
     Poster Aspect: 3x4
-    Schedule Days: 1
+    Schedule Days: 7
     Subtitle into Description: false
     Insert credits tag into XML file: false
     Local Images Cache: true
     Images Path: /data/images
     Proxy Images: false
-    Hostname: localhost:9090
+    Hostname: 192.168.1.14:9090
     Rating:
         Insert rating tag into XML file: true
         Maximum rating entries. 0 for all entries: 1
         Preferred countries. ISO 3166-1 alpha-3 country code. Leave empty for all systems:
-          - USA
+            - USA
         Use country code as rating system: false
     Show download errors from Schedules Direct in the log: true
 Station:
-  - Name: HBO
-    ID: "19548"
-    Lineup: USA-IL67050-X
-# Keep adding channels as needed
+    - Name: HBO
+      ID: "19548"
+      Lineup: USA-IL67050-X
+    - Name: 1-2-3.tv
+      ID: "53409"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 1-2-3.tv HD
+      ID: "90494"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 3sat
+      ID: "66621"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 3sat HD
+      ID: "83545"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 40 Plus (Virgin)
+      ID: "67876"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 40 Plus (Virgin)
+      ID: "67876"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 40 Plus (Virgin)
+      ID: "67876"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 40 Plus (Virgin)
+      ID: "67876"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 4Music
+      ID: "26084"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 4Seven
+      ID: "75804"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 4Seven HD
+      ID: "89562"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 4Seven HD
+      ID: "101437"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 4Seven HD
+      ID: "89562"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 4Seven HD
+      ID: "101437"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: "5"
+      ID: "17157"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5 +1
+      ID: "77749"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5 Action
+      ID: "108969"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5 Action
+      ID: "109246"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5 Action
+      ID: "108969"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5 Action
+      ID: "109246"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5 Action HD
+      ID: "109061"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5 HD
+      ID: "50717"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5 Star
+      ID: "52336"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5 Star +1
+      ID: "97290"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5 Star +1
+      ID: "100260"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5 Star +1
+      ID: "97290"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5 Star +1
+      ID: "100260"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5SELECT
+      ID: "56888"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5USA
+      ID: "52335"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5USA
+      ID: "139791"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5USA
+      ID: "52335"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5USA
+      ID: "52335"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5USA
+      ID: "139791"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5USA
+      ID: "52335"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5USA
+      ID: "52335"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5USA
+      ID: "139791"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5USA
+      ID: "52335"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5USA +1
+      ID: "56890"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 5USA Scotland
+      ID: "139792"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 92 News
+      ID: "116312"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: A1 TV
+      ID: "116313"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: AAJ TAK
+      ID: "56894"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ANIXE HD
+      ID: "67145"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ANIXE+
+      ID: "84044"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ARD-alpha
+      ID: "66624"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ARD-alpha HD
+      ID: "110440"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ARISE
+      ID: "44098"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ARTE
+      ID: "67146"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ARTE HD
+      ID: "87847"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ARY QTV
+      ID: "49314"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ATN Bangla UK
+      ID: "52041"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Aastha
+      ID: "60438"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Absolute 80's
+      ID: "48957"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Absolute 90's
+      ID: "50592"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Absolute Classic Rock
+      ID: "48956"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Absolute Radio
+      ID: "24440"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Achtung Sexy TV
+      ID: "113310"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Adult Channel
+      ID: "66975"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Adult Channel Nightly
+      ID: "67868"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Adult Section
+      ID: "112604"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ahlebait TV
+      ID: "61031"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ahlulbayt TV
+      ID: "61807"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Akaal Channel
+      ID: "117975"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Arabiya
+      ID: "43786"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Arabiya
+      ID: "43786"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Arabiya
+      ID: "43786"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Arabiya
+      ID: "43786"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Arabiya
+      ID: "43786"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Arabiya
+      ID: "43786"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Arabiya
+      ID: "43786"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Arabiya
+      ID: "43786"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Arabiya
+      ID: "43786"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera
+      ID: "77775"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera
+      ID: "27136"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera
+      ID: "77775"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera
+      ID: "27136"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera (Arabic)
+      ID: "20296"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera Arabic
+      ID: "78639"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera English
+      ID: "49968"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera English
+      ID: "104617"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera English
+      ID: "49968"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera English
+      ID: "104617"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera HD
+      ID: "77776"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera HD
+      ID: "102458"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera HD
+      ID: "97267"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera HD
+      ID: "77776"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera HD
+      ID: "102458"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera HD
+      ID: "97267"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera HD
+      ID: "77776"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera HD
+      ID: "102458"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Al Jazeera HD
+      ID: "97267"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Amazing Discoveries
+      ID: "74536"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Andalucia TV
+      ID: "53426"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Animal Planet
+      ID: "20707"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Animal Planet +1
+      ID: "26098"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Animal Planet +1
+      ID: "79563"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Animal Planet +1
+      ID: "26098"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Animal Planet +1
+      ID: "79563"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Animal Planet HD
+      ID: "77458"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Aragon TV
+      ID: "86951"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Arirang
+      ID: "28452"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Arirang TV HD
+      ID: "119081"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Arise News
+      ID: "118331"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Aristo.TV
+      ID: "113311"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News
+      ID: "122965"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News
+      ID: "165082"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News
+      ID: "165082"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News
+      ID: "122965"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News
+      ID: "165082"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News
+      ID: "165082"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News
+      ID: "122965"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News
+      ID: "165082"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News
+      ID: "165082"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News HD
+      ID: "123145"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News HD
+      ID: "123145"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News HD
+      ID: "123145"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Asharq News HD
+      ID: "123145"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: AstroTV
+      ID: "53476"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Augsburg.tv HD
+      ID: "105451"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: B4U Movies
+      ID: "25529"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: B4U Music
+      ID: "68054"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BB-MV Lokal-TV
+      ID: "113315"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC 2 England HD (VM Custom)
+      ID: "122672"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Alba
+      ID: "60940"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Alba
+      ID: "116992"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Alba
+      ID: "116993"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Alba
+      ID: "60940"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Alba
+      ID: "116992"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Alba
+      ID: "116993"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Alba
+      ID: "60940"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Alba
+      ID: "116992"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Alba
+      ID: "116993"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Alba HD
+      ID: "100376"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Asian Network
+      ID: "24452"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Four
+      ID: "20684"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Four England Split
+      ID: "122449"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Four HD
+      ID: "83282"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Four NI Split
+      ID: "122452"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Four Scotland Split
+      ID: "122451"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Four Wales Split
+      ID: "122450"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC News
+      ID: "19037"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC News Europe HD
+      ID: "76774"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC News HD
+      ID: "83285"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Cambridgeshire
+      ID: "68105"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Channel Islands
+      ID: "67081"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Channel Islands HD
+      ID: "120579"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Channel Islands HD
+      ID: "120579"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Channel Islands HD
+      ID: "120579"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Channel Islands HD
+      ID: "120579"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East
+      ID: "24321"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East HD
+      ID: "121738"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East HD
+      ID: "121738"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East HD
+      ID: "121738"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East HD
+      ID: "121738"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East Midlands
+      ID: "24353"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East Midlands HD
+      ID: "121741"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East Midlands HD
+      ID: "120570"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East Midlands HD
+      ID: "120570"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East Midlands HD
+      ID: "121741"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East Midlands HD
+      ID: "120570"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East Midlands HD
+      ID: "120570"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East Midlands HD
+      ID: "121741"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East Midlands HD
+      ID: "120570"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East Midlands HD
+      ID: "120570"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One East West HD
+      ID: "121751"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One England HD
+      ID: "87840"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One HD
+      ID: "69387"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One London
+      ID: "30644"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One London HD
+      ID: "121745"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One London HD
+      ID: "122668"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One London HD
+      ID: "121745"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One London HD
+      ID: "121745"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One London HD
+      ID: "122668"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One London HD
+      ID: "121745"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One London HD
+      ID: "121745"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One London HD
+      ID: "122668"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One London HD
+      ID: "121745"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North East & Cumbria
+      ID: "24324"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North East & Cumbria HD
+      ID: "120574"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North East & Cumbria HD
+      ID: "121740"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North East & Cumbria HD
+      ID: "120574"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North East & Cumbria HD
+      ID: "120574"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North East & Cumbria HD
+      ID: "121740"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North East & Cumbria HD
+      ID: "120574"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North East & Cumbria HD
+      ID: "120574"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North East & Cumbria HD
+      ID: "121740"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North East & Cumbria HD
+      ID: "120574"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North West
+      ID: "24325"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North West HD
+      ID: "120572"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North West HD
+      ID: "120572"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North West HD
+      ID: "121746"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North West HD
+      ID: "120572"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North West HD
+      ID: "120572"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North West HD
+      ID: "121746"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North West HD
+      ID: "120572"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North West HD
+      ID: "120572"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One North West HD
+      ID: "121746"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland
+      ID: "21438"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "77608"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "97070"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "122670"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "97070"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "77608"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "77608"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "97070"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "122670"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "97070"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "77608"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "77608"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "97070"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "122670"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "97070"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "77608"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "77608"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "97070"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "122670"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "97070"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "77608"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "77608"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "97070"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "122670"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "97070"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Northern Ireland HD
+      ID: "77608"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Oxford HD
+      ID: "121749"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Oxfordshire
+      ID: "68104"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Oxfordshire HD
+      ID: "120577"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland
+      ID: "21439"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "97071"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "78995"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "122669"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "78995"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "97071"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "78995"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "122669"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "78995"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "97071"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "78995"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "122669"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "78995"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "97071"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "78995"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "122669"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Scotland HD
+      ID: "78995"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South
+      ID: "24326"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South East
+      ID: "24337"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South East HD
+      ID: "120573"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South East HD
+      ID: "121737"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South East HD
+      ID: "120573"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South East HD
+      ID: "120573"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South East HD
+      ID: "121737"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South East HD
+      ID: "120573"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South East HD
+      ID: "120573"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South East HD
+      ID: "121737"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South East HD
+      ID: "120573"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South East Out of Region Basildon
+      ID: "121900"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South East Out of Region Croydon & Crawley
+      ID: "121901"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South HD
+      ID: "121743"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South HD
+      ID: "120575"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South HD
+      ID: "120575"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South HD
+      ID: "121743"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South HD
+      ID: "120575"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South HD
+      ID: "120575"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South HD
+      ID: "121743"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South HD
+      ID: "120575"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South HD
+      ID: "120575"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South West
+      ID: "24327"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South West HD
+      ID: "120576"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South West HD
+      ID: "121747"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South West HD
+      ID: "120576"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South West HD
+      ID: "120576"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South West HD
+      ID: "121747"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South West HD
+      ID: "120576"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South West HD
+      ID: "120576"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South West HD
+      ID: "121747"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One South West HD
+      ID: "120576"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales
+      ID: "21441"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "78994"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "122671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "97072"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "78994"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "78994"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "122671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "97072"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "78994"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "78994"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "122671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "97072"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "78994"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "78994"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "122671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "97072"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Wales HD
+      ID: "78994"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West
+      ID: "21788"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West HD
+      ID: "120566"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West HD
+      ID: "121742"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West HD
+      ID: "120566"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West HD
+      ID: "120566"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West HD
+      ID: "121742"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West HD
+      ID: "120566"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West HD
+      ID: "120566"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West HD
+      ID: "121742"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West HD
+      ID: "120566"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West Midlands
+      ID: "24322"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West Midlands HD
+      ID: "121744"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West Midlands HD
+      ID: "120568"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West Midlands HD
+      ID: "120568"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West Midlands HD
+      ID: "121744"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West Midlands HD
+      ID: "120568"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West Midlands HD
+      ID: "120568"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West Midlands HD
+      ID: "121744"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West Midlands HD
+      ID: "120568"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One West Midlands HD
+      ID: "120568"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorks & Lincs
+      ID: "68112"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorks & Lincs HD
+      ID: "121748"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire
+      ID: "68103"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire & Lincolnshire HD
+      ID: "120569"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire & Lincolnshire HD
+      ID: "120569"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire & Lincolnshire HD
+      ID: "120569"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire & Lincolnshire HD
+      ID: "120569"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire HD
+      ID: "120578"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire HD
+      ID: "121739"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire HD
+      ID: "120578"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire HD
+      ID: "120578"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire HD
+      ID: "121739"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire HD
+      ID: "120578"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire HD
+      ID: "120578"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire HD
+      ID: "121739"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC One Yorkshire HD
+      ID: "120578"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Parliament
+      ID: "20685"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Parliament HD
+      ID: "120580"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Parliament HD (VM)
+      ID: "121752"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio 1
+      ID: "24434"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio 1 Xtra
+      ID: "31266"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio 2
+      ID: "24435"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio 3
+      ID: "24436"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio 4 Extra
+      ID: "31790"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio 4 FM
+      ID: "24437"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio 4 LW
+      ID: "24453"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio 5 Live
+      ID: "24438"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio 5 Live Sports Xtra
+      ID: "29920"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio 6 Music
+      ID: "30166"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Berkshire
+      ID: "82550"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Bristol
+      ID: "80573"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Cambridgeshire
+      ID: "80574"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Cornwall
+      ID: "80575"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Coventry & Warwickshire
+      ID: "82552"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Cumbria
+      ID: "80576"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Cymru
+      ID: "28984"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Cymru 2
+      ID: "110555"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Derby
+      ID: "82551"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Devon
+      ID: "80577"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Essex
+      ID: "33762"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Foyle
+      ID: "96945"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Gloucestershire
+      ID: "82553"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Guernsey
+      ID: "86838"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Hereford & Worcester
+      ID: "82554"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Humberside
+      ID: "80578"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Jersey
+      ID: "86829"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Kent
+      ID: "80579"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Lancashire
+      ID: "33764"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Leeds
+      ID: "80580"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Leicester
+      ID: "80581"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Lincolnshire
+      ID: "80582"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio London
+      ID: "25604"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Manchester
+      ID: "80583"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Merseyside
+      ID: "80584"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Newcastle
+      ID: "80585"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Norfolk
+      ID: "80586"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Northampton
+      ID: "82555"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Nottingham
+      ID: "82556"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Oxford
+      ID: "86826"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Scotland (FM)
+      ID: "45985"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Scotland (MW)
+      ID: "24449"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Sheffield
+      ID: "80587"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Shropshire
+      ID: "30964"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Solent
+      ID: "82557"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Somerset
+      ID: "82558"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Stoke
+      ID: "82559"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Suffolk
+      ID: "80588"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Surrey
+      ID: "86817"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Sussex
+      ID: "82560"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Ulster
+      ID: "24451"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio WM
+      ID: "80590"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Wales
+      ID: "24450"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio Wiltshire
+      ID: "82561"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio York
+      ID: "80591"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Radio nan Gaidheal
+      ID: "27209"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Red Button 1
+      ID: "81004"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Red Button 2
+      ID: "104281"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Red Button 3
+      ID: "104282"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Red Button 4
+      ID: "104283"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Red Button 5
+      ID: "104284"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Red Button 6
+      ID: "104286"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Red Button HD
+      ID: "95088"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Red Button HD
+      ID: "104288"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Red Button HD
+      ID: "95088"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Red Button HD
+      ID: "104288"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Scotland
+      ID: "110718"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Scotland HD
+      ID: "110540"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Scotland HD (Scotland)
+      ID: "110539"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Tees
+      ID: "112592"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Three
+      ID: "20683"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Three Counties Radio
+      ID: "82562"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Three HD
+      ID: "122089"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two
+      ID: "17154"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two (Northern Ireland)
+      ID: "24333"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two (Northern Ireland) HD
+      ID: "120774"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two (Northern Ireland) HD
+      ID: "120774"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two (Northern Ireland) HD
+      ID: "120774"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two (Northern Ireland) HD
+      ID: "120774"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two (Wales)
+      ID: "24339"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two (Wales) HD
+      ID: "117174"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two (Wales) HD
+      ID: "117174"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two (Wales) HD
+      ID: "117174"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two (Wales) HD
+      ID: "117174"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two HD
+      ID: "50059"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two HD (National England for Scotland)
+      ID: "110244"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two HD (National England)
+      ID: "110241"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two NI HD
+      ID: "110243"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC Two Wales HD
+      ID: "110242"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC World Service
+      ID: "24448"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC1
+      ID: "68109"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC1 (South)
+      ID: "83378"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC2 (England)
+      ID: "68113"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC3 England HD (VM)
+      ID: "122233"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC3 Northern Ireland HD (VM)
+      ID: "122236"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC3 Scotland HD (VM)
+      ID: "122235"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BBC3 Wales HD (VM)
+      ID: "122234"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BFBS Radio
+      ID: "55848"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BLAZE
+      ID: "101972"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BR Fernsehen Nord
+      ID: "90624"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BR Fernsehen Süd
+      ID: "90623"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BT SPORT HD HIDDEN
+      ID: "111219"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BT SPORT ULTIMATE POP UP
+      ID: "111218"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BT Sport 4K Hidden Content
+      ID: "111272"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BT Sport Extra 1
+      ID: "101019"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Babes & Brazzers
+      ID: "110099"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Babestation
+      ID: "100427"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Babestation
+      ID: "26052"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Babestation
+      ID: "100427"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Babestation
+      ID: "26052"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Babestation 2
+      ID: "105395"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Babestation 24
+      ID: "113312"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Baby TV
+      ID: "48542"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Baden TV
+      ID: "84215"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Bayerisches Fernsehen Nord HD
+      ID: "83559"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Bayerisches Fernsehen Süd HD
+      ID: "83558"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Baywatch
+      ID: "121063"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Baywatch
+      ID: "140562"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Baywatch
+      ID: "121063"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Baywatch
+      ID: "140562"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Best Direct
+      ID: "118525"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Bibel TV
+      ID: "83907"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Bibel TV HD
+      ID: "90442"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Birmingham TV
+      ID: "92386"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Blaze
+      ID: "103830"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Blaze (Freeview)
+      ID: "110919"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Blaze +1 (Freeview)
+      ID: "110920"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Bloomberg TV HD (UK)
+      ID: "20711"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Boomerang +1
+      ID: "48928"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Boomerang HD
+      ID: "24341"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Boomerang HD
+      ID: "105266"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Boomerang HD
+      ID: "24341"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Boomerang HD
+      ID: "24341"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Boomerang HD
+      ID: "105266"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Boomerang HD
+      ID: "24341"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Boomerang HD
+      ID: "24341"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Boomerang HD
+      ID: "105266"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Boomerang HD
+      ID: "24341"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Box Nation
+      ID: "73823"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Bristol TV
+      ID: "89511"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: British Muslim TV
+      ID: "117241"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: British Screen Classics
+      ID: "185870"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: BunnyClub 24
+      ID: "113316"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CBBC
+      ID: "29324"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CBBC HD
+      ID: "83281"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CBeebies
+      ID: "29325"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CBeebies HD
+      ID: "83283"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CGTN Documentary HD
+      ID: "113656"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CGTN Français
+      ID: "96547"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CHSTV
+      ID: "117243"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CNBC
+      ID: "16230"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CNBC
+      ID: "68892"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CNBC
+      ID: "16230"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CNBC
+      ID: "68892"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CNBC HD
+      ID: "113145"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CNN HD
+      ID: "68053"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CNN International
+      ID: "17664"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CNN International HD
+      ID: "91065"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: CTC
+      ID: "66080"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Canal 24H
+      ID: "90353"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Canal Extremadura
+      ID: "87087"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Capital London
+      ID: "30500"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Capital XTRA
+      ID: "43149"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Cardiff TV
+      ID: "89509"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Cartoon Network
+      ID: "17667"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Cartoon Network +1
+      ID: "50222"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Cartoon Network HD
+      ID: "78843"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Cartoonito
+      ID: "99028"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Cartoonito HD
+      ID: "31760"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Celebration TV
+      ID: "118526"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Challenge
+      ID: "21793"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Challenge
+      ID: "109890"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Challenge
+      ID: "21793"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Challenge
+      ID: "109890"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 21 HD
+      ID: "106914"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4
+      ID: "17155"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 (Midlands((P1)(VM)
+      ID: "68094"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 (Midlands)
+      ID: "117175"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 (NI)(P1)(VM)
+      ID: "68096"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 (NI)(VM)
+      ID: "68091"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 (North)
+      ID: "117176"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 (North)(P1)(VM)
+      ID: "68095"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 (S/E/Wales)(P1)(VM)
+      ID: "68093"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 (Scot)(P1)(VM)
+      ID: "68097"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 (Scotland)
+      ID: "117177"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 +1
+      ID: "103001"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 +1
+      ID: "56892"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 +1
+      ID: "103001"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 +1
+      ID: "56892"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 HD
+      ID: "50716"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 HD
+      ID: "50716"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 HD
+      ID: "50716"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 HD
+      ID: "50716"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 London Advertising HD
+      ID: "110543"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 Midlands Advertising HD
+      ID: "110547"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 N Ireland Advertising HD
+      ID: "110544"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 North Advertising HD
+      ID: "110546"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 Scotland Advertising HD
+      ID: "110545"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 South & East
+      ID: "116995"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 South & East
+      ID: "116994"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 South & East
+      ID: "116995"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 South & East
+      ID: "116994"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 4 VoD Logo
+      ID: "98172"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 44
+      ID: "117242"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 5 VoD Logo
+      ID: "98178"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel 7
+      ID: "117249"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel Not Available 5
+      ID: "78882"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel Not Available 6
+      ID: "78883"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel S
+      ID: "45926"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel Update 1
+      ID: "68822"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel Update 10
+      ID: "111614"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel Update 11
+      ID: "111615"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel Update 2
+      ID: "91472"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel Update 4
+      ID: "96431"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel Update 5
+      ID: "96432"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel Update 6
+      ID: "110541"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel Update 7
+      ID: "110542"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel Update 8
+      ID: "110549"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel Update 9
+      ID: "111613"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channel21
+      ID: "83565"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Channels 24
+      ID: "117250"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Children's ITV
+      ID: "49452"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Classic FM
+      ID: "24439"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Clipmobile
+      ID: "113317"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Club MTV
+      ID: "24214"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Clubland
+      ID: "97304"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Colors
+      ID: "55671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Colors Cineplex
+      ID: "105358"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Colors Gujarati
+      ID: "119186"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Colors Gujarati (VM)
+      ID: "119187"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Colors HD
+      ID: "103000"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Colors Rishtey
+      ID: "77777"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Comedy Central
+      ID: "66615"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Comedy Central (Austria)
+      ID: "84034"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Comedy Central Extra UK
+      ID: "34230"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Comedy Central UK
+      ID: "17420"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Comedy Central UK +1
+      ID: "47480"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Comedy Central UK HD
+      ID: "68589"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Court TV
+      ID: "117160"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Craft Extra (Sky)
+      ID: "118527"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Create & Craft HD
+      ID: "118518"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Create and Craft
+      ID: "33345"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Crime & Investigation Network
+      ID: "72308"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Crime & Investigation Network +1
+      ID: "60938"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Crime & Investigation Network HD
+      ID: "61621"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Crime + Investigation +1
+      ID: "109249"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Crime and Investigation Network
+      ID: "50976"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Crime and Investigation Network
+      ID: "92407"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Crime and Investigation Network
+      ID: "50976"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Crime and Investigation Network
+      ID: "92407"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Cruise1st TV
+      ID: "170965"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Cruise1st.tv
+      ID: "118529"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Cubavisión Internacional
+      ID: "113657"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DAZN PPV HD
+      ID: "133887"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DAZN Women's Football
+      ID: "155601"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DAZN Women's Football (TiVo)
+      ID: "139547"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DMAX
+      ID: "83579"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DMAX
+      ID: "58793"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DMAX
+      ID: "83579"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DMAX
+      ID: "58793"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DMAX +1
+      ID: "58792"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DMAX +1
+      ID: "79558"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DMAX +1
+      ID: "58792"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DMAX +1
+      ID: "79558"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DMAX Austria
+      ID: "100346"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DMF
+      ID: "83570"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: DNU Tiny Pop
+      ID: "34087"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Das Erste
+      ID: "67295"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Das Erste HD
+      ID: "90447"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Date Line
+      ID: "113318"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Daystar
+      ID: "102973"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Daystar HD
+      ID: "105267"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Deal Masters
+      ID: "154157"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Deal Masters (TiVo)
+      ID: "156695"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Deal or No Deal (TiVo)
+      ID: "139550"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Deal or no Deal
+      ID: "131258"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Deen TV
+      ID: "69389"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Desi Radio
+      ID: "35276"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Die neue Zeit TV
+      ID: "83674"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery Channel
+      ID: "17444"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery Channel +1
+      ID: "21557"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery Channel HD
+      ID: "49613"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery History
+      ID: "24280"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery History +1
+      ID: "60582"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery History +1
+      ID: "79559"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery History +1
+      ID: "60582"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery History +1
+      ID: "79559"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery Science
+      ID: "24282"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery Science +1
+      ID: "56266"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery Science +1
+      ID: "79561"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery Science +1
+      ID: "56266"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery Science +1
+      ID: "79561"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery Turbo
+      ID: "24284"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Discovery Turbo +1
+      ID: "110284"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Disney Channel
+      ID: "83574"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Dunamis TV
+      ID: "118530"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Dunya News
+      ID: "116315"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: E4
+      ID: "25117"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: E4 +1
+      ID: "33882"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: E4 Extra
+      ID: "31786"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: E4 HD
+      ID: "65931"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: EWTN
+      ID: "46612"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: EWTN Katholisches Fernsehen
+      ID: "83733"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: EWTN Radio
+      ID: "27143"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: EarthxTV
+      ID: "126472"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: EarthxTV
+      ID: "126472"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: EarthxTV
+      ID: "126472"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: EarthxTV
+      ID: "126472"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Eggheads (TiVo)
+      ID: "156685"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Eurosport 1
+      ID: "66603"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Eurosport 1
+      ID: "18337"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Eurosport 1
+      ID: "66603"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Eurosport 1
+      ID: "18337"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Eurosport 1 HD
+      ID: "60821"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Eurosport 1 HD
+      ID: "72791"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Eurosport 1 HD
+      ID: "60821"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Eurosport 1 HD
+      ID: "72791"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Eurosport 2
+      ID: "27413"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Eurosport 2 HD
+      ID: "79652"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Extreme
+      ID: "43088"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Extreme Channel HD
+      ID: "118776"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: FailArmy
+      ID: "115130"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Faith UK
+      ID: "118531"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Faith World TV
+      ID: "57825"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Fashion 4K
+      ID: "113658"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Fear Factor
+      ID: "115049"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Film4
+      ID: "21494"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Film4 +1
+      ID: "25630"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Film4 HD
+      ID: "68051"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Folx TV HD
+      ID: "97077"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Food Network
+      ID: "44718"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Food Network
+      ID: "80824"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Food Network
+      ID: "44718"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Food Network
+      ID: "80824"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Food Network +1
+      ID: "55670"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Foodxp
+      ID: "116545"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Fotohandy
+      ID: "113319"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: France 24 Arabic
+      ID: "87346"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: France 24 English
+      ID: "122442"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: France 24 English HD
+      ID: "60961"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: France 24 English HD
+      ID: "60961"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: France 24 English HD
+      ID: "60961"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: France 24 English HD
+      ID: "60961"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: France 24 HD
+      ID: "60562"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Franken Fernsehen HD
+      ID: "102984"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Freenet Shopping
+      ID: "112107"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Freeview Information
+      ID: "105389"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: GB News
+      ID: "119993"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: GB News HD
+      ID: "118853"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: GB News VM
+      ID: "118855"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: GEO Entertainment
+      ID: "91115"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: GEO TV
+      ID: "36118"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: GINX TV HD
+      ID: "100015"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: GREAT! Romance
+      ID: "44717"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: GREAT! Romance mix
+      ID: "50011"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: GREAT! movies
+      ID: "81450"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: GREAT! tv
+      ID: "57747"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Galicia TV Europa
+      ID: "87097"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Gay Chat TV
+      ID: "113320"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Gems TV
+      ID: "27993"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Genius Trend
+      ID: "102500"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: GeniusPlusTV
+      ID: "107524"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Geo News
+      ID: "58696"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: God
+      ID: "26215"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Gold Radio
+      ID: "24442"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Gold VM Test
+      ID: "117510"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Good News TV
+      ID: "118533"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Great British Menu
+      ID: "124931"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Great British Menu (TiVo)
+      ID: "139544"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Great Movies (VM)
+      ID: "100262"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Great Movies +1
+      ID: "97281"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Great Movies Action (VM)
+      ID: "100261"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Great TV +1
+      ID: "89657"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Great TV +1
+      ID: "89657"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Great TV +1
+      ID: "89657"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Great TV +1
+      ID: "89657"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Great! Action
+      ID: "46306"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Great! Action +1
+      ID: "59406"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Greatest Hits
+      ID: "117252"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Greatest Hits Radio
+      ID: "120297"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HGTV
+      ID: "21257"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HGTV +1 (UK)
+      ID: "29969"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HSE
+      ID: "91980"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HSE EXTRA
+      ID: "83596"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HSE EXTRA HD
+      ID: "90460"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HSE HD
+      ID: "83595"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HSE TREND
+      ID: "83610"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HT1 Innviertel
+      ID: "113321"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HUM Europe
+      ID: "91013"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HUM Europe
+      ID: "116805"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HUM Europe
+      ID: "91013"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HUM Europe
+      ID: "116805"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HUM Masala (Europe)
+      ID: "116975"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Handystar
+      ID: "110303"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HauntTV
+      ID: "132955"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HauntTV (TiVo)
+      ID: "139540"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: HealthTV
+      ID: "107567"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Heart
+      ID: "157638"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Heart 80s
+      ID: "69978"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Heart 90s
+      ID: "116566"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Heart Dance
+      ID: "116567"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Heart FM
+      ID: "24467"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Heat Radio
+      ID: "112564"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Heiss und Sexy TV
+      ID: "113322"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Hell's Kitchen (TiVo)
+      ID: "156683"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Hi-Impact TV
+      ID: "117251"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Hidayat TV
+      ID: "55269"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: High Street TV
+      ID: "25958"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: High Street TV
+      ID: "25958"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: High Street TV
+      ID: "25958"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: High Street TV
+      ID: "25958"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: High Street TV 2
+      ID: "118534"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: High Street TV 3
+      ID: "118535"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: High Street TV 3
+      ID: "118535"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: High Street TV 3
+      ID: "118535"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: High Street TV 3
+      ID: "118535"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: High Street TV 4
+      ID: "118537"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: High Street TV HD
+      ID: "180800"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: History Hit
+      ID: "121657"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: History Hit (TiVo)
+      ID: "139541"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: History Hunters
+      ID: "154010"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: History Hunters (TiVo)
+      ID: "156697"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Hitradio OE3
+      ID: "113323"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Hobby Maker HD
+      ID: "154279"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Hobby Maker HD
+      ID: "147156"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Hobby Maker HD
+      ID: "154279"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Hobby Maker HD
+      ID: "147156"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Home & Garden TV
+      ID: "111015"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Homes Under The Hammer (TiVo)
+      ID: "139543"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Homes Under the Hammer
+      ID: "124933"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ID
+      ID: "79026"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ID +1
+      ID: "79036"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: IQRA BANGLA
+      ID: "117245"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: IQRA TV
+      ID: "117978"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV +1 (South East)
+      ID: "65161"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV +1 (West Country)
+      ID: "117327"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Anglia East HD
+      ID: "112076"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Anglia West HD
+      ID: "112077"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Audio Desc
+      ID: "68117"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Be+1
+      ID: "116990"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Border (England) HD
+      ID: "112086"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Central East HD
+      ID: "112081"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Central West HD
+      ID: "112080"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Granada HD
+      ID: "112082"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Meridian North HD
+      ID: "112074"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Meridian South East HD
+      ID: "112075"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Meridian South HD
+      ID: "112073"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Quiz
+      ID: "90257"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Quiz HD
+      ID: "90644"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Quiz HD
+      ID: "121045"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Quiz HD
+      ID: "90644"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Quiz HD
+      ID: "121045"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Tyne Tees HD
+      ID: "112085"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV VoD Logo
+      ID: "98173"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV WALES HD (VM CUST)
+      ID: "113095"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV West Country HD
+      ID: "112070"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV West HD
+      ID: "112072"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV West HD
+      ID: "112071"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV West HD
+      ID: "112072"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV West HD
+      ID: "112071"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Yorkshire East HD
+      ID: "112084"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV Yorkshire West HD
+      ID: "112083"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Anglia East)
+      ID: "68158"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Anglia West)
+      ID: "68157"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Anglia)
+      ID: "21824"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Border)
+      ID: "24292"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Central East)
+      ID: "68145"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Central West)
+      ID: "68143"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Central)
+      ID: "21832"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Channel Islands)
+      ID: "24291"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Granada)
+      ID: "21831"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Granada) HD
+      ID: "106289"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (London)
+      ID: "17468"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (London)
+      ID: "68159"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (London)
+      ID: "86985"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (London)
+      ID: "17468"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (London)
+      ID: "68159"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (London)
+      ID: "86985"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (London)
+      ID: "17468"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (London)
+      ID: "68159"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (London)
+      ID: "86985"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Meridian South East)
+      ID: "68163"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Meridian South East)
+      ID: "68152"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Meridian South East)
+      ID: "68163"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Meridian South East)
+      ID: "68152"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Meridian South)
+      ID: "68162"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (South Meridian)
+      ID: "21826"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Tyne Tees South)
+      ID: "68142"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Tyne Tees)
+      ID: "24293"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Wales)
+      ID: "24288"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (West Country)
+      ID: "21823"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (West)
+      ID: "24289"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Yorkshire East)
+      ID: "68166"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 (Yorkshire)
+      ID: "21827"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 +1
+      ID: "65160"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 Border (Scotland)
+      ID: "29194"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 Border (Scotland) HD
+      ID: "113601"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 Central (Plus 1 Hour)
+      ID: "65163"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 Granada Border +1
+      ID: "65165"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 HD (Central, West and Wales)
+      ID: "67372"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 HD (Granada, Yorkshire, Border)
+      ID: "65983"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 HD (London)
+      ID: "50523"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 HD (Meridian, Anglia)
+      ID: "67073"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 HD (Wales)
+      ID: "96374"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 HD Meridian (VM Custom)
+      ID: "113096"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 London HD (VM Custom)
+      ID: "113773"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV1 Wales +1
+      ID: "65162"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV2
+      ID: "20630"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV2 +1
+      ID: "53059"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV2 HD
+      ID: "69228"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV2 HD
+      ID: "75178"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV2 HD
+      ID: "69228"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV2 HD
+      ID: "75178"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV3
+      ID: "44643"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV3 +1
+      ID: "53060"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV3 +1 (Freeview)
+      ID: "98366"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV3 HD
+      ID: "69374"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV3 HD
+      ID: "79783"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV3 HD
+      ID: "69374"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV3 HD
+      ID: "79783"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV4
+      ID: "48020"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV4 +1
+      ID: "61806"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV4 +1 (Freeview)
+      ID: "110918"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV4 HD
+      ID: "69375"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV4 HD
+      ID: "79784"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV4 HD
+      ID: "69375"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITV4 HD
+      ID: "79784"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITVBe +1
+      ID: "90645"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ITVBe +1 (Freeview)
+      ID: "110917"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ideal Extra
+      ID: "32428"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ideal World
+      ID: "118536"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ideal World
+      ID: "24669"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ideal World
+      ID: "24669"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ideal World
+      ID: "118536"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ideal World
+      ID: "24669"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ideal World
+      ID: "24669"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ideal World
+      ID: "118536"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ideal World
+      ID: "24669"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ideal World
+      ID: "24669"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ideal World (Freeview)
+      ID: "110927"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: India Today
+      ID: "137608"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Inside Crime
+      ID: "134800"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Inside Crime UK (TiVo)
+      ID: "139537"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Inspiration TV
+      ID: "46219"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Investigation Discovery
+      ID: "62496"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Iran International HD
+      ID: "117246"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Islam Channel
+      ID: "103843"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Islam Channel
+      ID: "42539"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Islam Channel
+      ID: "103831"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Islam Channel
+      ID: "103843"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Islam Channel
+      ID: "42539"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Islam Channel
+      ID: "103831"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Islam Channel
+      ID: "103843"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Islam Channel
+      ID: "42539"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Islam Channel
+      ID: "103831"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Islam Channel Urdu
+      ID: "103842"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Islam TV
+      ID: "117247"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Jazz-FM
+      ID: "25606"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Jewellery Maker
+      ID: "29067"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Jewellery Maker (Freeview)
+      ID: "131426"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Juwelo HD
+      ID: "90461"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Juwelo TV
+      ID: "83673"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: KICC TV
+      ID: "58492"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: KMTV
+      ID: "104290"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: KTV
+      ID: "117379"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: KURIER TV
+      ID: "113660"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Kabel eins Doku
+      ID: "100031"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Kanshi TV
+      ID: "116920"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Kerrang!
+      ID: "25627"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Kerrang! Radio
+      ID: "31788"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ketchup TV
+      ID: "112601"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Khushkhabri
+      ID: "26879"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: KiKA
+      ID: "67198"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: KiKA HD
+      ID: "83615"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Kiss
+      ID: "25151"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Kiss Fresh
+      ID: "25605"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Kisstory
+      ID: "112559"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: LBC
+      ID: "33579"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: LBC News
+      ID: "116568"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: LCI HD
+      ID: "90509"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: LCP HD
+      ID: "97638"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: LFC
+      ID: "57748"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: LFC TV HD
+      ID: "91169"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: LOCAL
+      ID: "93675"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: La Tienda en Casa
+      ID: "53707"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: LatestTV (Brighton)
+      ID: "88526"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Leeds TV
+      ID: "89508"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Legend
+      ID: "73970"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Legend Xtra
+      ID: "42762"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Legend Xtra +1
+      ID: "49608"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Liberty Radio
+      ID: "36091"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Live Events Channel/Live Events
+      ID: "68825"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Liverpool Football Club TV
+      ID: "91299"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Liverpool TV
+      ID: "88528"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: London TV
+      ID: "84926"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Love Pets
+      ID: "172246"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Loveworld TV
+      ID: "46408"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: M6 Boutique & Co HD
+      ID: "109734"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MATV NATIONAL
+      ID: "33883"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MBC
+      ID: "115555"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MBC
+      ID: "115555"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MBC
+      ID: "115555"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MBC
+      ID: "115555"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MDR Sachsen
+      ID: "83904"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MDR Sachsen HD
+      ID: "92463"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MDR Sachsen-Anhalt
+      ID: "83905"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MDR Sachsen-Anhalt HD
+      ID: "92104"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MDR Thüringen
+      ID: "83906"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MDR Thüringen HD
+      ID: "91982"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV
+      ID: "100301"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV 80s UK
+      ID: "24170"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV 80s UK (VM)
+      ID: "113356"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV 90s UK
+      ID: "24217"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV Deutschland
+      ID: "66604"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV HD
+      ID: "80924"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV Live HD
+      ID: "74635"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV Live HD
+      ID: "61176"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV Live HD
+      ID: "74635"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV Live HD
+      ID: "61176"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV Music
+      ID: "58695"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV Music
+      ID: "81002"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV Music
+      ID: "58695"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTV Music
+      ID: "81002"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MTVE
+      ID: "17447"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Madani Channel
+      ID: "116318"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Maennersache TV
+      ID: "113325"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Magic
+      ID: "25607"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Magic FM
+      ID: "30639"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Manchester United Television
+      ID: "21813"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Manchester United Television HD
+      ID: "91178"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MediaShop - Neuheiten
+      ID: "84061"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Meet The Babes
+      ID: "118519"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: MeinTV Shop
+      ID: "84017"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Melodie TV
+      ID: "89579"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Mobile Sex
+      ID: "113328"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: More 4
+      ID: "47657"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: More 4 HD
+      ID: "82858"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: More4 +1
+      ID: "47658"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: More4 +1
+      ID: "75805"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: More4 +1
+      ID: "47658"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: More4 +1
+      ID: "75805"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Movies 24
+      ID: "50589"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Movies 24+
+      ID: "52795"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Music India
+      ID: "153564"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Music India
+      ID: "153564"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Music India
+      ID: "153564"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Music India
+      ID: "153564"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Muslim Tv Ahmadiyya International
+      ID: "27772"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Must Have Ideas HD
+      ID: "162072"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: My Dirty Mobile
+      ID: "113329"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: My Ex Girlfriends
+      ID: "67879"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Mystery TV
+      ID: "134802"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Mystery TV (TiVo)
+      ID: "139539"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Mythbusters
+      ID: "167095"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: München TV HD
+      ID: "98534"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: N24 Doku
+      ID: "100347"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: N24 Doku Austria
+      ID: "106374"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NDR Fernsehen HH
+      ID: "90622"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NDR Fernsehen HH HD
+      ID: "91973"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NDR Fernsehen MV
+      ID: "53753"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NDR Fernsehen MV HD
+      ID: "89071"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NDR Fernsehen NDS
+      ID: "53754"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NDR Fernsehen NDS HD
+      ID: "84124"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NDR Fernsehen SH
+      ID: "53755"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NDR Fernsehen SH HD
+      ID: "84123"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NDTV 24x7
+      ID: "74025"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NDTV Good Times
+      ID: "77778"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NEWSTALK
+      ID: "55265"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NHK World Europe
+      ID: "62096"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NHK World HD
+      ID: "80647"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NHK World Japan
+      ID: "159114"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NHK World Japan HD
+      ID: "159115"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NOW 90s & 00s
+      ID: "159671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NOW 90s & 00s
+      ID: "159670"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NOW 90s & 00s
+      ID: "159671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NOW 90s & 00s
+      ID: "159670"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NTV
+      ID: "116977"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nat Geo HD VM Test
+      ID: "117509"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nat Geo Wild HD [VM CUST]
+      ID: "113113"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: National Geographic
+      ID: "21592"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: National Geographic +1
+      ID: "24112"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: National Geographic HD
+      ID: "49534"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: National Geographic HD
+      ID: "68137"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: National Geographic HD
+      ID: "49534"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: National Geographic HD
+      ID: "68137"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: National Geographic Wild
+      ID: "23305"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: National Geographic Wild HD
+      ID: "56425"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: National Geographic Wild HD
+      ID: "92019"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: National Geographic Wild HD
+      ID: "56425"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: National Geographic Wild HD
+      ID: "92019"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Netflix ViC
+      ID: "83144"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: New Tang Dynasty TV
+      ID: "47481"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: New Vision TV
+      ID: "117248"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Newsmax
+      ID: "119182"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Newsmax TV
+      ID: "87925"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NextUp Comedy Live (TiVo)
+      ID: "139548"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NextUp LIVE Comedy
+      ID: "147116"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nick Jr.
+      ID: "116452"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nick Jr. +1
+      ID: "97286"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nick Jr. HD
+      ID: "105143"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nick Jr. Too
+      ID: "50269"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nick Junior
+      ID: "24025"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nick Replay
+      ID: "24037"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nickelodeon
+      ID: "83626"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nickelodeon
+      ID: "17419"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nickelodeon
+      ID: "83626"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nickelodeon
+      ID: "17419"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nickelodeon +1
+      ID: "97277"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nickelodeon Austria
+      ID: "88731"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nickelodeon HD
+      ID: "69261"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nickelodeon HD
+      ID: "80923"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nickelodeon HD
+      ID: "69261"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nickelodeon HD
+      ID: "80923"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nicktoons
+      ID: "31168"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Niederbayern TV Deggendorf / Straubing
+      ID: "83908"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Niederbayern TV Landshut
+      ID: "97743"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Niederbayern TV Passau
+      ID: "83915"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nitro
+      ID: "84052"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nitro Austria
+      ID: "105868"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Noor TV
+      ID: "58490"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "115047"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "119233"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "115047"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "119233"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "115047"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "119233"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "115047"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "119233"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "115047"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "119233"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "115047"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "119233"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "115047"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "119233"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "115047"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Nosey
+      ID: "119233"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: NottsTV
+      ID: "88524"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Now 70s
+      ID: "110745"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Now 70s
+      ID: "110746"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Now 70s
+      ID: "110745"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Now 70s
+      ID: "110746"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Now 80s
+      ID: "108488"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Now 80s
+      ID: "108489"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Now 80s
+      ID: "108488"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Now 80s
+      ID: "108489"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Now Rock
+      ID: "110742"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Now Rock (VM)
+      ID: "110743"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: OE24 TV HD
+      ID: "100923"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ORF 1
+      ID: "53814"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ORF 2 Europa
+      ID: "83941"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ORF 2 Wien
+      ID: "88644"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Oberfranken TV HD
+      ID: "102983"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Oberpfalz TV HD
+      ID: "103406"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: On Demand
+      ID: "96085"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: PBC
+      ID: "133885"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: PBS America
+      ID: "73510"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: PBS America (Freeview)
+      ID: "131428"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: PCNE Chinese News & Entertainment
+      ID: "21795"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: PCNE Chinese News & Entertainment HD
+      ID: "121535"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: PHOENIX
+      ID: "67304"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: PHOENIX HD
+      ID: "83627"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: POP +1
+      ID: "103633"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: PSYCHIC TV
+      ID: "48774"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: PTC Punjabi
+      ID: "117515"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: PTV Global
+      ID: "55260"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Panjab Radio
+      ID: "24659"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pearl.tv
+      ID: "89556"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pearl.tv HD
+      ID: "90464"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pitaara TV
+      ID: "118516"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Planet Knowledge
+      ID: "112599"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Planet Rock
+      ID: "24444"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: PlutoTV (TiVo)
+      ID: "139535"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Politics Punjab
+      ID: "120347"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pop
+      ID: "33638"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pop
+      ID: "100263"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pop
+      ID: "33638"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pop
+      ID: "100263"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pop Max
+      ID: "56896"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pop Max +1
+      ID: "103019"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Premier
+      ID: "24469"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Premier Sports 1 HD
+      ID: "79027"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Premier Sports 2
+      ID: "109163"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Premier Sports 2 HD
+      ID: "109162"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Premier Sports Rugby
+      ID: "177002"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Prime Video
+      ID: "111583"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ProSieben
+      ID: "67203"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ProSieben
+      ID: "88656"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ProSieben
+      ID: "67203"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ProSieben
+      ID: "88656"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ProSieben Austria
+      ID: "88654"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ProSieben MAXX
+      ID: "88655"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ProSieben MAXX Austria
+      ID: "90469"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pure Babes HD
+      ID: "67881"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pure Babes HD
+      ID: "67881"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pure Babes HD
+      ID: "67881"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Pure Babes HD
+      ID: "67881"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC
+      ID: "73259"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC
+      ID: "125129"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC
+      ID: "73259"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC
+      ID: "125129"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC (VM)
+      ID: "21810"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Beauty
+      ID: "29693"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Beauty
+      ID: "98916"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Beauty
+      ID: "29693"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Beauty
+      ID: "98916"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Extra
+      ID: "116569"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Extra
+      ID: "120151"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Extra
+      ID: "116569"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Extra
+      ID: "120151"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC HD
+      ID: "83633"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC HD
+      ID: "87231"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC HD
+      ID: "110089"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC HD
+      ID: "83633"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC HD
+      ID: "87231"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC HD
+      ID: "110089"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC HD
+      ID: "83633"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC HD
+      ID: "87231"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC HD
+      ID: "110089"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Style
+      ID: "83634"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Style
+      ID: "98903"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Style
+      ID: "83634"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Style
+      ID: "98903"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Style HD
+      ID: "106106"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Style HD
+      ID: "123422"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Style HD
+      ID: "106106"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Style HD
+      ID: "123422"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC UHD (Germany)
+      ID: "113659"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Zwei
+      ID: "74338"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: QVC Zwei HD
+      ID: "90465"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Qello Concerts (TiVo)
+      ID: "156711"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Qello Concerts By Stingray
+      ID: "114791"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest
+      ID: "62391"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest +1
+      ID: "65394"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest +1
+      ID: "79655"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest +1
+      ID: "65394"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest +1
+      ID: "79655"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest HD
+      ID: "105894"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest HD
+      ID: "109198"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest HD
+      ID: "105894"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest HD
+      ID: "109198"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest Red
+      ID: "102471"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest Red
+      ID: "102472"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest Red
+      ID: "102471"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest Red
+      ID: "102472"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Quest Red +1
+      ID: "102764"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RADIO BREMEN
+      ID: "53925"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RBB Berlin Fernsehen
+      ID: "83891"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RBB Berlin Fernsehen HD
+      ID: "91975"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RBB Brandenburg Fernsehen
+      ID: "83892"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RBB Brandenburg HD
+      ID: "90467"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RNIB Connect
+      ID: "112560"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ROK
+      ID: "117979"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RT HD
+      ID: "98986"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTL
+      ID: "53955"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTL
+      ID: "52564"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTL
+      ID: "53956"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTL
+      ID: "53955"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTL
+      ID: "52564"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTL
+      ID: "53956"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTL
+      ID: "53955"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTL
+      ID: "52564"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTL
+      ID: "53956"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTL Bremen/Niedersachsen
+      ID: "84051"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTL Schleswig-Holstein
+      ID: "84137"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTL West
+      ID: "90628"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTLZWEI
+      ID: "83956"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTLZWEI
+      ID: "66610"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTLZWEI
+      ID: "88671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTLZWEI
+      ID: "83956"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTLZWEI
+      ID: "66610"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTLZWEI
+      ID: "88671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTLZWEI
+      ID: "83956"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTLZWEI
+      ID: "66610"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTLZWEI
+      ID: "88671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTLup
+      ID: "53951"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTÉ 2
+      ID: "25555"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTÉ 2 HD
+      ID: "99521"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTÉ 2 HD
+      ID: "99521"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTÉ 2 HD
+      ID: "99521"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTÉ 2 HD
+      ID: "99521"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTÉ 2FM
+      ID: "30455"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTÉ Jnr
+      ID: "72080"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTÉ LYRIC FM
+      ID: "48857"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTÉ Radio 1 (FM)
+      ID: "25603"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTÉ Raidió na Gaeltachta
+      ID: "30457"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RTÉ1 - Network
+      ID: "25554"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Racing TV
+      ID: "116703"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Racing TV HD
+      ID: "24226"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Radio Bremen HD
+      ID: "102852"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Radio X
+      ID: "24447"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Rai News 24 HD
+      ID: "102110"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Real Crime
+      ID: "121656"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Real Crime (TiVo)
+      ID: "156699"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Real Wild
+      ID: "131075"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Real Wild (TiVo)
+      ID: "139538"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Really UKTV
+      ID: "45828"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Record Europa
+      ID: "100135"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Red Bull TV (TiVo)
+      ID: "156703"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Regio TV Schwaben HD
+      ID: "105452"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Regional Fernsehen Oberbayern HD
+      ID: "101110"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Republic Bharat
+      ID: "116319"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Revelation TV
+      ID: "32561"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Rewind TV
+      ID: "156817"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: RiC
+      ID: "84136"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: S4C
+      ID: "25342"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: S4C HD
+      ID: "99597"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: S4C HD (England, Scotland, NI)
+      ID: "110537"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: S4C HD (Wales)
+      ID: "110536"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SAB TV
+      ID: "79562"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SAB TV
+      ID: "56265"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SAB TV
+      ID: "79562"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SAB TV
+      ID: "56265"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SAT.1 Rheinland-Pfalz & Hessen
+      ID: "83658"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SONY MAX HD
+      ID: "159098"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SPORT1
+      ID: "67214"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SR Fernsehen
+      ID: "90621"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SR Fernsehen HD
+      ID: "99511"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STAR Plus
+      ID: "25115"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STV
+      ID: "21830"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STV
+      ID: "21833"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STV
+      ID: "21830"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STV
+      ID: "21833"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STV +1
+      ID: "70367"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STV Central East
+      ID: "117217"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STV Central East HD
+      ID: "110533"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STV Central West
+      ID: "117218"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STV Central West HD
+      ID: "110534"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STV HD
+      ID: "68033"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STV North +1
+      ID: "107168"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: STV North Dundee HD
+      ID: "110535"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SWR Fernsehen BW
+      ID: "82937"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SWR Fernsehen BW HD
+      ID: "83772"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SWR Fernsehen RP
+      ID: "83890"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SWR Fernsehen RP HD
+      ID: "83775"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Samaa
+      ID: "116320"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Samaa TV
+      ID: "159295"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sangat
+      ID: "30907"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sanskar TV
+      ID: "117516"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sat.1
+      ID: "88678"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sat.1
+      ID: "21842"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sat.1
+      ID: "88678"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sat.1
+      ID: "21842"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sat.1 Bayern
+      ID: "83656"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sat.1 Gold
+      ID: "83651"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sat.1 Gold Österreich
+      ID: "90471"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sat.1 Hamburg & Schleswig-Holstein
+      ID: "83659"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sat.1 NRW
+      ID: "83657"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sat.1 Niedersachsen/Bremen
+      ID: "83660"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sat.1 Österreich
+      ID: "88677"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Seen On TV HD
+      ID: "155010"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Servus TV AT
+      ID: "90473"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Shop 24 Direct
+      ID: "113330"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Shop Extra
+      ID: "112565"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Shopping Quarter
+      ID: "102340"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sikh Channel
+      ID: "49678"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Siraj TV
+      ID: "32207"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Artist of the Year
+      ID: "169601"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Arts
+      ID: "24919"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Arts HD
+      ID: "49612"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Atlantic
+      ID: "70434"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Atlantic +1
+      ID: "105268"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Atlantic HD
+      ID: "70433"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Action
+      ID: "24031"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Action HD
+      ID: "61177"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Animation
+      ID: "115495"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Animation (VM)
+      ID: "115219"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Animation HD
+      ID: "115218"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Comedy
+      ID: "24039"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Comedy HD
+      ID: "61182"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Drama
+      ID: "24032"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Drama HD
+      ID: "61179"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Family
+      ID: "24040"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Family HD
+      ID: "61181"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Greats
+      ID: "24042"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Greats HD
+      ID: "61180"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Hits
+      ID: "56141"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Hits HD
+      ID: "49453"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Premiere
+      ID: "21107"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Premiere HD
+      ID: "59691"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Premiere HD
+      ID: "83675"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Premiere HD
+      ID: "59691"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Premiere HD
+      ID: "83675"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Sci Fi & Horror
+      ID: "24041"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Sci Fi & Horror HD
+      ID: "61178"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Select
+      ID: "49139"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Select HD
+      ID: "65340"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Thriller
+      ID: "56140"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Cinema Thriller HD
+      ID: "50176"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Comedy
+      ID: "113613"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Comedy HD
+      ID: "113612"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Comedy HD (Virgin Custom)
+      ID: "113615"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Crime
+      ID: "45005"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Crime
+      ID: "109836"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Crime
+      ID: "45005"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Crime
+      ID: "109836"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Crime +1
+      ID: "62422"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Crime HD
+      ID: "112396"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Documentaries
+      ID: "114276"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Documentaries
+      ID: "114274"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Documentaries
+      ID: "114276"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Documentaries
+      ID: "114274"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Documentaries HD
+      ID: "114273"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Documentaries HD
+      ID: "114275"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Documentaries HD
+      ID: "114273"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Documentaries HD
+      ID: "114275"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky History
+      ID: "21558"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky History +1
+      ID: "24699"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky History +1
+      ID: "80821"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky History +1
+      ID: "24699"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky History +1
+      ID: "80821"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky History 2
+      ID: "60500"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky History 2 HD
+      ID: "97203"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky History HD
+      ID: "52793"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky History HD
+      ID: "109251"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky History HD
+      ID: "52793"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky History HD
+      ID: "109251"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Intro
+      ID: "116682"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Kids
+      ID: "129889"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Kids
+      ID: "133813"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Kids
+      ID: "129889"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Kids
+      ID: "133813"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Max HD
+      ID: "120548"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Max HD
+      ID: "120545"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Max HD
+      ID: "120548"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Max HD
+      ID: "120545"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Max SD
+      ID: "120546"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Mix
+      ID: "48021"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Mix
+      ID: "109891"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Mix
+      ID: "48021"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Mix
+      ID: "109891"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Mix +1
+      ID: "66716"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Mix HD
+      ID: "117151"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Mix HD
+      ID: "121767"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Mix HD
+      ID: "117151"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Mix HD
+      ID: "121767"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Nature
+      ID: "114272"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Nature
+      ID: "114269"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Nature
+      ID: "114272"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Nature
+      ID: "114269"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Nature HD
+      ID: "114268"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Nature HD
+      ID: "114270"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Nature HD
+      ID: "114268"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Nature HD
+      ID: "114270"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky News
+      ID: "16234"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky News Arabia
+      ID: "117314"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky News HD
+      ID: "67040"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky News HD
+      ID: "90642"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky News HD
+      ID: "67040"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky News HD
+      ID: "90642"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky News UHD Pop Up
+      ID: "137785"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Replay
+      ID: "32151"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sci-Fi
+      ID: "17431"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sci-Fi HD
+      ID: "62126"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Showcase
+      ID: "16235"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Showcase
+      ID: "120788"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Showcase
+      ID: "16235"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Showcase
+      ID: "120788"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Showcase +1
+      ID: "70698"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Showcase HD
+      ID: "49611"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sport News
+      ID: "83754"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sport News HD
+      ID: "87131"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Action
+      ID: "19038"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Action HD
+      ID: "59533"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Action HD
+      ID: "87577"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Action HD
+      ID: "59533"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Action HD
+      ID: "87577"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Box Office HD
+      ID: "116705"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Box Office HD
+      ID: "116705"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Box Office HD
+      ID: "116705"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Box Office HD
+      ID: "116705"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Classics
+      ID: "169603"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Cricket
+      ID: "19036"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Cricket HD
+      ID: "51204"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports F1
+      ID: "74410"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports F1 HD
+      ID: "87578"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports F1 UHD
+      ID: "131261"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Football
+      ID: "104325"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Football
+      ID: "104326"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Football
+      ID: "104325"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Football
+      ID: "104326"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Football HD
+      ID: "104327"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Golf
+      ID: "109889"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Golf
+      ID: "24216"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Golf
+      ID: "109889"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Golf
+      ID: "24216"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Golf HD
+      ID: "87579"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Golf HD
+      ID: "67695"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Golf HD
+      ID: "87579"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Golf HD
+      ID: "67695"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Main Event
+      ID: "17744"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Main Event HD
+      ID: "49609"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Main Event UHD
+      ID: "131630"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Mix
+      ID: "100265"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Mix HD
+      ID: "100264"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports News
+      ID: "20643"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports News HD
+      ID: "68347"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports News HD
+      ID: "90643"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports News HD
+      ID: "68347"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports News HD
+      ID: "90643"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Premier League
+      ID: "89362"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Premier League HD
+      ID: "116645"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Premier League HD
+      ID: "89363"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Premier League HD
+      ID: "116645"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Premier League HD
+      ID: "89363"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Racing
+      ID: "30505"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Racing HD
+      ID: "120949"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Stories
+      ID: "169602"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis HD
+      ID: "152827"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis HD
+      ID: "147889"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis HD
+      ID: "152827"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis HD
+      ID: "152827"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis HD
+      ID: "147889"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis HD
+      ID: "152827"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis HD
+      ID: "152827"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis HD
+      ID: "147889"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis HD
+      ID: "152827"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis SD
+      ID: "152828"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis SD
+      ID: "152828"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis SD
+      ID: "152828"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Tennis SD
+      ID: "152828"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports Vault
+      ID: "169604"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports+
+      ID: "104323"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports+
+      ID: "104322"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports+
+      ID: "104323"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports+
+      ID: "104322"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Sports+ HD
+      ID: "104324"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky UHD Sports 1
+      ID: "131628"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky UHD Sports 2
+      ID: "137644"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Witness
+      ID: "17443"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Witness +1
+      ID: "31949"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sky Witness HD
+      ID: "64590"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Smile TV3
+      ID: "105394"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Smithsonian Channel HD
+      ID: "110553"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Smooth FM 102.2
+      ID: "45752"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Solar Radio
+      ID: "24660"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: SonLife Broadcasting Network
+      ID: "67676"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sony Channel
+      ID: "31759"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sony Entertainment
+      ID: "138722"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sony MAX
+      ID: "47144"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sony Max
+      ID: "116704"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sony Max 2 HD
+      ID: "110872"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sony Max 2 HD (VM CUST)
+      ID: "110873"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sony TV Asia
+      ID: "57603"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sony TV Asia HD
+      ID: "105937"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sony TV Max HD
+      ID: "105958"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sophia TV
+      ID: "113661"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sports Channel Network
+      ID: "112598"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sportystuff TV HD
+      ID: "119263"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Studio 66 3
+      ID: "118545"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Sukh Sagar Radio
+      ID: "26876"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Super RTL
+      ID: "52814"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Super RTL Österreich
+      ID: "83957"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TALK
+      ID: "11146"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TBN España
+      ID: "113662"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TBN UK
+      ID: "97332"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TCC
+      ID: "112597"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TG4
+      ID: "30454"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TG4 HD
+      ID: "99534"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TLC
+      ID: "17454"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TLC
+      ID: "90212"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TLC
+      ID: "17454"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TLC
+      ID: "90212"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TLC +1
+      ID: "26100"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TLC HD
+      ID: "79654"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT SPORTS BOX OFFICE 1
+      ID: "116570"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT SPORTS BOX OFFICE 1 (ROI)
+      ID: "116625"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT SPORTS BOX OFFICE 2 HD
+      ID: "116571"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 1
+      ID: "97542"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 1 HD
+      ID: "82450"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 10
+      ID: "100887"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 10 HD
+      ID: "100894"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 2
+      ID: "82449"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 2 HD
+      ID: "82451"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 3
+      ID: "95771"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 3 HD
+      ID: "95772"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 4
+      ID: "46594"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 4 HD
+      ID: "64572"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 5
+      ID: "100882"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 5 HD
+      ID: "100889"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 6
+      ID: "100883"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 6 HD
+      ID: "100890"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 7
+      ID: "100884"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 7 HD
+      ID: "100891"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 8
+      ID: "100885"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 8 HD
+      ID: "100892"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 9
+      ID: "100886"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports 9 HD
+      ID: "100893"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports UHD 4K
+      ID: "108556"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports UHD 4K
+      ID: "108557"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports UHD 4K
+      ID: "108556"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports UHD 4K
+      ID: "108557"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT Sports Ultimate UHD
+      ID: "125396"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TNT UEFA Pop Up
+      ID: "78881"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TRT World
+      ID: "116679"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TRT World
+      ID: "105269"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TRT World
+      ID: "116679"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TRT World
+      ID: "105269"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TRT World HD
+      ID: "104305"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TV Cruise Channel
+      ID: "50452"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TV Mainfranken HD
+      ID: "97791"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TV One
+      ID: "117171"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TV Trwam
+      ID: "119171"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TV Warehouse
+      ID: "118547"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TV Warehouse
+      ID: "32358"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TV Warehouse
+      ID: "118547"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TV Warehouse
+      ID: "32358"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TV5 Monde (FBSM)
+      ID: "56112"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TV5 Monde Europe
+      ID: "21495"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TVA Ostbayern HD
+      ID: "103940"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TVC News
+      ID: "117901"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TVE Internacional
+      ID: "90320"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TVX Brits
+      ID: "47738"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: 'TVX: The Fantasy Channel (Digital)'
+      ID: "69373"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TWR
+      ID: "25225"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Takbeer TV
+      ID: "58791"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Talk HD
+      ID: "122614"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Talk Sport
+      ID: "24441"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Talking Pictures
+      ID: "103481"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Talking Pictures TV
+      ID: "99024"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Tastemade
+      ID: "107076"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Teesside TV
+      ID: "103036"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Tele 5
+      ID: "67303"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: TeleSur
+      ID: "47620"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Television X Nightly (Virgin)
+      ID: "67878"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Test 8
+      ID: "86986"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Thane Direct
+      ID: "30238"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's Christmas
+      ID: "125463"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's Christmas
+      ID: "125463"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's Christmas
+      ID: "125463"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's Christmas
+      ID: "125463"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's Christmas (Freeview)
+      ID: "129634"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's Dance
+      ID: "153522"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's Fabulous
+      ID: "141864"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's Fabulous
+      ID: "141864"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's Fabulous
+      ID: "141864"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's Fabulous
+      ID: "141864"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's Manchester
+      ID: "106406"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV
+      ID: "120346"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV
+      ID: "139681"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV
+      ID: "139681"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV
+      ID: "120346"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV
+      ID: "139681"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV
+      ID: "139681"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV
+      ID: "120346"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV
+      ID: "139681"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV
+      ID: "139681"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV (Cambridgeshire)
+      ID: "90258"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV (Humber)
+      ID: "68072"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV (Norfolk)
+      ID: "87225"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV (Scotland)
+      ID: "112596"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV (South Wales)
+      ID: "101339"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV 2
+      ID: "169594"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV 2
+      ID: "136453"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV 2
+      ID: "136453"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV 2
+      ID: "169594"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV 2
+      ID: "136453"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV 2
+      ID: "136453"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV 2
+      ID: "169594"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV 2
+      ID: "136453"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV 2
+      ID: "136453"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV 3
+      ID: "139680"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV Belfast
+      ID: "89513"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: That's TV South Yorkshire
+      ID: "89111"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Thats Melody
+      ID: "131027"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Thats Melody
+      ID: "131027"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Thats Melody
+      ID: "131027"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Thats Melody
+      ID: "131027"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: The Adult Channel
+      ID: "17448"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: The Box
+      ID: "21492"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: The Chat Show Channel (TiVo)
+      ID: "139549"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: The Hits Radio
+      ID: "33635"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: The Jewellery Channel
+      ID: "30157"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: The Jewellery Channel HD
+      ID: "113589"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: The Pet Collective
+      ID: "115131"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: The Vault
+      ID: "32675"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Tiny Pop
+      ID: "153519"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Tiny Pop (Freeview)
+      ID: "110925"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Tiny Pop +1
+      ID: "56423"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Tiny Pop +1
+      ID: "153521"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Tiny Pop +1
+      ID: "56423"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Tiny Pop +1
+      ID: "153521"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Tiny Pop SD
+      ID: "153520"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Tipping Point
+      ID: "167096"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Together
+      ID: "24677"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Together
+      ID: "24677"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Together
+      ID: "24677"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Together
+      ID: "24677"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Together TV +1
+      ID: "112603"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Together TV +1
+      ID: "112603"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Together TV +1
+      ID: "112603"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Together TV +1
+      ID: "112603"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Toggo Plus
+      ID: "100062"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Trace Sport Stars
+      ID: "84472"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Trace Sport Stars (TiVo)
+      ID: "156705"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Trace Urban
+      ID: "71760"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Travelxp Europe
+      ID: "110966"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Travelxp Europe HD
+      ID: "110863"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: True Crime
+      ID: "31756"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: True Crime +1
+      ID: "45510"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: True Crime Xtra
+      ID: "57827"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Turner Classic Movies
+      ID: "20726"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Tyne & Wear TV
+      ID: "89510"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Télé Maroc
+      ID: "113331"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Dave
+      ID: "24305"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Dave HD
+      ID: "73129"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&DaveJaVu
+      ID: "44855"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Drama
+      ID: "117464"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Drama HD
+      ID: "82575"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Drama+1
+      ID: "111955"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Eden
+      ID: "35806"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Eden
+      ID: "35806"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Eden
+      ID: "35806"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Eden
+      ID: "35806"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Eden HD
+      ID: "69229"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Eden HD
+      ID: "73131"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Eden HD
+      ID: "69229"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Eden HD
+      ID: "73131"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Eden+1
+      ID: "73133"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&GOLD
+      ID: "17442"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&GOLD
+      ID: "17442"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&GOLD
+      ID: "17442"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&GOLD
+      ID: "17442"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&GOLD +1
+      ID: "31351"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&GOLD HD
+      ID: "105776"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&GOLD HD
+      ID: "105776"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&GOLD HD
+      ID: "105776"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&GOLD HD
+      ID: "105776"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Laughs
+      ID: "139609"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Laughs (TiVo)
+      ID: "156687"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Real Heroes
+      ID: "139610"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Real Heroes (TiVo)
+      ID: "156691"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&The Past
+      ID: "139611"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&The Past (TiVo)
+      ID: "156689"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Transport
+      ID: "139612"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Transport (TiVo)
+      ID: "156693"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&W
+      ID: "61458"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&W HD
+      ID: "73128"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&W+1
+      ID: "61459"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Yesterday
+      ID: "138444"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Yesterday HD
+      ID: "124948"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Yesterday HD
+      ID: "31783"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Yesterday HD
+      ID: "124948"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Yesterday HD
+      ID: "31783"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Yesterday+1
+      ID: "35706"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Yesterday+1
+      ID: "73132"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Yesterday+1
+      ID: "35706"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Yesterday+1
+      ID: "73132"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&Yesterday+1 (Freeview)
+      ID: "131427"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&alibi
+      ID: "21258"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&alibi
+      ID: "21258"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&alibi
+      ID: "21258"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&alibi
+      ID: "21258"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&alibi +1
+      ID: "45509"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&alibi HD
+      ID: "75803"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&alibi HD
+      ID: "75803"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&alibi HD
+      ID: "75803"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: U&alibi HD
+      ID: "75803"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: UCB Ireland
+      ID: "61463"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: UTV +1
+      ID: "70350"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: UTV HD
+      ID: "68073"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Ulster TV
+      ID: "21825"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Utsav Bharat
+      ID: "53188"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Utsav Bharat VM
+      ID: "77779"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Utsav Gold HD
+      ID: "53186"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Utsav Gold SD
+      ID: "116468"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Utsav Plus HD
+      ID: "97266"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Utsav Plus HD VM
+      ID: "64885"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Utsav Plus SD
+      ID: "116467"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VISIT-X.tv
+      ID: "113335"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VM Adult Previews
+      ID: "67869"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VM For Parents 1
+      ID: "94965"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VM For Parents 2
+      ID: "67874"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VM Kids
+      ID: "82843"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VM Movies
+      ID: "67871"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VM Showcase
+      ID: "68167"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VM Test Horizon
+      ID: "113941"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VM What's On
+      ID: "67873"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VM4K
+      ID: "109502"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VM4K Duplicate
+      ID: "110953"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VOX
+      ID: "88715"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VOX
+      ID: "66616"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VOX
+      ID: "83958"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VOX
+      ID: "88715"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VOX
+      ID: "66616"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VOX
+      ID: "83958"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VOX
+      ID: "88715"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VOX
+      ID: "66616"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VOX
+      ID: "83958"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VOXup
+      ID: "113043"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: VeVo
+      ID: "97570"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Viaplay Xtra
+      ID: "105388"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Viaplay Xtra HD
+      ID: "105525"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Virgin Radio
+      ID: "116572"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Vision TV
+      ID: "112594"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Vox Africa
+      ID: "30953"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WDR Aachen
+      ID: "83917"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WDR Bielefeld
+      ID: "54108"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WDR Bonn
+      ID: "83989"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WDR Dortmund
+      ID: "83918"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WDR Duisburg
+      ID: "83684"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WDR Düsseldorf
+      ID: "54109"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WDR Essen
+      ID: "54110"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WDR Köln
+      ID: "90627"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WDR Köln HD
+      ID: "97252"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WDR Münster
+      ID: "54111"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WDR Siegen
+      ID: "54112"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WDR Wuppertal
+      ID: "83919"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WION
+      ID: "114980"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WION HD
+      ID: "121161"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WRN English for Europe
+      ID: "57609"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WeDo Movies
+      ID: "186529"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Welt
+      ID: "67200"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Welt der Wunder
+      ID: "94648"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WildEarth
+      ID: "122534"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WildEarth
+      ID: "122534"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WildEarth
+      ID: "122534"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WildEarth
+      ID: "122534"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: WildEarth HD
+      ID: "131702"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Wipeout Xtra (TiVo)
+      ID: "139552"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Wonder
+      ID: "176112"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Word Network TV
+      ID: "52794"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: XXX Brits
+      ID: "109113"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: YOL TV
+      ID: "84151"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ZDF
+      ID: "86886"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ZDF HD
+      ID: "67217"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ZDFinfo
+      ID: "67213"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ZDFinfo HD
+      ID: "83543"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ZDFneo
+      ID: "67216"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ZDFneo HD
+      ID: "90438"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ZEE TV
+      ID: "121947"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee Cinema
+      ID: "116922"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee Cinema HD
+      ID: "24696"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee Punjabi
+      ID: "31167"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee Punjabi
+      ID: "161157"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee Punjabi
+      ID: "31167"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee Punjabi
+      ID: "161157"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee TV HD
+      ID: "21497"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee TV HD
+      ID: "21497"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee TV HD
+      ID: "21497"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee TV HD
+      ID: "21497"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee TV HD
+      ID: "21497"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee TV HD
+      ID: "21497"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee TV HD
+      ID: "21497"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee TV HD
+      ID: "21497"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: Zee TV HD
+      ID: "21497"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ZenLIFE (TiVo)
+      ID: "156709"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: ZenLIFE by Stingray
+      ID: "146460"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: allgäu.tv
+      ID: "83750"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "67870"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "83671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "59421"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "51849"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "67870"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "83671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "59421"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "51849"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "67870"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "83671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "59421"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "51849"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "67870"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "83671"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "59421"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: euronews
+      ID: "51849"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: i24 News
+      ID: "87374"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: iON TV
+      ID: "117676"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: kabel eins
+      ID: "88603"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: kabel eins
+      ID: "67197"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: kabel eins
+      ID: "88603"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: kabel eins
+      ID: "67197"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: kabel eins Doku
+      ID: "100867"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: kabel eins austria
+      ID: "88602"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: main.tv HD
+      ID: "105904"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: n-tv
+      ID: "66607"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: one
+      ID: "75007"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: one HD
+      ID: "90457"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: rheinmainTV
+      ID: "89578"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: sixx
+      ID: "83661"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: sixx Austria
+      ID: "88687"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: sonnenklar.TV
+      ID: "83766"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: sonnenklar.TV HD
+      ID: "83765"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: tagesschau24
+      ID: "83876"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: tagesschau24 HD
+      ID: "90439"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: wildearth
+      ID: "120987"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: wildearth
+      ID: "120987"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: wildearth
+      ID: "120987"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: wildearth
+      ID: "120987"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: xxXpanded TV
+      ID: "77443"
+      Lineup: GBR-1000193-DEFAULT
+    - Name: xxXpanded TV 2
+      ID: "112593"
+      Lineup: GBR-1000193-DEFAULT
