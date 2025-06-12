@@ -1,19 +1,16 @@
 package main
 
 import (
-	"errors"
-	"io/ioutil"
-	"net/http"
-	"net/http/httptest"
 	"os"
-	"path/filepath"
 	"testing"
+
+	"github.com/sirupsen/logrus"
 )
 
 func TestIsValidImageID(t *testing.T) {
 	cases := []struct {
-		id     string
-		valid  bool
+		id    string
+		valid bool
 	}{
 		{"abc-123_foo.bar", true},
 		{"../etc/passwd", false},
@@ -46,7 +43,43 @@ func TestValidateImagePath(t *testing.T) {
 	}
 }
 
+func TestBufferPoolReuse(t *testing.T) {
+	buf1 := bufferPool.Get().([]byte)
+	bufferPool.Put(buf1)
+	buf2 := bufferPool.Get().([]byte)
+	if &buf1[0] != &buf2[0] {
+		t.Error("Buffer pool did not reuse buffer")
+	}
+	bufferPool.Put(buf2)
+}
+
+// Note: Full integration tests for GetImageUrl would require refactoring for dependency injection of httpClient and file system.
+
 // Placeholder for GetImageUrl tests (requires refactoring for testability)
 func TestGetImageUrl(t *testing.T) {
 	t.Skip("GetImageUrl requires dependency injection for HTTP and file system to be testable")
-} 
+}
+
+func TestCacheInitAndCleanUp(t *testing.T) {
+	c := &cache{}
+	app := &App{Logger: logrus.New(), Config: config{}}
+	c.Init()
+	if c.Channel == nil || c.Program == nil || c.Metadata == nil || c.Schedule == nil {
+		t.Error("Cache maps not initialized")
+	}
+	c.CleanUp(app)
+	// Should not panic or error
+}
+
+func TestCacheOpenAndSave(t *testing.T) {
+	c := &cache{}
+	app := &App{Logger: logrus.New(), Config: config{}}
+	c.File = "testcache"
+	defer os.Remove("testcache.yaml")
+	if err := c.Save(app); err != nil {
+		t.Errorf("Failed to save cache: %v", err)
+	}
+	if err := c.Open(app); err != nil {
+		t.Errorf("Failed to open cache: %v", err)
+	}
+}

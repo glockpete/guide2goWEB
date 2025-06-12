@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"time"
@@ -96,6 +95,15 @@ type SD struct {
 	Channels  func() error
 	Schedule  func() error
 	Program   func() error
+}
+
+// SchedulesDirectClient defines the interface for Schedules Direct operations
+// This allows for easier testing and mocking.
+type SchedulesDirectClient interface {
+	Init(app *App) error
+	Login() error
+	Status() error
+	GetData(ctx context.Context) error
 }
 
 // Init initializes the Schedules Direct client

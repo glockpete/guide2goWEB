@@ -5,13 +5,12 @@ import (
 	"bytes"
 	"context"
 	"encoding/xml"
-	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strings"
 	"time"
-	"regexp"
 
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
@@ -51,11 +50,11 @@ func (app *App) CreateXMLTV(ctx context.Context, filename string) error {
 		app.Logger.WithError(err).Error("Failed to open configuration")
 		return errors.Wrap(err, "failed to open configuration")
 	}
-	if err := Cache.Open(); err != nil {
+	if err := app.Cache.Open(app); err != nil {
 		app.Logger.WithError(err).Error("Failed to open cache")
 		return errors.Wrap(err, "failed to open cache")
 	}
-	Cache.Init()
+	app.Cache.Init()
 	app.Logger.WithField("path", app.Config.Files.XMLTV).Info("Creating XMLTV file")
 	if err := gen.writeHeader(); err != nil {
 		return errors.Wrap(err, "failed to write XML header")
@@ -92,7 +91,7 @@ func (g *XMLTVGenerator) writeHeader() error {
 
 // writeChannels writes all channels to the XML file
 func (g *XMLTVGenerator) writeChannels(ctx context.Context) error {
-	for _, cache := range Cache.Channel {
+	for _, cache := range app.Cache.Channel {
 		select {
 		case <-ctx.Done():
 			return ctx.Err()
@@ -121,7 +120,7 @@ func (g *XMLTVGenerator) writeChannels(ctx context.Context) error {
 
 // writePrograms writes all programs to the XML file
 func (g *XMLTVGenerator) writePrograms(ctx context.Context) error {
-	for _, cache := range Cache.Channel {
+	for _, cache := range app.Cache.Channel {
 		select {
 		case <-ctx.Done():
 			return ctx.Err()
@@ -155,19 +154,19 @@ func (g *XMLTVGenerator) writeFooter() error {
 // writeFile writes the XML content to disk
 func (g *XMLTVGenerator) writeFile() error {
 	// Create directory if it doesn't exist
-	dir := filepath.Dir(Config.Files.XMLTV)
+	dir := filepath.Dir(app.Config.Files.XMLTV)
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		return errors.Wrap(err, "failed to create directory")
 	}
 
 	// Write to temporary file first
-	tmpFile := Config.Files.XMLTV + ".tmp"
+	tmpFile := app.Config.Files.XMLTV + ".tmp"
 	if err := os.WriteFile(tmpFile, g.buffer.Bytes(), 0644); err != nil {
 		return errors.Wrap(err, "failed to write temporary file")
 	}
 
 	// Rename temporary file to actual file
-	if err := os.Rename(tmpFile, Config.Files.XMLTV); err != nil {
+	if err := os.Rename(tmpFile, app.Config.Files.XMLTV); err != nil {
 		os.Remove(tmpFile) // Clean up temp file
 		return errors.Wrap(err, "failed to rename temporary file")
 	}
@@ -177,13 +176,13 @@ func (g *XMLTVGenerator) writeFile() error {
 
 // getPrograms gets all programs for a channel
 func (g *XMLTVGenerator) getPrograms(channel G2GCache) ([]Programme, error) {
-	schedule, ok := Cache.Schedule[channel.StationID]
+	schedule, ok := app.Cache.Schedule[channel.StationID]
 	if !ok {
 		return nil, nil
 	}
 
 	var programs []Programme
-	countryCode := Config.GetLineupCountry(channel.StationID)
+	countryCode := app.Config.GetLineupCountry(channel.StationID)
 	lang := "en"
 	if len(channel.BroadcastLanguage) > 0 {
 		lang = channel.BroadcastLanguage[0]
@@ -224,7 +223,7 @@ func (g *XMLTVGenerator) createProgram(channel G2GCache, schedule G2GCache, coun
 	program.Stop = t.Add(time.Second*time.Duration(schedule.Duration)).Format("20060102150405") + offset
 
 	// Set title with live/new indicators
-	program.Title = Cache.GetTitle(schedule.ProgramID, lang)
+	program.Title = app.Cache.GetTitle(schedule.ProgramID, lang)
 	if len(program.Title) > 0 {
 		if schedule.LiveTapeDelay == "Live" {
 			program.Title[0].Value += " ᴸᶦᵛᵉ"
@@ -234,14 +233,14 @@ func (g *XMLTVGenerator) createProgram(channel G2GCache, schedule G2GCache, coun
 	}
 
 	// Set other fields
-	program.SubTitle = Cache.GetSubTitle(schedule.ProgramID, lang)
-	program.Desc = Cache.GetDescs(schedule.ProgramID, program.SubTitle.Value)
-	program.Credits = Cache.GetCredits(schedule.ProgramID)
-	program.Categorys = Cache.GetCategory(schedule.ProgramID)
+	program.SubTitle = app.Cache.GetSubTitle(schedule.ProgramID, lang)
+	program.Desc = app.Cache.GetDescs(schedule.ProgramID, program.SubTitle.Value)
+	program.Credits = app.Cache.GetCredits(schedule.ProgramID)
+	program.Categorys = app.Cache.GetCategory(schedule.ProgramID)
 	program.Language = lang
-	program.EpisodeNums = Cache.GetEpisodeNum(schedule.ProgramID)
-	program.Icon = Cache.GetIcon(schedule.ProgramID[0:10])
-	program.Rating = Cache.GetRating(schedule.ProgramID, countryCode)
+	program.EpisodeNums = app.Cache.GetEpisodeNum(schedule.ProgramID)
+	program.Icon = app.Cache.GetIcon(schedule.ProgramID[0:10])
+	program.Rating = app.Cache.GetRating(schedule.ProgramID, countryCode)
 
 	// Set video properties
 	for _, v := range schedule.VideoProperties {
@@ -271,7 +270,7 @@ func (g *XMLTVGenerator) createProgram(channel G2GCache, schedule G2GCache, coun
 	if schedule.New {
 		program.New = &New{Value: ""}
 	} else {
-		program.PreviouslyShown = Cache.GetPreviouslyShown(schedule.ProgramID)
+		program.PreviouslyShown = app.Cache.GetPreviouslyShown(schedule.ProgramID)
 	}
 
 	// Set live status

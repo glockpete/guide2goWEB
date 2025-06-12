@@ -19,8 +19,8 @@ import (
 
 const (
 	maxConcurrentRequests = 5
-	batchSize            = 5000
-	metadataBatchSize    = 500
+	batchSize             = 5000
+	metadataBatchSize     = 500
 )
 
 var (
@@ -59,7 +59,7 @@ func (app *App) Update(ctx context.Context, sd *SD, filename string) error {
 		app.Logger.WithError(err).Error("Failed to create XMLTV file")
 		return errors.Wrap(err, "failed to create XMLTV file")
 	}
-	Cache.CleanUp()
+	app.Cache.CleanUp(app)
 	runtime.GC()
 	return nil
 }
@@ -69,10 +69,10 @@ func (sd *SD) GetData(ctx context.Context) error {
 	logger := logger.WithField("operation", "GetData")
 
 	// Open and initialize cache
-	if err := Cache.Open(); err != nil {
+	if err := app.Cache.Open(app); err != nil {
 		return errors.Wrap(err, "failed to open cache")
 	}
-	Cache.Init()
+	app.Cache.Init()
 
 	// Get account status
 	if err := sd.Status(); err != nil {
@@ -95,7 +95,7 @@ func (sd *SD) GetData(ctx context.Context) error {
 	}
 
 	// Save cache
-	if err := Cache.Save(); err != nil {
+	if err := app.Cache.Save(app); err != nil {
 		return errors.Wrap(err, "failed to save cache")
 	}
 
@@ -107,7 +107,7 @@ func (sd *SD) processLineups(ctx context.Context) error {
 	logger := logger.WithField("operation", "processLineups")
 
 	// Reset channel cache
-	Cache.Channel = make(map[string]G2GCache)
+	app.Cache.Channel = make(map[string]G2GCache)
 
 	// Get lineups from status
 	var lineups []string
@@ -129,7 +129,7 @@ func (sd *SD) processLineups(ctx context.Context) error {
 				continue
 			}
 
-			if err := Cache.AddStations(ctx, &sd.Resp.Body, id); err != nil {
+			if err := app.Cache.AddStations(ctx, &sd.Resp.Body, id); err != nil {
 				logger.WithError(err).WithField("lineup", id).Error("Failed to add stations")
 				continue
 			}
@@ -189,7 +189,7 @@ func (sd *SD) processSchedules(ctx context.Context) error {
 			wg.Add(1)
 			go func() {
 				defer wg.Done()
-				if err := Cache.AddSchedule(ctx, &sd.Resp.Body); err != nil {
+				if err := app.Cache.AddSchedule(ctx, &sd.Resp.Body); err != nil {
 					select {
 					case errChan <- errors.Wrap(err, "failed to add schedule"):
 					default:
@@ -216,13 +216,13 @@ func (sd *SD) processProgramsAndMetadata(ctx context.Context) error {
 	logger := logger.WithField("operation", "processProgramsAndMetadata")
 
 	// Get program IDs
-	programIDs := Cache.GetRequiredProgramIDs()
-	allIDs := Cache.GetAllProgramIDs()
+	programIDs := app.Cache.GetRequiredProgramIDs()
+	allIDs := app.Cache.GetAllProgramIDs()
 
 	logger.WithFields(logrus.Fields{
-		"new":     len(programIDs),
-		"cached":  len(allIDs) - len(programIDs),
-		"total":   len(allIDs),
+		"new":    len(programIDs),
+		"cached": len(allIDs) - len(programIDs),
+		"total":  len(allIDs),
 	}).Info("Processing programs and metadata")
 
 	// Process programs and metadata
@@ -237,7 +237,7 @@ func (sd *SD) processProgramsAndMetadata(ctx context.Context) error {
 			case "metadata":
 				sd.Req.URL = fmt.Sprintf("%smetadata/programs", sd.BaseURL)
 				sd.Req.Call = "metadata"
-				programIDs = Cache.GetRequiredMetaIDs()
+				programIDs = app.Cache.GetRequiredMetaIDs()
 				logger.WithField("count", len(programIDs)).Info("Downloading metadata")
 			case "programs":
 				sd.Req.URL = fmt.Sprintf("%sprograms", sd.BaseURL)
@@ -290,9 +290,9 @@ func (sd *SD) processProgramsAndMetadata(ctx context.Context) error {
 						var err error
 						switch t {
 						case "metadata":
-							err = Cache.AddMetadata(ctx, &sd.Resp.Body, &wg)
+							err = app.Cache.AddMetadata(ctx, &sd.Resp.Body, &wg)
 						case "programs":
-							err = Cache.AddProgram(ctx, &sd.Resp.Body, &wg)
+							err = app.Cache.AddProgram(ctx, &sd.Resp.Body, &wg)
 						}
 						if err != nil {
 							select {

@@ -10,7 +10,7 @@ func (e *Entry) manageChannels(app *App, sd *SD) (err error) {
 
 	defer func() {
 		app.Config.Save()
-		Cache.Save()
+		app.Cache.Save(app)
 	}()
 
 	var index, selection int
@@ -18,13 +18,13 @@ func (e *Entry) manageChannels(app *App, sd *SD) (err error) {
 	var menu Menu
 	var entry Entry
 
-	err = Cache.Open()
+	err = app.Cache.Open(app)
 	if err != nil {
-		ShowErr(err)
+		app.Logger.Error(err)
 		return
 	}
 
-	Cache.Init()
+	app.Cache.Init()
 
 	menu.Entry = make(map[int]Entry)
 
@@ -49,7 +49,7 @@ func (e *Entry) manageChannels(app *App, sd *SD) (err error) {
 
 	}
 
-	selection = menu.Show()
+	selection = menu.Show(app)
 
 	switch selection {
 
@@ -72,7 +72,7 @@ func (e *Entry) manageChannels(app *App, sd *SD) (err error) {
 	var existing string
 	var addAll, removeAll bool
 
-	for _, station := range sd.Resp.Lineup.Stations {
+	for _, station := range sd.Resp.Status.Lineups[0].Stations {
 		channelNames = append(channelNames, station.Name)
 	}
 
@@ -82,7 +82,7 @@ func (e *Entry) manageChannels(app *App, sd *SD) (err error) {
 
 	for _, cName := range channelNames {
 
-		for _, station := range sd.Resp.Lineup.Stations {
+		for _, station := range sd.Resp.Status.Lineups[0].Stations {
 
 			if cName == station.Name {
 

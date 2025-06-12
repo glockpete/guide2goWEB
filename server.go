@@ -4,19 +4,23 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
-	"os"
-	"strings"
-	"time"
 	"path/filepath"
 	"regexp"
+	"strings"
+	"sync/atomic"
+	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
 	"github.com/ulule/limiter/v3"
 	"github.com/ulule/limiter/v3/drivers/store/memory"
-	"github.com/sirupsen/logrus"
 )
+
+var requestCount uint64
+var errorCount uint64
 
 // Server starts the HTTP server with security headers and timeouts.
 func (app *App) Server(ctx context.Context) error {
@@ -33,7 +37,7 @@ func (app *App) Server(ctx context.Context) error {
 	}
 
 	app.Logger.WithFields(logrus.Fields{
-		"addr":       addr,
+		"addr":        addr,
 		"images_path": serverImagesPath,
 	}).Info("Starting server")
 
@@ -98,6 +102,7 @@ func (app *App) Server(ctx context.Context) error {
 	}
 	r.HandleFunc("/run", app.run)
 	r.HandleFunc("/health", app.healthCheck)
+	r.HandleFunc("/metrics", app.metricsHandler)
 
 	// Add timeouts
 	srv := &http.Server{
@@ -152,19 +157,31 @@ func (app *App) proxyImages(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid image ID", http.StatusBadRequest)
 		return
 	}
-	// Optionally validate path if images are stored locally
-	// err := validateImagePath(app.Config.Options.ImagesPath, id)
-	// if err != nil {
-	// 	http.Error(w, "Invalid image path", http.StatusBadRequest)
-	// 	return
-	// }
-	url := "https://json.schedulesdirect.org/20141201/image/" + id + "?token=" + app.Config2
+	url := "https://json.schedulesdirect.org/20141201/image/" + id
 	app.Logger.WithFields(logrus.Fields{
 		"image_id": id,
 		"url":      url,
 	}).Debug("Proxying image request")
 
-	http.Redirect(w, r, url, http.StatusSeeOther)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		http.Error(w, "Failed to create request", http.StatusInternalServerError)
+		return
+	}
+	req.Header.Set("Authorization", "Bearer "+app.Token)
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		http.Error(w, "Failed to fetch image", http.StatusBadGateway)
+		return
+	}
+	defer resp.Body.Close()
+	for k, v := range resp.Header {
+		for _, vv := range v {
+			w.Header().Add(k, vv)
+		}
+	}
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
 }
 
 func (app *App) run(w http.ResponseWriter, r *http.Request) {
@@ -185,4 +202,16 @@ func (app *App) healthCheck(w http.ResponseWriter, r *http.Request) {
 	app.Logger.WithField("endpoint", "/health").Info("Health check requested")
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(resp)
+}
+
+func (app *App) metricsHandler(w http.ResponseWriter, r *http.Request) {
+	atomic.AddUint64(&requestCount, 1)
+	w.Header().Set("Content-Type", "text/plain; version=0.0.4")
+	fmt.Fprintf(w, "# HELP guide2go_requests_total Total HTTP requests\n")
+	fmt.Fprintf(w, "# TYPE guide2go_requests_total counter\n")
+	fmt.Fprintf(w, "guide2go_requests_total %d\n", atomic.LoadUint64(&requestCount))
+	fmt.Fprintf(w, "# HELP guide2go_errors_total Total HTTP errors\n")
+	fmt.Fprintf(w, "# TYPE guide2go_errors_total counter\n")
+	fmt.Fprintf(w, "guide2go_errors_total %d\n", atomic.LoadUint64(&errorCount))
+	app.Logger.WithField("endpoint", "/metrics").Info("Metrics requested")
 }

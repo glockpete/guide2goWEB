@@ -1,3 +1,11 @@
+// guide2goWEB: Modern Go EPG/XMLTV generator
+
+/*
+Package guide2goWEB provides a modular, testable, and production-ready EPG/XMLTV generator using Go. It features dependency injection, interface-driven design, robust error handling, and modern security practices.
+*/
+
+# guide2goWEB
+
 **Recent changes by [Chuchodavids](https://github.com/mar-mei/guide2go/issues?q=is%3Apr+author%3AChuchodavids):**
 1. Grab images from Schedules Direct in a local folder. This script will download tvshow/movie images and save them in a local folder. Then it will expose the images from a go server. This is useful for players like Emby or Plex.
 1. For players like tiviMate I added the "live" and "new" icon in the tittle of the program. This is usually auto-added in Emby or other IPTV players, but TiviMate does not do this by reading XML tags.
@@ -509,3 +517,53 @@ go test ./...
 ## Contributing
 
 Contributions are welcome! Please ensure all code is tested and passes CI before submitting a pull request.
+
+## Architecture
+
+```mermaid
+graph TD
+  A[User/Client] -- HTTP --> B[Server (App)]
+  B -- Reads/Writes --> C[CacheStore]
+  B -- API Calls --> D[SchedulesDirectClient]
+  B -- Serves --> E[Static Images]
+  B -- Serves --> F[XMLTV Output]
+```
+
+- **Dependency Injection:** All major components (cache, Schedules Direct client, logger) are injected via the `App` struct.
+- **Interfaces:**
+  - `CacheStore` abstracts cache operations for testability and mocking.
+  - `SchedulesDirectClient` abstracts Schedules Direct API operations.
+- **Modular Design:** Each major concern (server, config, cache, SD API) is in its own file/module.
+- **Structured Logging:** All logs use structured fields for easy analysis.
+- **Security:** Input validation, path traversal protection, and secure token handling are built-in.
+
+## API Endpoints
+
+| Method | Path              | Description                | Example Response |
+|--------|-------------------|----------------------------|------------------|
+| GET    | /health           | Health check endpoint      | `{ "status": "healthy", "version": "1.2.0" }` |
+| GET    | /metrics          | Prometheus metrics         | Prometheus text  |
+| GET    | /images/{id}      | Proxy/fetch image by ID    | Image data       |
+| GET    | /run              | Trigger EPG data update    | `Grabbing EPG`   |
+
+### Example: Health Check
+
+```
+curl http://localhost:8080/health
+# { "status": "healthy", "version": "1.2.0" }
+```
+
+### Example: Metrics
+
+```
+curl http://localhost:8080/metrics
+# guide2go_requests_total 42
+# guide2go_errors_total 0
+```
+
+### Example: Image Proxy
+
+```
+curl -H "Authorization: Bearer <token>" http://localhost:8080/images/12345
+# (binary image data)
+```

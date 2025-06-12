@@ -5,9 +5,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/rand"
-	"encoding/base64"
 	"fmt"
-	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -32,7 +30,7 @@ func (app *App) Configure(filename string) error {
 		return errors.Wrap(err, "failed to open configuration")
 	}
 
-	sd.Init()
+	sd.Init(app)
 
 	if len(app.Config.Account.Username) != 0 || len(app.Config.Account.Password) != 0 {
 		if err := sd.Login(); err != nil {
@@ -132,7 +130,7 @@ func (app *App) saveConfig() error {
 func (app *App) handleAccount(entry *Entry, sd *SD) error {
 	app.Logger.Info("Handling account configuration")
 	if len(app.Config.Account.Username) == 0 || len(app.Config.Account.Password) == 0 {
-		if err := entry.account(); err != nil {
+		if err := entry.account(app); err != nil {
 			app.Logger.WithError(err).Error("Failed to configure account")
 			return errors.Wrap(err, "failed to configure account")
 		}
@@ -146,7 +144,7 @@ func (app *App) handleAccount(entry *Entry, sd *SD) error {
 			return errors.Wrap(err, "failed to get status after login")
 		}
 	} else {
-		if err := entry.account(); err != nil {
+		if err := entry.account(app); err != nil {
 			app.Logger.WithError(err).Error("Failed to configure account")
 			return errors.Wrap(err, "failed to configure account")
 		}

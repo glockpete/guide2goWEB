@@ -53,13 +53,13 @@ type channel struct {
 	Icon        Icon          `yaml:"-" json:"icon" xml:"icon"`
 }
 
-// DisplayName represents a channel's display name in different languages
+// DisplayName represents a channel's display name in different languages (canonical definition)
 type DisplayName struct {
 	Lang  string `xml:"lang,attr,omitempty" json:"lang,omitempty"`
 	Value string `xml:",chardata" json:"value"`
 }
 
-// Icon represents a channel's icon configuration
+// Icon represents a channel's icon configuration (canonical definition)
 type Icon struct {
 	Src    string `xml:"src,attr" json:"src"`
 	Width  int    `xml:"width,attr,omitempty" json:"width,omitempty"`

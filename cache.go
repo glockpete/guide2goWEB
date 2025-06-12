@@ -19,11 +19,10 @@ import (
 
 const (
 	defaultCacheExpiration = 24 * time.Hour
-	maxCacheSize          = 100 * 1024 * 1024 // 100MB
+	maxCacheSize           = 100 * 1024 * 1024 // 100MB
 )
 
 // Cache represents the global cache instance
-var Cache cache
 var ImageError bool = false
 
 var bufferPool = sync.Pool{
@@ -33,6 +32,186 @@ var bufferPool = sync.Pool{
 }
 
 var httpClient = &http.Client{}
+
+// Data struct for metadata (restored from struct_sd.go)
+type Data struct {
+	Aspect   string `json:"aspect"`
+	Height   string `json:"height"`
+	Size     string `json:"size"`
+	URI      string `json:"uri"`
+	Width    string `json:"width"`
+	Category string `json:"category"`
+	Tier     string `json:"tier"`
+}
+
+// SDProgram struct for program data (restored from struct_sd.go)
+type SDProgram struct {
+	Cast []struct {
+		BillingOrder  string `json:"billingOrder"`
+		CharacterName string `json:"characterName"`
+		Name          string `json:"name"`
+		NameID        string `json:"nameId"`
+		PersonID      string `json:"personId"`
+		Role          string `json:"role"`
+	} `json:"cast"`
+	ContentAdvisory []string `json:"contentAdvisory"`
+	ContentRating   []struct {
+		Body    string `json:"body"`
+		Code    string `json:"code"`
+		Country string `json:"country"`
+	} `json:"contentRating"`
+	Crew []struct {
+		BillingOrder string `json:"billingOrder"`
+		Name         string `json:"name"`
+		NameID       string `json:"nameId"`
+		PersonID     string `json:"personId"`
+		Role         string `json:"role"`
+	} `json:"crew"`
+	Descriptions struct {
+		Description1000 []struct {
+			Description         string `json:"description"`
+			DescriptionLanguage string `json:"descriptionLanguage"`
+		} `json:"description1000"`
+		Description100 []struct {
+			DescriptionLanguage string `json:"descriptionLanguage"`
+			Description         string `json:"description"`
+		} `json:"description100"`
+	} `json:"descriptions"`
+	EntityType        string   `json:"entityType"`
+	EpisodeTitle150   string   `json:"episodeTitle150"`
+	Genres            []string `json:"genres"`
+	HasEpisodeArtwork bool     `json:"hasEpisodeArtwork"`
+	HasImageArtwork   bool     `json:"hasImageArtwork"`
+	HasSeriesArtwork  bool     `json:"hasSeriesArtwork"`
+	Md5               string   `json:"md5"`
+	Metadata          []struct {
+		Gracenote struct {
+			Episode int `json:"episode"`
+			Season  int `json:"season"`
+		} `json:"Gracenote"`
+	} `json:"metadata"`
+	OriginalAirDate string `json:"originalAirDate"`
+	ProgramID       string `json:"programID"`
+	ResourceID      string `json:"resourceID"`
+	ShowType        string `json:"showType"`
+	Titles          []struct {
+		Title120 string `json:"title120"`
+	} `json:"titles"`
+}
+
+// SDMetadata struct for metadata (restored from struct_sd.go)
+type SDMetadata struct {
+	Data      []Data `json:"data"`
+	ProgramID string `json:"programID"`
+}
+
+// SDError struct for error responses from SD (restored from struct_sd.go)
+type SDError struct {
+	Data struct {
+		Code     int64  `json:"code"`
+		Datetime string `json:"datetime"`
+		Message  string `json:"message"`
+		Response string `json:"response"`
+		ServerID string `json:"serverID"`
+	} `json:"data"`
+	ProgramID string `json:"programID"`
+}
+
+// G2GCache : Cache data
+// Restored from struct_cache.go
+// This struct is used for caching channel, program, metadata, and schedule data.
+type G2GCache struct {
+	// Global
+	Md5       string `json:"md5,omitempty"`
+	ProgramID string `json:"programID,omitempty"`
+
+	// Channel
+	StationID         string   `json:"stationID,omitempty"`
+	Name              string   `json:"name,omitempty"`
+	Callsign          string   `json:"callsign,omitempty"`
+	Affiliate         string   `json:"affiliate,omitempty"`
+	BroadcastLanguage []string `json:"broadcastLanguage"`
+	StationLogo       []struct {
+		URL    string `json:"URL"`
+		Height int    `json:"height"`
+		Width  int    `json:"width"`
+		Md5    string `json:"md5"`
+		Source string `json:"source"`
+	} `json:"stationLogo,omitempty"`
+	Logo struct {
+		URL    string `json:"URL"`
+		Height int    `json:"height"`
+		Width  int    `json:"width"`
+		Md5    string `json:"md5"`
+	} `json:"logo,omitempty"`
+
+	// Schedule
+	AirDateTime     time.Time `json:"airDateTime,omitempty"`
+	AudioProperties []string  `json:"audioProperties,omitempty"`
+	Duration        int       `json:"duration,omitempty"`
+	LiveTapeDelay   string    `json:"liveTapeDelay,omitempty"`
+	New             bool      `json:"new,omitempty"`
+	Ratings         []struct {
+		Body string `json:"body"`
+		Code string `json:"code"`
+	} `json:"ratings,omitempty"`
+	VideoProperties []string `json:"videoProperties,omitempty"`
+
+	// Program
+	Cast []struct {
+		BillingOrder  string `json:"billingOrder"`
+		CharacterName string `json:"characterName"`
+		Name          string `json:"name"`
+		NameID        string `json:"nameId"`
+		PersonID      string `json:"personId"`
+		Role          string `json:"role"`
+	} `json:"cast"`
+	Crew []struct {
+		BillingOrder string `json:"billingOrder"`
+		Name         string `json:"name"`
+		NameID       string `json:"nameId"`
+		PersonID     string `json:"personId"`
+		Role         string `json:"role"`
+	} `json:"crew"`
+	ContentRating []struct {
+		Body    string `json:"body"`
+		Code    string `json:"code"`
+		Country string `json:"country"`
+	} `json:"contentRating"`
+	Descriptions struct {
+		Description1000 []struct {
+			Description         string `json:"description"`
+			DescriptionLanguage string `json:"descriptionLanguage"`
+		} `json:"description1000"`
+		Description100 []struct {
+			DescriptionLanguage string `json:"descriptionLanguage"`
+			Description         string `json:"description"`
+		} `json:"description100"`
+	} `json:"descriptions"`
+
+	EpisodeTitle150   string   `json:"episodeTitle150,omitempty"`
+	Genres            []string `json:"genres,omitempty"`
+	HasEpisodeArtwork bool     `json:"hasEpisodeArtwork,omitempty"`
+	HasImageArtwork   bool     `json:"hasImageArtwork,omitempty"`
+	HasSeriesArtwork  bool     `json:"hasSeriesArtwork,omitempty"`
+
+	Metadata []struct {
+		Gracenote struct {
+			Episode int `json:"episode"`
+			Season  int `json:"season"`
+		} `json:"Gracenote"`
+	} `json:"metadata,omitempty"`
+
+	OriginalAirDate string `json:"originalAirDate,omitempty"`
+	ResourceID      string `json:"resourceID,omitempty"`
+	ShowType        string `json:"showType,omitempty"`
+	Titles          []struct {
+		Title120 string `json:"title120"`
+	} `json:"titles"`
+
+	// Metadata
+	Data []Data `json:"data,omitempty"`
+}
 
 // cache represents the application's cache system
 type cache struct {
@@ -49,6 +228,28 @@ type cache struct {
 
 	expiration time.Time `json:"expiration"`
 	sync.RWMutex
+}
+
+// CacheStore defines the interface for cache operations
+// This allows for easier testing and mocking.
+type CacheStore interface {
+	Open(app *App) error
+	Save(app *App) error
+	Init()
+	CleanUp(app *App)
+	GetTitle(id, lang string, app *App) []Title
+	GetSubTitle(id, lang string, app *App) SubTitle
+	GetDescs(id, subTitle string, app *App) []Desc
+	GetCredits(id string, app *App) Credits
+	GetCategory(id string, app *App) []Category
+	GetEpisodeNum(id string, app *App) []EpisodeNum
+	GetIcon(id string, app *App) []Icon
+	GetRating(id, countryCode string, app *App) []Rating
+	GetPreviouslyShown(id string, app *App) *PreviouslyShown
+	AddStations(ctx context.Context, data *[]byte, lineup string, app *App) error
+	AddSchedule(ctx context.Context, data *[]byte, app *App) error
+	AddProgram(ctx context.Context, gzip *[]byte, wg *sync.WaitGroup, app *App) error
+	AddMetadata(ctx context.Context, gzip *[]byte, wg *sync.WaitGroup, app *App) error
 }
 
 // Init initializes the cache with default values
@@ -73,16 +274,16 @@ func (c *cache) Init() {
 }
 
 // Remove removes the cache file and reinitializes the cache
-func (c *cache) Remove() error {
+func (c *cache) Remove(app *App) error {
 	c.Lock()
 	defer c.Unlock()
 
-	if len(Config.Files.Cache) == 0 {
+	if len(app.Config.Files.Cache) == 0 {
 		return errors.New("cache file path not configured")
 	}
 
-	logger.WithField("path", Config.Files.Cache).Info("Removing cache file")
-	if err := os.RemoveAll(Config.Files.Cache); err != nil {
+	app.Logger.WithField("path", app.Config.Files.Cache).Info("Removing cache file")
+	if err := os.RemoveAll(app.Config.Files.Cache); err != nil {
 		return errors.Wrap(err, "failed to remove cache file")
 	}
 
@@ -91,7 +292,7 @@ func (c *cache) Remove() error {
 }
 
 // AddStations adds station data to the cache
-func (c *cache) AddStations(ctx context.Context, data *[]byte, lineup string) error {
+func (c *cache) AddStations(ctx context.Context, data *[]byte, lineup string, app *App) error {
 	c.Lock()
 	defer c.Unlock()
 
@@ -102,18 +303,18 @@ func (c *cache) AddStations(ctx context.Context, data *[]byte, lineup string) er
 		return errors.Wrap(err, "failed to unmarshal station data")
 	}
 
-	channelIDs := Config.GetChannelList(lineup)
+	channelIDs := app.Config.GetChannelList(lineup)
 	added := 0
 
 	for _, sd := range sdData.Stations {
 		if ContainsString(channelIDs, sd.StationID) != -1 {
 			g2gCache = G2GCache{
 				StationID:         sd.StationID,
-				Name:             sd.Name,
-				Callsign:         sd.Callsign,
-				Affiliate:        sd.Affiliate,
+				Name:              sd.Name,
+				Callsign:          sd.Callsign,
+				Affiliate:         sd.Affiliate,
 				BroadcastLanguage: sd.BroadcastLanguage,
-				Logo:             sd.Logo,
+				Logo:              sd.Logo,
 			}
 
 			c.Channel[sd.StationID] = g2gCache
@@ -121,7 +322,7 @@ func (c *cache) AddStations(ctx context.Context, data *[]byte, lineup string) er
 		}
 	}
 
-	logger.WithFields(logrus.Fields{
+	app.Logger.WithFields(logrus.Fields{
 		"lineup": lineup,
 		"added":  added,
 	}).Debug("Added stations to cache")
@@ -130,7 +331,7 @@ func (c *cache) AddStations(ctx context.Context, data *[]byte, lineup string) er
 }
 
 // AddSchedule adds schedule data to the cache
-func (c *cache) AddSchedule(ctx context.Context, data *[]byte) error {
+func (c *cache) AddSchedule(ctx context.Context, data *[]byte, app *App) error {
 	c.Lock()
 	defer c.Unlock()
 
@@ -165,12 +366,12 @@ func (c *cache) AddSchedule(ctx context.Context, data *[]byte) error {
 		}
 	}
 
-	logger.WithField("added", added).Debug("Added schedule data to cache")
+	app.Logger.WithField("added", added).Debug("Added schedule data to cache")
 	return nil
 }
 
 // AddProgram adds program data to the cache
-func (c *cache) AddProgram(ctx context.Context, gzip *[]byte, wg *sync.WaitGroup) error {
+func (c *cache) AddProgram(ctx context.Context, gzip *[]byte, wg *sync.WaitGroup, app *App) error {
 	defer wg.Done()
 
 	c.Lock()
@@ -211,12 +412,12 @@ func (c *cache) AddProgram(ctx context.Context, gzip *[]byte, wg *sync.WaitGroup
 		added++
 	}
 
-	logger.WithField("added", added).Debug("Added program data to cache")
+	app.Logger.WithField("added", added).Debug("Added program data to cache")
 	return nil
 }
 
 // AddMetadata adds metadata to the cache
-func (c *cache) AddMetadata(ctx context.Context, gzip *[]byte, wg *sync.WaitGroup) error {
+func (c *cache) AddMetadata(ctx context.Context, gzip *[]byte, wg *sync.WaitGroup, app *App) error {
 	defer wg.Done()
 
 	c.Lock()
@@ -239,8 +440,8 @@ func (c *cache) AddMetadata(ctx context.Context, gzip *[]byte, wg *sync.WaitGrou
 
 		if err := json.Unmarshal(jsonByte, &sdData); err != nil {
 			var sdError SDError
-			if err := json.Unmarshal(jsonByte, &sdError); err == nil && Config.Options.SDDownloadErrors {
-				logger.WithFields(logrus.Fields{
+			if err := json.Unmarshal(jsonByte, &sdError); err == nil && app.Config.Options.SDDownloadErrors {
+				app.Logger.WithFields(logrus.Fields{
 					"code":      sdError.Data.Code,
 					"message":   sdError.Data.Message,
 					"programID": sdError.ProgramID,
@@ -253,20 +454,20 @@ func (c *cache) AddMetadata(ctx context.Context, gzip *[]byte, wg *sync.WaitGrou
 		added++
 	}
 
-	logger.WithField("added", added).Debug("Added metadata to cache")
+	app.Logger.WithField("added", added).Debug("Added metadata to cache")
 	return nil
 }
 
 // Open loads the cache from disk
-func (c *cache) Open() error {
+func (c *cache) Open(app *App) error {
 	c.Lock()
 	defer c.Unlock()
 
-	if len(Config.Files.Cache) == 0 {
+	if len(app.Config.Files.Cache) == 0 {
 		return errors.New("cache file path not configured")
 	}
 
-	data, err := os.ReadFile(Config.Files.Cache)
+	data, err := os.ReadFile(app.Config.Files.Cache)
 	if err != nil {
 		if os.IsNotExist(err) {
 			c.Init()
@@ -281,7 +482,7 @@ func (c *cache) Open() error {
 
 	// Check cache expiration
 	if time.Now().After(c.expiration) {
-		logger.Info("Cache expired, reinitializing")
+		app.Logger.Info("Cache expired, reinitializing")
 		c.Init()
 		return nil
 	}
@@ -290,16 +491,16 @@ func (c *cache) Open() error {
 }
 
 // Save persists the cache to disk
-func (c *cache) Save() error {
+func (c *cache) Save(app *App) error {
 	c.Lock()
 	defer c.Unlock()
 
-	if len(Config.Files.Cache) == 0 {
+	if len(app.Config.Files.Cache) == 0 {
 		return errors.New("cache file path not configured")
 	}
 
 	// Create cache directory if it doesn't exist
-	dir := filepath.Dir(Config.Files.Cache)
+	dir := filepath.Dir(app.Config.Files.Cache)
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		return errors.Wrap(err, "failed to create cache directory")
 	}
@@ -311,13 +512,13 @@ func (c *cache) Save() error {
 	}
 
 	// Write to temporary file first
-	tmpFile := Config.Files.Cache + ".tmp"
+	tmpFile := app.Config.Files.Cache + ".tmp"
 	if err := os.WriteFile(tmpFile, data, 0644); err != nil {
 		return errors.Wrap(err, "failed to write temporary cache file")
 	}
 
 	// Rename temporary file to actual file
-	if err := os.Rename(tmpFile, Config.Files.Cache); err != nil {
+	if err := os.Rename(tmpFile, app.Config.Files.Cache); err != nil {
 		os.Remove(tmpFile) // Clean up temp file
 		return errors.Wrap(err, "failed to rename temporary cache file")
 	}
@@ -326,7 +527,7 @@ func (c *cache) Save() error {
 }
 
 // CleanUp removes expired entries from the cache
-func (c *cache) CleanUp() {
+func (c *cache) CleanUp(app *App) {
 	c.Lock()
 	defer c.Unlock()
 
@@ -361,7 +562,7 @@ func (c *cache) CleanUp() {
 		}
 	}
 
-	logger.WithField("expired", expired).Info("Cleaned up cache")
+	app.Logger.WithField("expired", expired).Info("Cleaned up cache")
 }
 
 // GetStats returns cache statistics
@@ -370,19 +571,19 @@ func (c *cache) GetStats() map[string]interface{} {
 	defer c.RUnlock()
 
 	return map[string]interface{}{
-		"hits":      c.stats.Hits,
-		"misses":    c.stats.Misses,
-		"size":      c.stats.Size,
-		"channels":  len(c.Channel),
-		"programs":  len(c.Program),
-		"metadata":  len(c.Metadata),
-		"schedule":  len(c.Schedule),
-		"expires":   c.expiration,
+		"hits":     c.stats.Hits,
+		"misses":   c.stats.Misses,
+		"size":     c.stats.Size,
+		"channels": len(c.Channel),
+		"programs": len(c.Program),
+		"metadata": len(c.Metadata),
+		"schedule": len(c.Schedule),
+		"expires":  c.expiration,
 	}
 }
 
 // Get data from cache
-func (c *cache) GetTitle(id, lang string) (t []Title) {
+func (c *cache) GetTitle(id, lang string, app *App) (t []Title) {
 
 	if p, ok := c.Program[id]; ok {
 
@@ -406,7 +607,7 @@ func (c *cache) GetTitle(id, lang string) (t []Title) {
 	return
 }
 
-func (c *cache) GetSubTitle(id, lang string) (s SubTitle) {
+func (c *cache) GetSubTitle(id, lang string, app *App) (s SubTitle) {
 
 	if p, ok := c.Program[id]; ok {
 
@@ -431,7 +632,7 @@ func (c *cache) GetSubTitle(id, lang string) (s SubTitle) {
 	return
 }
 
-func (c *cache) GetDescs(id, subTitle string) (de []Desc) {
+func (c *cache) GetDescs(id, subTitle string, app *App) (de []Desc) {
 
 	if p, ok := c.Program[id]; ok {
 
@@ -441,7 +642,7 @@ func (c *cache) GetDescs(id, subTitle string) (de []Desc) {
 
 		for _, tmp := range d.Description1000 {
 
-			switch Config.Options.SubtitleIntoDescription {
+			switch app.Config.Options.SubtitleIntoDescription {
 
 			case true:
 				if len(subTitle) != 0 {
@@ -465,9 +666,9 @@ func (c *cache) GetDescs(id, subTitle string) (de []Desc) {
 	return
 }
 
-func (c *cache) GetCredits(id string) (cr Credits) {
+func (c *cache) GetCredits(id string, app *App) (cr Credits) {
 
-	if Config.Options.Credits {
+	if app.Config.Options.Credits {
 
 		if p, ok := c.Program[id]; ok {
 
@@ -511,7 +712,7 @@ func (c *cache) GetCredits(id string) (cr Credits) {
 	return
 }
 
-func (c *cache) GetCategory(id string) (ca []Category) {
+func (c *cache) GetCategory(id string, app *App) (ca []Category) {
 
 	if p, ok := c.Program[id]; ok {
 
@@ -530,7 +731,7 @@ func (c *cache) GetCategory(id string) (ca []Category) {
 	return
 }
 
-func (c *cache) GetEpisodeNum(id string) (ep []EpisodeNum) {
+func (c *cache) GetEpisodeNum(id string, app *App) (ep []EpisodeNum) {
 
 	var seaseon, episode int
 
@@ -598,7 +799,7 @@ func (c *cache) GetEpisodeNum(id string) (ep []EpisodeNum) {
 	return
 }
 
-func (c *cache) GetPreviouslyShown(id string) (prev *PreviouslyShown) {
+func (c *cache) GetPreviouslyShown(id string, app *App) (prev *PreviouslyShown) {
 
 	prev = &PreviouslyShown{}
 
@@ -611,9 +812,9 @@ func (c *cache) GetPreviouslyShown(id string) (prev *PreviouslyShown) {
 
 // GetImageUrl downloads an image from Schedules Direct and saves it locally.
 // It skips download if the image already exists and is valid.
-func GetImageUrl(urlid string, token string, name string) error {
-	url := urlid + "?token=" + token
-	filename := Config.Options.ImagesPath + name
+func (app *App) GetImageUrl(urlid string, name string) error {
+	url := urlid + "?token=" + app.Token
+	filename := app.Config.Options.ImagesPath + name
 
 	a, err := os.Stat(filename)
 	if err == nil && a.Size() >= 500 {
@@ -654,20 +855,20 @@ func GetImageUrl(urlid string, token string, name string) error {
 	return nil
 }
 
-func (c *cache) GetIcon(id string) (i []Icon) {
+func (c *cache) GetIcon(id string, app *App) (i []Icon) {
 
 	var aspects = []string{"2x3", "4x3", "3x4", "16x9"}
 	var uri string
 	var width, height int
 	var err error
 	var nameFinal string
-	switch Config.Options.PosterAspect {
+	switch app.Config.Options.PosterAspect {
 
 	case "all":
 		break
 
 	default:
-		aspects = []string{Config.Options.PosterAspect}
+		aspects = []string{app.Config.Options.PosterAspect}
 
 	}
 
@@ -715,17 +916,17 @@ func (c *cache) GetIcon(id string) (i []Icon) {
 			}
 
 			if maxWidth > 0 {
-				if Config.Options.TVShowImages {
-					err := GetImageUrl(uri, Token, nameFinal)
+				if app.Config.Options.TVShowImages {
+					err := app.GetImageUrl(uri, nameFinal)
 					if err != nil {
-						logger.WithError(err).WithFields(logrus.Fields{
-							"uri": uri,
+						app.Logger.WithError(err).WithFields(logrus.Fields{
+							"uri":  uri,
 							"name": nameFinal,
 						}).Error("Failed to download image")
 						continue
 					}
 				}
-				path := "http://" + Config.Options.Hostname + "/images/" + nameFinal
+				path := "http://" + app.Config.Options.Hostname + "/images/" + nameFinal
 				i = append(i, Icon{Src: path, Height: maxHeight, Width: maxWidth})
 			}
 
@@ -736,15 +937,15 @@ func (c *cache) GetIcon(id string) (i []Icon) {
 	return
 }
 
-func (c *cache) GetRating(id, countryCode string) (ra []Rating) {
+func (c *cache) GetRating(id, countryCode string, app *App) (ra []Rating) {
 
-	if !Config.Options.Rating.Guidelines {
+	if !app.Config.Options.Rating.Guidelines {
 		return
 	}
 
 	var add = func(code, body, country string) {
 
-		switch Config.Options.Rating.CountryCodeAsSystem {
+		switch app.Config.Options.Rating.CountryCodeAsSystem {
 
 		case true:
 			ra = append(ra, Rating{Value: code, System: country})
@@ -759,7 +960,7 @@ func (c *cache) GetRating(id, countryCode string) (ra []Rating) {
 	/*
 	   var prepend = func(code, body, country string) {
 
-	     switch Config.Options.Rating.CountryCodeAsSystem {
+	     switch app.Config.Options.Rating.CountryCodeAsSystem {
 
 	     case true:
 	       ra = append([]Rating{{Value: code, System: country}}, ra...)
@@ -774,12 +975,12 @@ func (c *cache) GetRating(id, countryCode string) (ra []Rating) {
 
 	if p, ok := c.Program[id]; ok {
 
-		switch len(Config.Options.Rating.Countries) {
+		switch len(app.Config.Options.Rating.Countries) {
 
 		case 0:
 			for _, r := range p.ContentRating {
 
-				if len(ra) == Config.Options.Rating.MaxEntries && Config.Options.Rating.MaxEntries != 0 {
+				if len(ra) == app.Config.Options.Rating.MaxEntries && app.Config.Options.Rating.MaxEntries != 0 {
 					return
 				}
 
@@ -791,7 +992,7 @@ func (c *cache) GetRating(id, countryCode string) (ra []Rating) {
 
 			for _, r := range p.ContentRating {
 
-				if len(ra) == Config.Options.Rating.MaxEntries && Config.Options.Rating.MaxEntries != 0 {
+				if len(ra) == app.Config.Options.Rating.MaxEntries && app.Config.Options.Rating.MaxEntries != 0 {
 					return
 				}
 
@@ -802,11 +1003,11 @@ func (c *cache) GetRating(id, countryCode string) (ra []Rating) {
 			}
 
 		default:
-			for _, cCode := range Config.Options.Rating.Countries {
+			for _, cCode := range app.Config.Options.Rating.Countries {
 
 				for _, r := range p.ContentRating {
 
-					if len(ra) == Config.Options.Rating.MaxEntries && Config.Options.Rating.MaxEntries != 0 {
+					if len(ra) == app.Config.Options.Rating.MaxEntries && app.Config.Options.Rating.MaxEntries != 0 {
 						return
 					}
 
@@ -825,4 +1026,62 @@ func (c *cache) GetRating(id, countryCode string) (ra []Rating) {
 	}
 
 	return
+}
+
+// SDStation struct for station data (restored from struct_sd.go)
+type SDStation struct {
+	Map []struct {
+		Channel   string `json:"channel"`
+		StationID string `json:"stationID"`
+	} `json:"map"`
+	Metadata struct {
+		Lineup    string `json:"lineup"`
+		Modified  string `json:"modified"`
+		Transport string `json:"transport"`
+	} `json:"metadata"`
+	Stations []struct {
+		Affiliate         string   `json:"affiliate"`
+		BroadcastLanguage []string `json:"broadcastLanguage"`
+		Broadcaster       struct {
+			City       string `json:"city"`
+			Country    string `json:"country"`
+			Postalcode string `json:"postalcode"`
+			State      string `json:"state"`
+		} `json:"broadcaster"`
+		Callsign            string   `json:"callsign"`
+		DescriptionLanguage []string `json:"descriptionLanguage"`
+		Logo                struct {
+			URL    string `json:"URL"`
+			Height int    `json:"height"`
+			Width  int    `json:"width"`
+			Md5    string `json:"md5"`
+		} `json:"logo,omitempty"`
+		Name        string `json:"name"`
+		StationID   string `json:"stationID"`
+		StationLogo []struct {
+			URL    string `json:"URL"`
+			Height int    `json:"height"`
+			Width  int    `json:"width"`
+			Md5    string `json:"md5"`
+		} `json:"stationLogo,omitempty"`
+	} `json:"stations"`
+}
+
+// Restore SDSchedule struct for schedule data (restored from struct_cache.go)
+type SDSchedule struct {
+	Programs []struct {
+		AirDateTime     time.Time `json:"airDateTime"`
+		AudioProperties []string  `json:"audioProperties"`
+		Duration        int       `json:"duration"`
+		LiveTapeDelay   string    `json:"liveTapeDelay"`
+		New             bool      `json:"new"`
+		Md5             string    `json:"md5"`
+		ProgramID       string    `json:"programID"`
+		Ratings         []struct {
+			Body string `json:"body"`
+			Code string `json:"code"`
+		} `json:"ratings"`
+		VideoProperties []string `json:"videoProperties"`
+	} `json:"programs"`
+	StationID string `json:"stationID"`
 }
