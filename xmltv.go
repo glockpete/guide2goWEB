@@ -71,7 +71,7 @@ func CreateXMLTV(filename string) (err error) {
 
     var xmlCha channel // struct_config.go
 
-    xmlCha.ID = fmt.Sprintf("%s.%s.schedulesdirect.org", AppName, cache.StationID)
+    xmlCha.ID = cache.Callsign
     xmlCha.Icon = cache.getLogo()
     xmlCha.DisplayName = append(xmlCha.DisplayName, DisplayName{Value: cache.Callsign})
     xmlCha.DisplayName = append(xmlCha.DisplayName, DisplayName{Value: cache.Name})
@@ -121,7 +121,7 @@ func getProgram(channel G2GCache) (p []Programme) {
       var countryCode = Config.GetLineupCountry(channel.StationID)
 
       // Channel ID
-      pro.Channel = fmt.Sprintf("%s.%s.schedulesdirect.org", AppName, channel.StationID)
+      pro.Channel = channel.Callsign
 
       // Start and Stop time
       timeLayout := "2006-01-02 15:04:05 +0000 UTC"

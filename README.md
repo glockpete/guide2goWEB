@@ -17,6 +17,7 @@ Guide2Go is written in Go and creates an XMLTV file from the Schedules Direct JS
 - Cache function to download only new EPG data
 - No database is required
 - Update EPG with CLI command for using your own scripts
+- **[NEW] Channel IDs in XMLTV now use the call sign (e.g., FXHD) instead of the long Gracenote ID. This makes auto-matching with IPTV players like Plex, Emby, and TiviMate seamless.**
 
 #### Requirement
 - [Schedules Direct](https://www.schedulesdirect.org/ "Schedules Direct") Account
