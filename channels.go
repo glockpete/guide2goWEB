@@ -6,10 +6,10 @@ import (
 	"strings"
 )
 
-func (e *Entry) manageChannels(sd *SD) (err error) {
+func (e *Entry) manageChannels(app *App, sd *SD) (err error) {
 
 	defer func() {
-		Config.Save()
+		app.Config.Save()
 		Cache.Save()
 	}()
 
@@ -78,7 +78,7 @@ func (e *Entry) manageChannels(sd *SD) (err error) {
 
 	sort.Strings(channelNames)
 
-	Config.GetChannels()
+	app.Config.GetChannels()
 
 	for _, cName := range channelNames {
 
@@ -91,7 +91,7 @@ func (e *Entry) manageChannels(sd *SD) (err error) {
 				ch.Name = fmt.Sprintf("%s", station.Name)
 				ch.ID = station.StationID
 
-				if ContainsString(Config.ChannelIDs, station.StationID) != -1 {
+				if ContainsString(app.Config.ChannelIDs, station.StationID) != -1 {
 					existing = "+"
 				} else {
 					existing = "-"
@@ -108,20 +108,20 @@ func (e *Entry) manageChannels(sd *SD) (err error) {
 
 					case "y":
 						if existing == "-" {
-							Config.AddChannel(&ch)
+							app.Config.AddChannel(&ch)
 						}
 
 					case "n":
 						if existing == "+" {
-							Config.RemoveChannel(&ch)
+							app.Config.RemoveChannel(&ch)
 						}
 
 					case "all":
-						Config.AddChannel(&ch)
+						app.Config.AddChannel(&ch)
 						addAll = true
 
 					case "none":
-						Config.RemoveChannel(&ch)
+						app.Config.RemoveChannel(&ch)
 						removeAll = true
 
 					case "skip":
@@ -133,13 +133,13 @@ func (e *Entry) manageChannels(sd *SD) (err error) {
 
 					if removeAll {
 						if existing == "+" {
-							Config.RemoveChannel(&ch)
+							app.Config.RemoveChannel(&ch)
 						}
 					}
 
 					if addAll {
 						if existing == "-" {
-							Config.AddChannel(&ch)
+							app.Config.AddChannel(&ch)
 						}
 					}
 

@@ -18,128 +18,196 @@ import (
 )
 
 // Configure handles the configuration process for the application
-func Configure(filename string) error {
+func (app *App) Configure(filename string) error {
+	app.Logger.WithField("filename", filename).Info("Starting configuration process")
 	ctx := context.Background()
 	var menu Menu
 	var entry Entry
 	var sd SD
 
-	Config.File = strings.TrimSuffix(filename, filepath.Ext(filename))
+	app.Config.File = strings.TrimSuffix(filename, filepath.Ext(filename))
 
-	if err := Config.Open(ctx); err != nil {
+	if err := app.Config.Open(ctx); err != nil {
+		app.Logger.WithError(err).Error("Failed to open configuration")
 		return errors.Wrap(err, "failed to open configuration")
 	}
 
 	sd.Init()
 
-	if len(Config.Account.Username) != 0 || len(Config.Account.Password) != 0 {
+	if len(app.Config.Account.Username) != 0 || len(app.Config.Account.Password) != 0 {
 		if err := sd.Login(); err != nil {
+			app.Logger.WithError(err).Error("Failed to login to Schedules Direct")
 			return errors.Wrap(err, "failed to login to Schedules Direct")
 		}
 		if err := sd.Status(); err != nil {
+			app.Logger.WithError(err).Error("Failed to get Schedules Direct status")
 			return errors.Wrap(err, "failed to get Schedules Direct status")
 		}
 	}
 
 	for {
-		menu.Entry = make(map[int]Entry)
-
-		menu.Headline = fmt.Sprintf("%s [%s.yaml]", getMsg(0000), Config.File)
-		menu.Select = getMsg(0001)
-
-		// Exit
-		entry.Key = 0
-		entry.Value = getMsg(0010)
-		menu.Entry[0] = entry
-
-		// Account
-		entry.Key = 1
-		entry.Value = getMsg(0011)
-		menu.Entry[1] = entry
-		if len(Config.Account.Username) == 0 || len(Config.Account.Password) == 0 {
-			if err := entry.account(); err != nil {
-				return errors.Wrap(err, "failed to configure account")
-			}
-			if err := sd.Login(); err != nil {
-				os.RemoveAll(Config.File + ".yaml")
-				return errors.Wrap(err, "failed to login with new credentials")
-			}
-			if err := sd.Status(); err != nil {
-				return errors.Wrap(err, "failed to get status after login")
-			}
-		}
-
-		// Add Lineup
-		entry.Key = 2
-		entry.Value = getMsg(0012)
-		menu.Entry[2] = entry
-
-		// Remove Lineup
-		entry.Key = 3
-		entry.Value = getMsg(0013)
-		menu.Entry[3] = entry
-
-		// Manage Channels
-		entry.Key = 4
-		entry.Value = getMsg(0014)
-		menu.Entry[4] = entry
-
-		// Create XMLTV file
-		entry.Key = 5
-		entry.Value = fmt.Sprintf("%s [%s]", getMsg(0016), Config.Files.XMLTV)
-		menu.Entry[5] = entry
-
-		selection := menu.Show()
-		entry = menu.Entry[selection]
-
+		menu := app.setupMenu()
+		selection, entry := app.getMenuSelection(&menu, app)
+		app.Logger.WithFields(map[string]interface{}{"selection": selection, "entry": entry.Value}).Info("Menu selection")
 		switch selection {
 		case 0:
-			if err := Config.Save(); err != nil {
-				return errors.Wrap(err, "failed to save configuration")
-			}
-			return nil
-
+			app.Logger.Info("Saving configuration and exiting")
+			return app.saveConfig()
 		case 1:
-			if err := entry.account(); err != nil {
-				return errors.Wrap(err, "failed to configure account")
+			if err := app.handleAccount(&entry, &sd); err != nil {
+				app.Logger.WithError(err).Error("Account handling failed")
+				return err
 			}
-			if err := sd.Login(); err != nil {
-				return errors.Wrap(err, "failed to login with new credentials")
-			}
-			if err := sd.Status(); err != nil {
-				return errors.Wrap(err, "failed to get status after login")
-			}
-
 		case 2:
-			if err := entry.addLineup(&sd); err != nil {
-				return errors.Wrap(err, "failed to add lineup")
+			if err := app.handleAddLineup(&entry, &sd); err != nil {
+				app.Logger.WithError(err).Error("Add lineup failed")
+				return err
 			}
-			if err := sd.Status(); err != nil {
-				return errors.Wrap(err, "failed to get status after adding lineup")
-			}
-
 		case 3:
-			if err := entry.removeLineup(&sd); err != nil {
-				return errors.Wrap(err, "failed to remove lineup")
+			if err := app.handleRemoveLineup(&entry, &sd); err != nil {
+				app.Logger.WithError(err).Error("Remove lineup failed")
+				return err
 			}
-			if err := sd.Status(); err != nil {
-				return errors.Wrap(err, "failed to get status after removing lineup")
-			}
-
 		case 4:
-			if err := entry.manageChannels(&sd); err != nil {
-				return errors.Wrap(err, "failed to manage channels")
+			if err := app.handleManageChannels(&entry, &sd); err != nil {
+				app.Logger.WithError(err).Error("Manage channels failed")
+				return err
 			}
-			if err := sd.Status(); err != nil {
-				return errors.Wrap(err, "failed to get status after managing channels")
-			}
-
 		case 5:
-			if err := sd.Update(filename); err != nil {
-				return errors.Wrap(err, "failed to update EPG data")
+			if err := app.handleCreateXMLTV(&sd, filename); err != nil {
+				app.Logger.WithError(err).Error("Create XMLTV failed")
+				return err
 			}
 		}
 	}
+}
+
+func (app *App) setupMenu() Menu {
+	var menu Menu
+	var entry Entry
+	menu.Entry = make(map[int]Entry)
+	menu.Headline = fmt.Sprintf("%s [%s.yaml]", getMsg(0000), app.Config.File)
+	menu.Select = getMsg(0001)
+	// Exit
+	entry.Key = 0
+	entry.Value = getMsg(0010)
+	menu.Entry[0] = entry
+	// Account
+	entry.Key = 1
+	entry.Value = getMsg(0011)
+	menu.Entry[1] = entry
+	// Add Lineup
+	entry.Key = 2
+	entry.Value = getMsg(0012)
+	menu.Entry[2] = entry
+	// Remove Lineup
+	entry.Key = 3
+	entry.Value = getMsg(0013)
+	menu.Entry[3] = entry
+	// Manage Channels
+	entry.Key = 4
+	entry.Value = getMsg(0014)
+	menu.Entry[4] = entry
+	// Create XMLTV file
+	entry.Key = 5
+	entry.Value = fmt.Sprintf("%s [%s]", getMsg(0016), app.Config.Files.XMLTV)
+	menu.Entry[5] = entry
+	return menu
+}
+
+func (app *App) getMenuSelection(menu *Menu, appParam *App) (int, Entry) {
+	selection := menu.Show(appParam)
+	return selection, menu.Entry[selection]
+}
+
+func (app *App) saveConfig() error {
+	app.Logger.Info("Saving configuration to file")
+	if err := app.Config.Save(); err != nil {
+		app.Logger.WithError(err).Error("Failed to save configuration")
+		return errors.Wrap(err, "failed to save configuration")
+	}
+	return nil
+}
+
+func (app *App) handleAccount(entry *Entry, sd *SD) error {
+	app.Logger.Info("Handling account configuration")
+	if len(app.Config.Account.Username) == 0 || len(app.Config.Account.Password) == 0 {
+		if err := entry.account(); err != nil {
+			app.Logger.WithError(err).Error("Failed to configure account")
+			return errors.Wrap(err, "failed to configure account")
+		}
+		if err := sd.Login(); err != nil {
+			os.RemoveAll(app.Config.File + ".yaml")
+			app.Logger.WithError(err).Error("Failed to login with new credentials")
+			return errors.Wrap(err, "failed to login with new credentials")
+		}
+		if err := sd.Status(); err != nil {
+			app.Logger.WithError(err).Error("Failed to get status after login")
+			return errors.Wrap(err, "failed to get status after login")
+		}
+	} else {
+		if err := entry.account(); err != nil {
+			app.Logger.WithError(err).Error("Failed to configure account")
+			return errors.Wrap(err, "failed to configure account")
+		}
+		if err := sd.Login(); err != nil {
+			app.Logger.WithError(err).Error("Failed to login with new credentials")
+			return errors.Wrap(err, "failed to login with new credentials")
+		}
+		if err := sd.Status(); err != nil {
+			app.Logger.WithError(err).Error("Failed to get status after login")
+			return errors.Wrap(err, "failed to get status after login")
+		}
+	}
+	return nil
+}
+
+func (app *App) handleAddLineup(entry *Entry, sd *SD) error {
+	app.Logger.Info("Handling add lineup")
+	if err := entry.addLineup(sd); err != nil {
+		app.Logger.WithError(err).Error("Failed to add lineup")
+		return errors.Wrap(err, "failed to add lineup")
+	}
+	if err := sd.Status(); err != nil {
+		app.Logger.WithError(err).Error("Failed to get status after adding lineup")
+		return errors.Wrap(err, "failed to get status after adding lineup")
+	}
+	return nil
+}
+
+func (app *App) handleRemoveLineup(entry *Entry, sd *SD) error {
+	app.Logger.Info("Handling remove lineup")
+	if err := entry.removeLineup(sd); err != nil {
+		app.Logger.WithError(err).Error("Failed to remove lineup")
+		return errors.Wrap(err, "failed to remove lineup")
+	}
+	if err := sd.Status(); err != nil {
+		app.Logger.WithError(err).Error("Failed to get status after removing lineup")
+		return errors.Wrap(err, "failed to get status after removing lineup")
+	}
+	return nil
+}
+
+func (app *App) handleManageChannels(entry *Entry, sd *SD) error {
+	app.Logger.Info("Handling manage channels")
+	if err := entry.manageChannels(sd); err != nil {
+		app.Logger.WithError(err).Error("Failed to manage channels")
+		return errors.Wrap(err, "failed to manage channels")
+	}
+	if err := sd.Status(); err != nil {
+		app.Logger.WithError(err).Error("Failed to get status after managing channels")
+		return errors.Wrap(err, "failed to get status after managing channels")
+	}
+	return nil
+}
+
+func (app *App) handleCreateXMLTV(sd *SD, filename string) error {
+	app.Logger.WithField("filename", filename).Info("Handling create XMLTV")
+	if err := sd.Update(filename); err != nil {
+		app.Logger.WithError(err).Error("Failed to update EPG data")
+		return errors.Wrap(err, "failed to update EPG data")
+	}
+	return nil
 }
 
 // Open opens and validates the configuration file

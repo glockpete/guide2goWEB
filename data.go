@@ -29,50 +29,38 @@ var (
 )
 
 // Update updates data from Schedules Direct and creates the XMLTV file
-func (sd *SD) Update(ctx context.Context, filename string) error {
-	logger := logger.WithField("filename", filename)
-
-	// Validate and prepare configuration
-	Config.File = strings.TrimSuffix(filename, filepath.Ext(filename))
-	if _, err := os.ReadFile(fmt.Sprintf("%s.yaml", Config.File)); err != nil {
+func (app *App) Update(ctx context.Context, sd *SD, filename string) error {
+	app.Logger.WithField("filename", filename).Info("Starting data update")
+	app.Config.File = strings.TrimSuffix(filename, filepath.Ext(filename))
+	if _, err := os.ReadFile(fmt.Sprintf("%s.yaml", app.Config.File)); err != nil {
+		app.Logger.WithError(err).Error("Failed to read configuration file")
 		return errors.Wrap(err, "failed to read configuration file")
 	}
-
-	if err := Config.Open(); err != nil {
+	if err := app.Config.Open(ctx); err != nil {
+		app.Logger.WithError(err).Error("Failed to open configuration")
 		return errors.Wrap(err, "failed to open configuration")
 	}
-
-	// Initialize SD client
 	if err := sd.Init(); err != nil {
+		app.Logger.WithError(err).Error("Failed to initialize SD client")
 		return errors.Wrap(err, "failed to initialize SD client")
 	}
-
-	// Login if needed
 	if len(sd.Token) == 0 {
 		if err := sd.Login(); err != nil {
+			app.Logger.WithError(err).Error("Failed to login to Schedules Direct")
 			return errors.Wrap(err, "failed to login to Schedules Direct")
 		}
 	}
-
-	// Fetch and process data
 	if err := sd.GetData(ctx); err != nil {
+		app.Logger.WithError(err).Error("Failed to get data from Schedules Direct")
 		return errors.Wrap(err, "failed to get data from Schedules Direct")
 	}
-
-	// Clean up memory
 	runtime.GC()
-
-	// Create XMLTV file
-	if err := CreateXMLTV(filename); err != nil {
+	if err := app.CreateXMLTV(ctx, filename); err != nil {
+		app.Logger.WithError(err).Error("Failed to create XMLTV file")
 		return errors.Wrap(err, "failed to create XMLTV file")
 	}
-
-	// Clean up cache
 	Cache.CleanUp()
-
-	// Final memory cleanup
 	runtime.GC()
-
 	return nil
 }
 

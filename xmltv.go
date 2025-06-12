@@ -42,56 +42,37 @@ func NewXMLTVGenerator() *XMLTVGenerator {
 	}
 }
 
-// CreateXMLTV creates an XMLTV file from the cache file
-func CreateXMLTV(ctx context.Context, filename string) error {
-	logger := logger.WithField("filename", filename)
-
-	// Create generator
+// CreateXMLTV generates the XMLTV file using the provided app context
+func (app *App) CreateXMLTV(ctx context.Context, filename string) error {
+	app.Logger.WithField("filename", filename).Info("Starting XMLTV creation")
 	gen := NewXMLTVGenerator()
-
-	// Prepare configuration
-	Config.File = strings.TrimSuffix(filename, filepath.Ext(filename))
-
-	// Open configuration and cache
-	if err := Config.Open(); err != nil {
+	app.Config.File = strings.TrimSuffix(filename, filepath.Ext(filename))
+	if err := app.Config.Open(ctx); err != nil {
+		app.Logger.WithError(err).Error("Failed to open configuration")
 		return errors.Wrap(err, "failed to open configuration")
 	}
-
 	if err := Cache.Open(); err != nil {
+		app.Logger.WithError(err).Error("Failed to open cache")
 		return errors.Wrap(err, "failed to open cache")
 	}
 	Cache.Init()
-
-	logger.WithField("path", Config.Files.XMLTV).Info("Creating XMLTV file")
-
-	// Write XML header
+	app.Logger.WithField("path", app.Config.Files.XMLTV).Info("Creating XMLTV file")
 	if err := gen.writeHeader(); err != nil {
 		return errors.Wrap(err, "failed to write XML header")
 	}
-
-	// Write channels
 	if err := gen.writeChannels(ctx); err != nil {
 		return errors.Wrap(err, "failed to write channels")
 	}
-
-	// Write programs
 	if err := gen.writePrograms(ctx); err != nil {
 		return errors.Wrap(err, "failed to write programs")
 	}
-
-	// Write XML footer
 	if err := gen.writeFooter(); err != nil {
 		return errors.Wrap(err, "failed to write XML footer")
 	}
-
-	// Write file
 	if err := gen.writeFile(); err != nil {
 		return errors.Wrap(err, "failed to write XMLTV file")
 	}
-
-	// Clean up
 	runtime.GC()
-
 	return nil
 }
 

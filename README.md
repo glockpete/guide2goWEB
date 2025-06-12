@@ -489,3 +489,23 @@ guide2go -config MY_CONFIG_FILE.yaml
   - Update the Dockerfile to use the latest Alpine base image and Go version.
 - **Documentation**:
   - Ensure all functions and packages are well-documented with comments.
+
+## CI/CD
+
+This project uses GitHub Actions for continuous integration. All pushes and pull requests to `master` will trigger automated build and test jobs.
+
+## Dependency Injection & Logging
+
+The application now uses an `App` struct for dependency injection. All configuration and logging is accessed via this struct, ensuring modularity and testability. Logging is performed using structured logs with logrus.
+
+## Running Tests
+
+To run all tests:
+
+```
+go test ./...
+```
+
+## Contributing
+
+Contributions are welcome! Please ensure all code is tested and passes CI before submitting a pull request.

@@ -99,7 +99,7 @@ type SD struct {
 }
 
 // Init initializes the Schedules Direct client
-func (sd *SD) Init() error {
+func (sd *SD) Init(app *App) error {
 	sd.BaseURL = "https://json.schedulesdirect.org/20141201/"
 	sd.client = &http.Client{
 		Timeout: requestTimeout,
@@ -112,7 +112,7 @@ func (sd *SD) Init() error {
 		sd.Req.Compression = false
 		sd.Token = ""
 
-		login := Config.Account
+		login := app.Config.Account
 		data, err := json.MarshalIndent(login, "", "  ")
 		if err != nil {
 			return errors.Wrap(err, "failed to marshal login data")
@@ -126,12 +126,11 @@ func (sd *SD) Init() error {
 			return err
 		}
 
-		logger.WithFields(logrus.Fields{
+		app.Logger.WithFields(logrus.Fields{
 			"message": sd.Resp.Login.Message,
 		}).Info("Successfully logged in to Schedules Direct")
 
 		sd.Token = sd.Resp.Login.Token
-		Token = sd.Token
 		return nil
 	}
 
@@ -146,15 +145,15 @@ func (sd *SD) Init() error {
 			return err
 		}
 
-		logger.WithFields(logrus.Fields{
+		app.Logger.WithFields(logrus.Fields{
 			"expires":    sd.Resp.Status.Account.Expires,
 			"lineups":    len(sd.Resp.Status.Lineups),
 			"maxLineups": sd.Resp.Status.Account.MaxLineups,
-			"channels":   len(Config.Station),
+			"channels":   len(app.Config.Station),
 		}).Info("Schedules Direct status")
 
 		for _, status := range sd.Resp.Status.SystemStatus {
-			logger.WithFields(logrus.Fields{
+			app.Logger.WithFields(logrus.Fields{
 				"status":  status.Status,
 				"message": status.Message,
 			}).Info("System status")

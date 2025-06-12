@@ -3,8 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"log"
-	"os"
 	"sort"
 	"strconv"
 )
@@ -68,99 +66,71 @@ func getMsg(code int) (msg string) {
 }
 
 // Show : Show menu on screen
-func (m *Menu) Show() (selection int) {
+func (m *Menu) Show(app *App) (selection int) {
+	if len(m.Entry) == 0 {
+		return
+	}
 
-  log.SetOutput(os.Stdout)
-  if len(m.Entry) == 0 {
-    return
-  }
+	fmt.Println()
+	fmt.Println(m.Headline)
 
-  fmt.Println()
-  fmt.Println(m.Headline)
+	for i := 0; i < len(m.Headline); i++ {
+		fmt.Print("-")
+	}
 
-  for i := 0; i < len(m.Headline); i++ {
-    fmt.Print("-")
-  }
+	fmt.Println()
 
-  fmt.Println()
-
-  for {
-
-    var input string
-    var keys []int
-
-    for _, entry := range m.Entry {
-
-      keys = append(keys, entry.Key)
-
-    }
-
-    sort.Ints(keys)
-
-    if keys[0] == 0 {
-      keys = keys[1:]
-      keys = append(keys, 0)
-    }
-
-    for _, key := range keys {
-
-      var entry = m.Entry[key]
-
-      switch len(fmt.Sprintf("%d", entry.Key)) {
-
-      case 1:
-        fmt.Print(fmt.Sprintf(" %d. ", entry.Key))
-      case 2:
-        fmt.Print(fmt.Sprintf("%d. ", entry.Key))
-
-      }
-
-      fmt.Println(entry.Value)
-
-    }
-
-    fmt.Print(fmt.Sprintf("%s: ", m.Select))
-    fmt.Scanln(&input)
-
-    selection, err := strconv.Atoi(input)
-    if err == nil {
-
-      for _, entry := range m.Entry {
-
-        if selection == entry.Key {
-          return selection
-        }
-
-      }
-
-    }
-
-    err = errors.New("Invalid Input")
-    ShowErr(err)
-    fmt.Println()
-
-  }
-
-  return
+	for {
+		var input string
+		var keys []int
+		for _, entry := range m.Entry {
+			keys = append(keys, entry.Key)
+		}
+		sort.Ints(keys)
+		if keys[0] == 0 {
+			keys = keys[1:]
+			keys = append(keys, 0)
+		}
+		for _, key := range keys {
+			var entry = m.Entry[key]
+			switch len(fmt.Sprintf("%d", entry.Key)) {
+			case 1:
+				fmt.Print(fmt.Sprintf(" %d. ", entry.Key))
+			case 2:
+				fmt.Print(fmt.Sprintf("%d. ", entry.Key))
+			}
+			fmt.Println(entry.Value)
+		}
+		fmt.Print(fmt.Sprintf("%s: ", m.Select))
+		fmt.Scanln(&input)
+		selection, err := strconv.Atoi(input)
+		if err == nil {
+			for _, entry := range m.Entry {
+				if selection == entry.Key {
+					return selection
+				}
+			}
+		}
+		err = errors.New("Invalid Input")
+		app.Logger.WithError(err).Error("Invalid menu input")
+		fmt.Println()
+	}
+	return
 }
 
 // ShowInfo : Show info on screen
-func showInfo(key, msg string) {
-  log.SetOutput(os.Stdout)
-  switch len(key) {
-
-  case 1:
-    msg = fmt.Sprintf("[%s    ] %s", key, msg)
-  case 2:
-    msg = fmt.Sprintf("[%s   ] %s", key, msg)
-  case 3:
-    msg = fmt.Sprintf("[%s  ] %s", key, msg)
-  case 4:
-    msg = fmt.Sprintf("[%s ] %s", key, msg)
-  case 5:
-    msg = fmt.Sprintf("[%s] %s", key, msg)
-
-  }
-
-  log.Println(msg)
+func showInfo(app *App, key, msg string) {
+	switch len(key) {
+	case 1:
+		msg = fmt.Sprintf("[%s    ] %s", key, msg)
+	case 2:
+		msg = fmt.Sprintf("[%s   ] %s", key, msg)
+	case 3:
+		msg = fmt.Sprintf("[%s  ] %s", key, msg)
+	case 4:
+		msg = fmt.Sprintf("[%s ] %s", key, msg)
+	case 5:
+		msg = fmt.Sprintf("[%s] %s", key, msg)
+	}
+	app.Logger.WithField("info", msg).Info("Screen info")
 }

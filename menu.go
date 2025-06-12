@@ -16,7 +16,7 @@ func (e *Entry) headline() {
 
 }
 
-func (e *Entry) account() {
+func (e *Entry) account(app *App) {
 
   var username, password string
 
@@ -28,10 +28,7 @@ func (e *Entry) account() {
   fmt.Print(fmt.Sprintf("%s: ", getMsg(0101)))
   fmt.Scanln(&password)
 
-  Config.Account.Username = username
-  Config.Account.Password = SHA1(password)
-
-  Config.Save()
+  app.SetAccount(username, password)
 
   return
 }
@@ -222,4 +219,12 @@ func (e *Entry) removeLineup(sd *SD) (err error) {
   err = sd.Lineups()
 
   return
+}
+
+func (app *App) SetAccount(username, password string) {
+	app.Config.Account.Username = username
+	app.Config.Account.Password = SHA1(password)
+	if err := app.Config.Save(); err != nil {
+		app.Logger.WithError(err).Error("Failed to save account config")
+	}
 }

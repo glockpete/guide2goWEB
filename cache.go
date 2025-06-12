@@ -6,8 +6,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"sync"
 	"time"
 
@@ -23,6 +25,14 @@ const (
 // Cache represents the global cache instance
 var Cache cache
 var ImageError bool = false
+
+var bufferPool = sync.Pool{
+	New: func() interface{} {
+		return make([]byte, 32*1024) // 32KB buffer
+	},
+}
+
+var httpClient = &http.Client{}
 
 // cache represents the application's cache system
 type cache struct {
@@ -599,23 +609,49 @@ func (c *cache) GetPreviouslyShown(id string) (prev *PreviouslyShown) {
 	return
 }
 
-func GetImageUrl(urlid string, token string, name string) {
+// GetImageUrl downloads an image from Schedules Direct and saves it locally.
+// It skips download if the image already exists and is valid.
+func GetImageUrl(urlid string, token string, name string) error {
 	url := urlid + "?token=" + token
 	filename := Config.Options.ImagesPath + name
-	if a, err := os.Stat(filename); err != nil || a.Size() < 500 {
-		file, _ := os.Create(filename)
-		defer file.Close()
-		req, _ := http.Get(url)
-		defer req.Body.Close()
-		io.Copy(file, req.Body)
-		info, _ := os.Stat(filename)
-		if info.Size() < 500 {
-			log.Println("Max image limit downloaded --skipping image download")
-			ImageError = true
-			return
-		}
 
+	a, err := os.Stat(filename)
+	if err == nil && a.Size() >= 500 {
+		// File exists and is valid
+		return nil
 	}
+
+	file, err := os.Create(filename)
+	if err != nil {
+		return fmt.Errorf("failed to create file %s: %w", filename, err)
+	}
+	defer file.Close()
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return fmt.Errorf("failed to create request for %s: %w", url, err)
+	}
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return fmt.Errorf("failed to fetch image from %s: %w", url, err)
+	}
+	defer resp.Body.Close()
+
+	buf := bufferPool.Get().([]byte)
+	defer bufferPool.Put(buf)
+	if _, err := io.CopyBuffer(file, resp.Body, buf); err != nil {
+		return fmt.Errorf("failed to write image to %s: %w", filename, err)
+	}
+
+	info, err := os.Stat(filename)
+	if err != nil {
+		return fmt.Errorf("failed to stat file %s after download: %w", filename, err)
+	}
+	if info.Size() < 500 {
+		return fmt.Errorf("downloaded image %s is too small (%d bytes)", filename, info.Size())
+	}
+
+	return nil
 }
 
 func (c *cache) GetIcon(id string) (i []Icon) {
@@ -679,8 +715,15 @@ func (c *cache) GetIcon(id string) (i []Icon) {
 			}
 
 			if maxWidth > 0 {
-				if Config.Options.TVShowImages && !ImageError {
-					GetImageUrl(uri, Token, nameFinal)
+				if Config.Options.TVShowImages {
+					err := GetImageUrl(uri, Token, nameFinal)
+					if err != nil {
+						logger.WithError(err).WithFields(logrus.Fields{
+							"uri": uri,
+							"name": nameFinal,
+						}).Error("Failed to download image")
+						continue
+					}
 				}
 				path := "http://" + Config.Options.Hostname + "/images/" + nameFinal
 				i = append(i, Icon{Src: path, Height: maxHeight, Width: maxWidth})

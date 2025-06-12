@@ -2,11 +2,14 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
 	"strings"
 	"time"
+	"path/filepath"
+	"regexp"
 
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
@@ -16,21 +19,21 @@ import (
 )
 
 // Server starts the HTTP server with security headers and timeouts.
-func Server(ctx context.Context) error {
-	port := strings.Split(Config.Options.Hostname, ":")
+func (app *App) Server(ctx context.Context) error {
+	port := strings.Split(app.Config.Options.Hostname, ":")
 	var addr string
-	serverImagesPath := Config.Options.ImagesPath
+	serverImagesPath := app.Config.Options.ImagesPath
 	fs := http.FileServer(http.Dir(serverImagesPath))
 
 	if len(port) == 2 {
 		addr = ":" + port[1]
 	} else {
-		logger.Info("No port found, using port 8080")
+		app.Logger.Info("No port found, using port 8080")
 		addr = ":8080"
 	}
 
-	logger.WithFields(logrus.Fields{
-		"addr":         addr,
+	app.Logger.WithFields(logrus.Fields{
+		"addr":       addr,
 		"images_path": serverImagesPath,
 	}).Info("Starting server")
 
@@ -54,25 +57,21 @@ func Server(ctx context.Context) error {
 			w.Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
 			w.Header().Set("Content-Security-Policy", "default-src 'self'")
 			w.Header().Set("Referrer-Policy", "strict-origin-when-cross-origin")
-			
 			// CORS headers
 			w.Header().Set("Access-Control-Allow-Origin", "*")
 			w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
 			w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-
 			// Rate limiting
 			context, err := limiter.Get(r.Context(), r.RemoteAddr)
 			if err != nil {
-				logger.WithError(err).Error("Rate limiter error")
+				app.Logger.WithError(err).Error("Rate limiter error")
 				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 				return
 			}
-
 			if context.Reached {
 				http.Error(w, "Too Many Requests", http.StatusTooManyRequests)
 				return
 			}
-
 			next.ServeHTTP(w, r)
 		})
 	})
@@ -82,7 +81,7 @@ func Server(ctx context.Context) error {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			start := time.Now()
 			next.ServeHTTP(w, r)
-			logger.WithFields(logrus.Fields{
+			app.Logger.WithFields(logrus.Fields{
 				"method":     r.Method,
 				"path":       r.URL.Path,
 				"remote_ip":  r.RemoteAddr,
@@ -92,12 +91,13 @@ func Server(ctx context.Context) error {
 		})
 	})
 
-	if Config.Options.ProxyImages {
-		r.HandleFunc("/images/{id}", proxyImages)
-	} else if Config.Options.TVShowImages {
+	if app.Config.Options.ProxyImages {
+		r.HandleFunc("/images/{id}", app.proxyImages)
+	} else if app.Config.Options.TVShowImages {
 		r.PathPrefix("/images/").Handler(http.StripPrefix("/images/", fs))
 	}
-	r.HandleFunc("/run", run)
+	r.HandleFunc("/run", app.run)
+	r.HandleFunc("/health", app.healthCheck)
 
 	// Add timeouts
 	srv := &http.Server{
@@ -111,7 +111,7 @@ func Server(ctx context.Context) error {
 	// Start server in a goroutine
 	go func() {
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			logger.WithError(err).Fatal("Server error")
+			app.Logger.WithError(err).Fatal("Server error")
 		}
 	}()
 
@@ -129,24 +129,60 @@ func Server(ctx context.Context) error {
 	return nil
 }
 
-func proxyImages(w http.ResponseWriter, r *http.Request) {
+// validateImagePath ensures the image path is within the allowed directory and safe
+func validateImagePath(basePath, name string) error {
+	cleanPath := filepath.Clean(filepath.Join(basePath, name))
+	if !strings.HasPrefix(cleanPath, filepath.Clean(basePath)) {
+		return fmt.Errorf("invalid image path: %s", cleanPath)
+	}
+	return nil
+}
+
+// isValidImageID checks if the image ID contains only safe characters
+var imageIDPattern = regexp.MustCompile(`^[a-zA-Z0-9._-]+$`)
+
+func isValidImageID(id string) bool {
+	return imageIDPattern.MatchString(id)
+}
+
+func (app *App) proxyImages(w http.ResponseWriter, r *http.Request) {
 	image := mux.Vars(r)
-	url := "https://json.schedulesdirect.org/20141201/image/" + image["id"] + "?token=" + Token
-	
-	logger.WithFields(logrus.Fields{
-		"image_id": image["id"],
+	id := image["id"]
+	if !isValidImageID(id) {
+		http.Error(w, "Invalid image ID", http.StatusBadRequest)
+		return
+	}
+	// Optionally validate path if images are stored locally
+	// err := validateImagePath(app.Config.Options.ImagesPath, id)
+	// if err != nil {
+	// 	http.Error(w, "Invalid image path", http.StatusBadRequest)
+	// 	return
+	// }
+	url := "https://json.schedulesdirect.org/20141201/image/" + id + "?token=" + app.Config2
+	app.Logger.WithFields(logrus.Fields{
+		"image_id": id,
 		"url":      url,
 	}).Debug("Proxying image request")
 
 	http.Redirect(w, r, url, http.StatusSeeOther)
 }
 
-func run(w http.ResponseWriter, r *http.Request) {
+func (app *App) run(w http.ResponseWriter, r *http.Request) {
 	var sd SD
 	go func() {
-		if err := sd.Update(Config2); err != nil {
-			logger.WithError(err).Error("Failed to update EPG data")
+		if err := sd.Update(app.Config2); err != nil {
+			app.Logger.WithError(err).Error("Failed to update EPG data")
 		}
 	}()
 	fmt.Fprint(w, "Grabbing EPG")
+}
+
+func (app *App) healthCheck(w http.ResponseWriter, r *http.Request) {
+	resp := map[string]interface{}{
+		"status":  "healthy",
+		"version": Version,
+	}
+	app.Logger.WithField("endpoint", "/health").Info("Health check requested")
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(resp)
 }
