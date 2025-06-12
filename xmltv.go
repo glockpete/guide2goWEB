@@ -9,6 +9,7 @@ import (
   "runtime"
   "strings"
   "time"
+  "regexp"
 )
 
 // CreateXMLTV : Create XMLTV file from cache file
@@ -71,7 +72,7 @@ func CreateXMLTV(filename string) (err error) {
 
     var xmlCha channel // struct_config.go
 
-    xmlCha.ID = cache.Callsign
+    xmlCha.ID = SanitizeID(cache.Callsign)
     xmlCha.Icon = cache.getLogo()
     xmlCha.DisplayName = append(xmlCha.DisplayName, DisplayName{Value: cache.Callsign})
     xmlCha.DisplayName = append(xmlCha.DisplayName, DisplayName{Value: cache.Name})
@@ -121,7 +122,7 @@ func getProgram(channel G2GCache) (p []Programme) {
       var countryCode = Config.GetLineupCountry(channel.StationID)
 
       // Channel ID
-      pro.Channel = channel.Callsign
+      pro.Channel = SanitizeID(channel.Callsign)
 
       // Start and Stop time
       timeLayout := "2006-01-02 15:04:05 +0000 UTC"
@@ -229,4 +230,10 @@ func getProgram(channel G2GCache) (p []Programme) {
   }
 
   return
+}
+
+// SanitizeID replaces forbidden characters with underscores for Plex compatibility.
+func SanitizeID(id string) string {
+    re := regexp.MustCompile(`[^a-zA-Z0-9_-]`)
+    return re.ReplaceAllString(id, "_")
 }
